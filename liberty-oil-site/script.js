@@ -377,6 +377,165 @@ function initScrollReveal() {
   targets.forEach((target) => observer.observe(target));
 }
 
+const discountWheelSlices = [
+  {
+    type: "three",
+    label: "$3 off",
+    code: "89036",
+    title: "$3 off",
+    terms: "$3 off is only valid on purchases of $30 or more.",
+    image: "assets/discount-89036-3-off.jpeg",
+    fileName: "liberty-oil-3-off.jpeg"
+  },
+  {
+    type: "one",
+    label: "$1 off",
+    code: "5272",
+    title: "$1 off",
+    terms: "$1 off is only valid on purchases of $20 or more.",
+    image: "assets/discount-5272-1-off.png",
+    fileName: "liberty-oil-1-off.png"
+  },
+  {
+    type: "three",
+    label: "$3 off",
+    code: "89036",
+    title: "$3 off",
+    terms: "$3 off is only valid on purchases of $30 or more.",
+    image: "assets/discount-89036-3-off.jpeg",
+    fileName: "liberty-oil-3-off.jpeg"
+  },
+  {
+    type: "one",
+    label: "$1 off",
+    code: "5272",
+    title: "$1 off",
+    terms: "$1 off is only valid on purchases of $20 or more.",
+    image: "assets/discount-5272-1-off.png",
+    fileName: "liberty-oil-1-off.png"
+  },
+  {
+    type: "three",
+    label: "$3 off",
+    code: "89036",
+    title: "$3 off",
+    terms: "$3 off is only valid on purchases of $30 or more.",
+    image: "assets/discount-89036-3-off.jpeg",
+    fileName: "liberty-oil-3-off.jpeg"
+  },
+  {
+    type: "again",
+    label: "Spin Again"
+  },
+  {
+    type: "one",
+    label: "$1 off",
+    code: "5272",
+    title: "$1 off",
+    terms: "$1 off is only valid on purchases of $20 or more.",
+    image: "assets/discount-5272-1-off.png",
+    fileName: "liberty-oil-1-off.png"
+  }
+];
+
+const discountWinningIndexes = discountWheelSlices
+  .map((slice, index) => ({ slice, index }))
+  .filter((entry) => entry.slice.type !== "again");
+
+function initDiscountWheel() {
+  const storageKey = "libertyDiscountWheelResult";
+  if (localStorage.getItem(storageKey) || document.querySelector(".discount-popup")) {
+    return;
+  }
+
+  const popup = document.createElement("section");
+  popup.className = "discount-popup";
+  popup.setAttribute("aria-modal", "true");
+  popup.setAttribute("role", "dialog");
+  popup.setAttribute("aria-label", "Discount mystery spin wheel");
+  popup.innerHTML = `
+    <div class="discount-card">
+      <button class="discount-close" type="button" aria-label="Close discount popup">&times;</button>
+      <div class="discount-intro">
+        <span class="discount-kicker">Liberty Oil Inc</span>
+        <h2>Discount Mystery Wheel</h2>
+        <p>Spin once for a surprise coupon to use in store.</p>
+      </div>
+      <div class="wheel-stage">
+        <span class="wheel-pointer" aria-hidden="true"></span>
+        <div class="discount-wheel" aria-hidden="true">
+          ${discountWheelSlices.map((slice, index) => `
+            <span class="wheel-label wheel-label-${index}">
+              <small>Discount Mystery</small>
+            </span>
+          `).join("")}
+        </div>
+        <button class="spin-button" type="button">SPIN</button>
+      </div>
+      <div class="discount-rules">
+        <p><strong>$1 off</strong> is only valid on purchases of $20 or more.</p>
+        <p><strong>$3 off</strong> is only valid on purchases of $30 or more.</p>
+      </div>
+      <div class="discount-result" hidden></div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  document.body.classList.add("discount-open");
+
+  const wheel = popup.querySelector(".discount-wheel");
+  const spinButton = popup.querySelector(".spin-button");
+  const resultBox = popup.querySelector(".discount-result");
+  const closeButton = popup.querySelector(".discount-close");
+
+  const closePopup = () => {
+    popup.remove();
+    document.body.classList.remove("discount-open");
+  };
+
+  closeButton.addEventListener("click", closePopup);
+
+  spinButton.addEventListener("click", () => {
+    if (spinButton.disabled) {
+      return;
+    }
+
+    const winning = discountWinningIndexes[Math.floor(Math.random() * discountWinningIndexes.length)];
+    const selected = winning.slice;
+    const sliceDegrees = 360 / discountWheelSlices.length;
+    const centerAngle = (winning.index * sliceDegrees) + (sliceDegrees / 2);
+    const finalRotation = (360 * 6) + (360 - centerAngle);
+
+    spinButton.disabled = true;
+    spinButton.textContent = "SPINNING";
+    wheel.style.transform = `rotate(${finalRotation}deg)`;
+
+    window.setTimeout(() => {
+      localStorage.setItem(storageKey, JSON.stringify({
+        type: selected.type,
+        code: selected.code,
+        claimedAt: new Date().toISOString()
+      }));
+
+      resultBox.hidden = false;
+      resultBox.innerHTML = `
+        <div class="discount-win">
+          <span class="discount-win-pill">You won</span>
+          <h3>${selected.title}</h3>
+          <p>${selected.terms}</p>
+          <p class="discount-code">Coupon code: <strong>${selected.code}</strong></p>
+          <img src="${selected.image}" alt="${selected.title} coupon barcode code ${selected.code}">
+          <div class="discount-result-actions">
+            <a class="button button-primary" href="${selected.image}" download="${selected.fileName}">Save / Download Photo</a>
+            <a class="button button-secondary" href="${selected.image}" target="_blank" rel="noreferrer">Open Image</a>
+          </div>
+          <p class="discount-save-note">On iPhone, tap Open Image, then press and hold the photo to save it.</p>
+        </div>
+      `;
+      spinButton.textContent = "USED";
+    }, 4400);
+  });
+}
+
 function handleAssistantQuestion(question, responseEl) {
   const cleanQuestion = question.trim().toLowerCase();
   if (!cleanQuestion) {
@@ -425,6 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
   injectLanguageSwitcher();
   loadGoogleTranslate();
+  initDiscountWheel();
   injectAssistant();
   initClickBursts();
   initScrollReveal();
