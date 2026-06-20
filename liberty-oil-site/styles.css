@@ -826,7 +826,7 @@ body.discount-open {
   top: 50%;
   left: 50%;
   z-index: 2;
-  width: 6.1rem;
+  width: 5.6rem;
   transform-origin: center;
   color: var(--white);
   font-weight: 900;
@@ -843,13 +843,13 @@ body.discount-open {
   letter-spacing: 0.035rem;
 }
 
-.wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(132px); }
-.wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(132px); color: var(--navy-deep); text-shadow: none; }
-.wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(132px); }
-.wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(132px); color: var(--navy-deep); text-shadow: none; }
-.wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(132px); }
-.wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(132px); color: var(--navy-deep); text-shadow: none; }
-.wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(132px); }
+.wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(118px); }
+.wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(118px); color: var(--navy-deep); text-shadow: none; }
+.wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(118px); }
+.wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(118px); color: var(--navy-deep); text-shadow: none; }
+.wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(118px); }
+.wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(118px); color: var(--navy-deep); text-shadow: none; }
+.wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(118px); }
 
 .spin-button {
   position: relative;
@@ -1290,16 +1290,16 @@ iframe.skiptranslate {
   }
 
   .wheel-label {
-    width: 5rem;
+    width: 4.6rem;
   }
 
-  .wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(100px); }
-  .wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(100px); }
-  .wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(100px); }
-  .wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(100px); }
-  .wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(100px); }
-  .wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(100px); }
-  .wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(100px); }
+  .wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(90px); }
+  .wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(90px); }
+  .wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(90px); }
+  .wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(90px); }
+  .wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(90px); }
+  .wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(90px); }
+  .wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(90px); }
 
   .discount-rules {
     grid-template-columns: 1fr;
@@ -1325,11 +1325,11 @@ iframe.skiptranslate {
     width: min(290px, 86vw);
   }
 
-  .wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(87px); }
-  .wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(87px); }
-  .wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(87px); }
-  .wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(87px); }
-  .wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(87px); }
-  .wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(87px); }
-  .wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(87px); }
+  .wheel-label-0 { transform: translate(-50%, -50%) rotate(295.714deg) translateX(78px); }
+  .wheel-label-1 { transform: translate(-50%, -50%) rotate(347.142deg) translateX(78px); }
+  .wheel-label-2 { transform: translate(-50%, -50%) rotate(38.57deg) translateX(78px); }
+  .wheel-label-3 { transform: translate(-50%, -50%) rotate(89.998deg) translateX(78px); }
+  .wheel-label-4 { transform: translate(-50%, -50%) rotate(141.426deg) translateX(78px); }
+  .wheel-label-5 { transform: translate(-50%, -50%) rotate(192.854deg) translateX(78px); }
+  .wheel-label-6 { transform: translate(-50%, -50%) rotate(244.282deg) translateX(78px); }
 }
