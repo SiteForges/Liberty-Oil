@@ -20,15 +20,12 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 17px;
 }
 
 body {
   margin: 0;
   font-family: "Barlow", sans-serif;
   color: var(--ink);
-  font-size: 1rem;
-  line-height: 1.58;
   background:
     radial-gradient(circle at top left, rgba(240, 180, 41, 0.18), transparent 22%),
     linear-gradient(180deg, #fffdf8 0%, #f5f7fb 48%, #eef3f8 100%);
@@ -51,8 +48,7 @@ img {
 .topbar {
   background: var(--navy-deep);
   color: rgba(255, 255, 255, 0.9);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .topbar-inner,
@@ -115,14 +111,12 @@ img {
 
 .brand strong {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 1.18rem;
+  font-size: 1.08rem;
 }
 
 .brand small {
   margin-top: 0.15rem;
   color: var(--muted);
-  font-size: 0.95rem;
-  font-weight: 600;
 }
 
 .brand-mark {
@@ -189,11 +183,11 @@ img {
 }
 
 .nav-links a {
-  padding: 0.68rem 0.88rem;
+  padding: 0.62rem 0.78rem;
   border-radius: 999px;
   color: var(--muted);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: background 160ms ease, color 160ms ease, transform 160ms ease;
 }
 
@@ -324,7 +318,7 @@ img {
   color: var(--red);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.88rem;
+  font-size: 0.8rem;
   font-weight: 800;
 }
 
@@ -338,18 +332,18 @@ h3 {
 
 h1 {
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(3.25rem, 7.5vw, 5.65rem);
+  font-size: clamp(2.9rem, 7vw, 5.15rem);
   max-width: 12ch;
 }
 
 h2 {
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(2.2rem, 4.3vw, 3.35rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   max-width: 16ch;
 }
 
 h3 {
-  font-size: 1.45rem;
+  font-size: 1.28rem;
 }
 
 .lede,
@@ -366,8 +360,7 @@ h3 {
   max-width: 58ch;
   margin: 1.2rem 0 0;
   color: var(--muted);
-  font-size: clamp(1.18rem, 1.8vw, 1.32rem);
-  line-height: 1.62;
+  font-size: 1.08rem;
 }
 
 .cta-row,
@@ -390,11 +383,10 @@ h3 {
   align-items: center;
   justify-content: center;
   min-height: 3rem;
-  padding: 0.95rem 1.3rem;
+  padding: 0.88rem 1.2rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  font-size: 1.03rem;
-  font-weight: 800;
+  font-weight: 700;
   min-width: 11rem;
   text-align: center;
 }
@@ -431,7 +423,7 @@ h3 {
 .button-small {
   min-height: 2.35rem;
   padding: 0.55rem 0.95rem;
-  font-size: 0.98rem;
+  font-size: 0.92rem;
 }
 
 .hero-card,
@@ -463,12 +455,8 @@ h3 {
   color: rgba(255, 255, 255, 0.72);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 0.82rem;
+  font-size: 0.74rem;
   font-weight: 700;
-}
-
-.stat-block {
-  font-size: 1.08rem;
 }
 
 .stat-highlight strong {
@@ -507,8 +495,7 @@ h3 {
 
 .category-card-copy,
 .product-copy {
-  padding: 1.35rem;
-  font-size: 1.06rem;
+  padding: 1.2rem;
 }
 
 .delivery-panel {
@@ -537,8 +524,6 @@ h3 {
   max-width: 62ch;
   margin-top: 1rem;
   color: var(--muted);
-  font-size: clamp(1.12rem, 1.6vw, 1.24rem);
-  line-height: 1.64;
 }
 
 .gallery-grid {
@@ -554,10 +539,8 @@ h3 {
 
 .gallery-card figcaption,
 .gallery-card .gallery-caption {
-  padding: 1.05rem 1.15rem 1.18rem;
+  padding: 0.95rem 1rem 1.05rem;
   color: var(--muted);
-  font-size: 1.05rem;
-  font-weight: 600;
 }
 
 .gallery-card-link {
@@ -616,10 +599,9 @@ h3 {
 }
 
 .special-card {
-  padding: 1.75rem;
+  padding: 1.55rem;
   background: linear-gradient(180deg, #ffffff, #fff6ea);
   border: 1px solid rgba(240, 180, 41, 0.24);
-  font-size: 1.06rem;
 }
 
 .inventory-note {
@@ -629,8 +611,6 @@ h3 {
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--line);
   color: var(--muted);
-  font-size: 1.04rem;
-  font-weight: 600;
 }
 
 .special-badge {
@@ -640,7 +620,7 @@ h3 {
   border-radius: 999px;
   background: rgba(216, 58, 50, 0.12);
   color: var(--red);
-  font-size: 0.86rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -655,14 +635,12 @@ h3 {
   padding: 1.5rem;
   background: linear-gradient(180deg, #ffffff, #f6f9fc);
   border: 1px solid var(--line);
-  font-size: 1.06rem;
 }
 
 .check-list {
   margin: 1rem 0 0;
   padding-left: 1.2rem;
   color: var(--muted);
-  font-size: 1.06rem;
 }
 
 .check-list li + li {
@@ -687,14 +665,13 @@ h3 {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--white);
-  font-size: 1.07rem;
   transition: transform 160ms ease;
 }
 
 .review-stars {
   margin-bottom: 0.8rem;
   color: var(--gold);
-  font-size: 1.15rem;
+  font-size: 1rem;
   letter-spacing: 0.18rem;
   font-weight: 700;
 }
@@ -702,7 +679,7 @@ h3 {
 .review-author {
   margin-bottom: 0.7rem;
   color: rgba(255, 255, 255, 0.74);
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08rem;
@@ -1164,10 +1141,6 @@ iframe.skiptranslate {
 }
 
 @media (max-width: 720px) {
-  html {
-    font-size: 16px;
-  }
-
   .topbar-inner,
   .nav {
     flex-direction: column;
@@ -1210,9 +1183,8 @@ iframe.skiptranslate {
 
   .nav-links a {
     width: 100%;
-    padding: 1rem 1.08rem;
+    padding: 0.95rem 1rem;
     border-radius: 14px;
-    font-size: 1.05rem;
   }
 
   .lang-switcher {
@@ -1234,15 +1206,6 @@ iframe.skiptranslate {
   .hero,
   .page-hero {
     padding-top: 3.75rem;
-  }
-
-  h1 {
-    font-size: clamp(3rem, 14vw, 4.35rem);
-    max-width: 11ch;
-  }
-
-  h2 {
-    font-size: clamp(2.15rem, 10vw, 3rem);
   }
 
   .hero-grid,
@@ -1270,18 +1233,7 @@ iframe.skiptranslate {
 
   .hero-copy .lede,
   .page-hero .lede {
-    font-size: 1.1rem;
-    line-height: 1.62;
-  }
-
-  .category-card-copy,
-  .product-copy,
-  .gallery-card figcaption,
-  .gallery-card .gallery-caption,
-  .special-card,
-  .about-panel,
-  .testimonial-card {
-    font-size: 1.04rem;
+    font-size: 1rem;
   }
 
   .page-actions,
@@ -1365,19 +1317,6 @@ iframe.skiptranslate {
   .page-actions,
   .cta-row {
     grid-template-columns: 1fr;
-  }
-
-  h1 {
-    font-size: clamp(2.65rem, 13.5vw, 3.55rem);
-  }
-
-  h2 {
-    font-size: clamp(1.95rem, 9.5vw, 2.55rem);
-  }
-
-  .button,
-  .text-pill {
-    font-size: 1rem;
   }
 
   .discount-intro h2 {
