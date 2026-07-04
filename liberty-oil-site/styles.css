@@ -604,6 +604,26 @@ h3 {
   border: 1px solid rgba(240, 180, 41, 0.24);
 }
 
+.special-flyer-card {
+  display: block;
+  overflow: hidden;
+  padding: clamp(0.45rem, 1.5vw, 0.9rem);
+  border: 1px solid rgba(18, 43, 70, 0.12);
+  border-radius: clamp(20px, 3vw, 34px);
+  background:
+    radial-gradient(circle at top left, rgba(240, 180, 41, 0.2), transparent 30%),
+    linear-gradient(135deg, #ffffff, #eef4fb);
+  box-shadow: var(--shadow);
+}
+
+.special-flyer-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(16px, 2.4vw, 26px);
+  object-fit: contain;
+}
+
 .inventory-note {
   margin-top: 1rem;
   padding: 1rem 1.1rem;
