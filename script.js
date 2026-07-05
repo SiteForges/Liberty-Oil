@@ -383,45 +383,35 @@ const discountWheelSlices = [
     label: "$3 off",
     code: "89036",
     title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
+    terms: "$3 off purchases of $30 or more."
   },
   {
     type: "one",
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
+    terms: "$1 off purchases of $20 or more."
   },
   {
     type: "three",
     label: "$3 off",
     code: "89036",
     title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
+    terms: "$3 off purchases of $30 or more."
   },
   {
     type: "one",
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
+    terms: "$1 off purchases of $20 or more."
   },
   {
     type: "three",
     label: "$3 off",
     code: "89036",
     title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
+    terms: "$3 off purchases of $30 or more."
   },
   {
     type: "again",
@@ -432,9 +422,7 @@ const discountWheelSlices = [
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
+    terms: "$1 off purchases of $20 or more."
   }
 ];
 
@@ -525,16 +513,16 @@ function initDiscountWheel() {
       resultBox.hidden = false;
       resultBox.innerHTML = `
         <div class="discount-win">
-          <span class="discount-win-pill">You won</span>
+          <div class="discount-watermark" aria-hidden="true">LIBERTY OIL</div>
+          <span class="discount-win-pill">Official Liberty Oil Coupon</span>
           <h3>${selected.title}</h3>
-          <p>${selected.terms}</p>
-          <p class="discount-code">Coupon code: <strong>${selected.code}</strong></p>
-          <img src="${selected.image}" alt="${selected.title} coupon barcode code ${selected.code}">
+          <p class="discount-coupon-line">${selected.terms}</p>
+          <p class="discount-code">Verification code: <strong>${selected.code}</strong></p>
+          <p class="discount-genuine">Official Liberty Oil Inc discount. Present this screen in store to redeem.</p>
           <div class="discount-result-actions">
-            <a class="button button-primary" href="${selected.image}" download="${selected.fileName}">Save / Download Photo</a>
-            <a class="button button-secondary" href="${selected.image}" target="_blank" rel="noreferrer">Open Image</a>
+            <button class="button button-primary" type="button" onclick="window.print()">Print / Save Coupon</button>
           </div>
-          <p class="discount-save-note">On iPhone, tap Open Image, then press and hold the photo to save it.</p>
+          <p class="discount-save-note">On mobile, take a screenshot to save this official coupon.</p>
         </div>
       `;
       spinButton.textContent = "USED";
