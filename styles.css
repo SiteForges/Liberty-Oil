@@ -438,25 +438,85 @@ h3 {
 }
 
 .hero-card {
-  padding: 1.6rem;
-  background: linear-gradient(180deg, var(--navy), var(--blue));
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 0.85rem;
+  padding: 1.1rem;
+  background:
+    radial-gradient(circle at top right, rgba(240, 180, 41, 0.22), transparent 34%),
+    linear-gradient(180deg, var(--navy), var(--blue));
   color: var(--white);
 }
 
+.hero-card::before {
+  content: "Quick Info";
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff6d8;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.stat-block {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.55rem 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(10px);
+}
+
+.stat-block::before {
+  display: grid;
+  place-items: center;
+  width: 2.55rem;
+  height: 2.55rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff6d8;
+  font-size: 1.2rem;
+}
+
+.stat-block:nth-child(1)::before {
+  content: "📍";
+}
+
+.stat-block:nth-child(2)::before {
+  content: "🕒";
+}
+
+.stat-block:nth-child(3)::before {
+  content: "⭐";
+}
+
 .stat-block + .stat-block {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  margin-top: 0;
 }
 
 .stat-label {
   display: block;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.2rem;
   color: rgba(255, 255, 255, 0.72);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.74rem;
   font-weight: 700;
+}
+
+.stat-block strong {
+  display: block;
+  color: var(--white);
+  line-height: 1.35;
 }
 
 .stat-highlight strong {
@@ -1302,6 +1362,21 @@ iframe.skiptranslate {
   .special-card,
   .testimonial-card {
     border-radius: 22px;
+  }
+
+  .hero-card {
+    padding: 0.95rem;
+  }
+
+  .stat-block {
+    grid-template-columns: 2.35rem 1fr;
+    padding: 0.85rem;
+  }
+
+  .stat-block::before {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 14px;
   }
 
   .hero-copy .lede,
