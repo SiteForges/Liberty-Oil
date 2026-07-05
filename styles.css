@@ -609,11 +609,13 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.35rem;
   align-items: start;
+  justify-items: center;
 }
 
 .special-flyer-card {
   display: block;
   overflow: hidden;
+  width: min(100%, 520px);
   padding: clamp(0.45rem, 1.5vw, 0.9rem);
   border: 1px solid rgba(18, 43, 70, 0.12);
   border-radius: clamp(20px, 3vw, 34px);
@@ -633,6 +635,7 @@ h3 {
 
 .specials-flyer-grid .special-flyer-card:first-child {
   grid-column: 1 / -1;
+  width: min(100%, 760px);
 }
 
 .inventory-note {
@@ -1197,6 +1200,7 @@ iframe.skiptranslate {
 
   .specials-flyer-grid .special-flyer-card:first-child {
     grid-column: auto;
+    width: min(100%, 520px);
   }
 }
 
@@ -1279,6 +1283,15 @@ iframe.skiptranslate {
 
   .container {
     width: min(1180px, calc(100% - 1.25rem));
+  }
+
+  .specials-flyer-grid {
+    gap: 1rem;
+  }
+
+  .special-flyer-card,
+  .specials-flyer-grid .special-flyer-card:first-child {
+    width: min(92vw, 430px);
   }
 
   .hero-card,
