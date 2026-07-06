@@ -743,6 +743,33 @@ h3 {
   color: var(--muted);
 }
 
+.click-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.8rem 0 1.1rem;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--navy);
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(7, 23, 39, 0.16);
+}
+
+.click-note::before {
+  content: "Tap";
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.35rem;
+  height: 2.35rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .special-badge {
   display: inline-flex;
   padding: 0.42rem 0.68rem;
