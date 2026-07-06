@@ -1549,6 +1549,12 @@ iframe.skiptranslate {
   color: var(--gold);
 }
 
+.hero-copy .lede,
+.hero .hero-copy .lede {
+  color: var(--white) !important;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.48);
+}
+
 .text-pill,
 .button-secondary {
   background: var(--white);
