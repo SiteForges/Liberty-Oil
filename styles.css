@@ -1555,6 +1555,25 @@ iframe.skiptranslate {
   text-shadow: 0 2px 22px rgba(0, 0, 0, 0.48);
 }
 
+.hero-copy {
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 28px;
+  background: rgba(7, 23, 39, 0.78);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+.hero-copy h1,
+.hero-copy .lede,
+.hero-copy .eyebrow {
+  color: var(--white) !important;
+}
+
+.hero-copy .eyebrow {
+  color: var(--gold) !important;
+}
+
 .text-pill,
 .button-secondary {
   background: var(--white);
