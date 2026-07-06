@@ -379,39 +379,39 @@ function initScrollReveal() {
 
 const discountWheelSlices = [
   {
-    type: "three",
-    label: "$3 off",
+    type: "two",
+    label: "$2 off",
     code: "89036",
-    title: "$3 off",
-    terms: "$3 off purchases of $30 or more."
+    title: "$2 off",
+    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
   },
   {
     type: "one",
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off purchases of $20 or more."
+    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "three",
-    label: "$3 off",
+    type: "two",
+    label: "$2 off",
     code: "89036",
-    title: "$3 off",
-    terms: "$3 off purchases of $30 or more."
+    title: "$2 off",
+    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
   },
   {
     type: "one",
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off purchases of $20 or more."
+    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "three",
-    label: "$3 off",
+    type: "two",
+    label: "$2 off",
     code: "89036",
-    title: "$3 off",
-    terms: "$3 off purchases of $30 or more."
+    title: "$2 off",
+    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
   },
   {
     type: "again",
@@ -422,7 +422,7 @@ const discountWheelSlices = [
     label: "$1 off",
     code: "5272",
     title: "$1 off",
-    terms: "$1 off purchases of $20 or more."
+    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
   }
 ];
 
@@ -437,7 +437,7 @@ function initDiscountWheel() {
     return;
   }
 
-  const storageKey = "libertyDiscountWheelResult";
+  const storageKey = "libertyDiscountWheelResultV2";
   if (localStorage.getItem(storageKey) || document.querySelector(".discount-popup")) {
     return;
   }
@@ -468,7 +468,8 @@ function initDiscountWheel() {
       </div>
       <div class="discount-rules">
         <p><strong>$1 off</strong> is only valid on purchases of $20 or more.</p>
-        <p><strong>$3 off</strong> is only valid on purchases of $30 or more.</p>
+        <p><strong>$2 off</strong> is only valid on purchases of $30 or more.</p>
+        <p>Discounts do not apply to gas, cigarettes, or liquor.</p>
       </div>
       <div class="discount-result" hidden></div>
     </div>
@@ -519,10 +520,7 @@ function initDiscountWheel() {
           <p class="discount-coupon-line">${selected.terms}</p>
           <p class="discount-code">Verification code: <strong>${selected.code}</strong></p>
           <p class="discount-genuine">Official Liberty Oil Inc discount. Present this screen in store to redeem.</p>
-          <div class="discount-result-actions">
-            <button class="button button-primary" type="button" onclick="window.print()">Print / Save Coupon</button>
-          </div>
-          <p class="discount-save-note">On mobile, take a screenshot to save this official coupon.</p>
+          <p class="discount-save-note">Screenshot this coupon or save it to Photos on this device.</p>
         </div>
       `;
       spinButton.textContent = "USED";
