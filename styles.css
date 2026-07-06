@@ -728,6 +728,12 @@ h3 {
   width: min(100%, 760px);
 }
 
+.category-showcase-card {
+  max-width: 860px;
+  width: 100%;
+  margin-inline: auto;
+}
+
 .inventory-note {
   margin-top: 1rem;
   padding: 1rem 1.1rem;
