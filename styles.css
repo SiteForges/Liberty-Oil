@@ -298,6 +298,36 @@ img {
   padding: 5rem 0 4rem;
 }
 
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: min(760px, calc(100vh - 110px));
+  display: grid;
+  align-items: center;
+  isolation: isolate;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(240, 180, 41, 0.25), transparent 32%),
+    linear-gradient(135deg, rgba(8, 26, 45, 0.96), rgba(31, 94, 167, 0.72) 52%, rgba(240, 180, 41, 0.28));
+}
+
+.hero .eyebrow,
+.hero h1,
+.hero .lede {
+  color: var(--white);
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35);
+}
+
+.hero .eyebrow {
+  color: #fff1bb;
+}
+
 .hero-grid,
 .split-layout,
 .category-grid,
@@ -1330,6 +1360,11 @@ iframe.skiptranslate {
   .hero,
   .page-hero {
     padding-top: 3.75rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-bottom: 3rem;
   }
 
   .hero-grid,
