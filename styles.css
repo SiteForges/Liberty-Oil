@@ -728,6 +728,14 @@ h3 {
   width: min(100%, 760px);
 }
 
+.best-sellers-card {
+  width: min(100%, 720px);
+}
+
+.best-sellers-card img {
+  max-height: min(82vh, 860px);
+}
+
 .category-showcase-card {
   max-width: 860px;
   width: 100%;
