@@ -736,6 +736,14 @@ h3 {
   max-height: min(82vh, 860px);
 }
 
+.current-specials-card {
+  width: min(100%, 980px);
+}
+
+.current-specials-card img {
+  max-height: min(82vh, 720px);
+}
+
 .category-showcase-card {
   max-width: 860px;
   width: 100%;
