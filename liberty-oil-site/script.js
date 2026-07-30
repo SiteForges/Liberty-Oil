@@ -1,598 +1,448 @@
-const assistantRoutes = [
-  {
-    keywords: ["beer", "wine"],
-    response: "Beer and wine have their own page. Taking you there now.",
-    href: "beer-wine.html"
-  },
-  {
-    keywords: ["soda", "beverage", "drink", "drinks"],
-    response: "Soda and beverage items are on the drink page. Taking you there now.",
-    href: "soda-beverage.html"
-  },
-  {
-    keywords: ["candy", "sweet", "sweets"],
-    response: "Candy has its own page. Taking you there now.",
-    href: "candy.html"
-  },
-  {
-    keywords: ["energy", "red bull", "monster"],
-    response: "Energy drinks are on their own page. Taking you there now.",
-    href: "energy-drinks.html"
-  },
-  {
-    keywords: ["snack", "snacks", "chips"],
-    response: "Snacks have their own page. Taking you there now.",
-    href: "snacks.html"
-  },
-  {
-    keywords: ["special", "specials", "discount", "deal", "deals", "grocery", "ice cream"],
-    response: "This week's specials page shows store picks like grocery and ice cream items. Taking you there now.",
-    href: "specials.html"
-  },
-  {
-    keywords: ["hours", "open", "close", "time"],
-    response: "Liberty Oil Inc is open every day from 7:00 AM to 12:00 AM."
-  },
-  {
-    keywords: ["phone", "call", "number"],
-    response: "You can call Liberty Oil Inc at (760) 754-8045.",
-    action: { label: "Call Now", href: "tel:+17607548045" }
-  },
-  {
-    keywords: ["address", "location", "directions", "map"],
-    response: "Liberty Oil Inc is at 1943 S Coast Hwy, Oceanside, CA 92054.",
-    action: {
-      label: "Get Directions",
-      href: "https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054"
-    }
-  }
+const API_BASE = "http://localhost:3001";
+const LAUNCH_ITEMS = ["Google", "YouTube", "Gmail", "ChatGPT", "Gemini", "Claude", "Roblox", "Minecraft", "Steam", "Discord", "Spotify", "Notes"];
+const IDEA_PROMPTS = [
+  { title: "Website ideas", description: "Modern small-business landing pages with clear conversion hooks.", difficulty: "Easy", cost: "$0-200", start: "Pick one niche and a single CTA." },
+  { title: "Business ideas", description: "Lean service ideas you can launch locally with a narrow offer.", difficulty: "Medium", cost: "$100-1k", start: "Validate demand with one nearby audience." },
+  { title: "YouTube ideas", description: "Series concepts with repeatable formats and fast hooks.", difficulty: "Easy", cost: "$0-500", start: "Choose a format you can repeat weekly." },
+  { title: "App ideas", description: "Useful micro-tools with one strong job-to-be-done.", difficulty: "Medium", cost: "$500-5k", start: "Define the smallest useful version first." },
+  { title: "School projects", description: "Presentable concepts with simple demo logic and polish.", difficulty: "Easy", cost: "$0-100", start: "Pick a topic with enough visual proof." },
+  { title: "Marketing ideas", description: "Campaign concepts with one channel and one conversion path.", difficulty: "Medium", cost: "$50-2k", start: "Write the audience, the hook, and the payoff." }
 ];
 
-const languageOptions = [
-  ["en", "English"], ["es", "Spanish"], ["ar", "Arabic"], ["fr", "French"], ["zh-CN", "Chinese (Simplified)"],
-  ["af", "Afrikaans"], ["sq", "Albanian"], ["am", "Amharic"], ["hy", "Armenian"], ["az", "Azerbaijani"],
-  ["eu", "Basque"], ["be", "Belarusian"], ["bn", "Bengali"], ["bs", "Bosnian"], ["bg", "Bulgarian"],
-  ["ca", "Catalan"], ["ceb", "Cebuano"], ["ny", "Chichewa"], ["co", "Corsican"], ["hr", "Croatian"],
-  ["cs", "Czech"], ["da", "Danish"], ["nl", "Dutch"], ["eo", "Esperanto"], ["et", "Estonian"],
-  ["tl", "Filipino"], ["fi", "Finnish"], ["fy", "Frisian"], ["gl", "Galician"], ["ka", "Georgian"],
-  ["de", "German"], ["el", "Greek"], ["gu", "Gujarati"], ["ht", "Haitian Creole"], ["ha", "Hausa"],
-  ["haw", "Hawaiian"], ["iw", "Hebrew"], ["hi", "Hindi"], ["hmn", "Hmong"], ["hu", "Hungarian"],
-  ["is", "Icelandic"], ["ig", "Igbo"], ["id", "Indonesian"], ["ga", "Irish"], ["it", "Italian"],
-  ["ja", "Japanese"], ["jw", "Javanese"], ["kn", "Kannada"], ["kk", "Kazakh"], ["km", "Khmer"],
-  ["rw", "Kinyarwanda"], ["ko", "Korean"], ["ku", "Kurdish"], ["ky", "Kyrgyz"], ["lo", "Lao"],
-  ["la", "Latin"], ["lv", "Latvian"], ["lt", "Lithuanian"], ["lb", "Luxembourgish"], ["mk", "Macedonian"],
-  ["mg", "Malagasy"], ["ms", "Malay"], ["ml", "Malayalam"], ["mt", "Maltese"], ["mi", "Maori"],
-  ["mr", "Marathi"], ["mn", "Mongolian"], ["my", "Myanmar"], ["ne", "Nepali"], ["no", "Norwegian"],
-  ["or", "Odia"], ["ps", "Pashto"], ["fa", "Persian"], ["pl", "Polish"], ["pt", "Portuguese"],
-  ["pa", "Punjabi"], ["ro", "Romanian"], ["ru", "Russian"], ["sm", "Samoan"], ["gd", "Scots Gaelic"],
-  ["sr", "Serbian"], ["st", "Sesotho"], ["sn", "Shona"], ["sd", "Sindhi"], ["si", "Sinhala"],
-  ["sk", "Slovak"], ["sl", "Slovenian"], ["so", "Somali"], ["su", "Sundanese"], ["sw", "Swahili"],
-  ["sv", "Swedish"], ["tg", "Tajik"], ["ta", "Tamil"], ["tt", "Tatar"], ["te", "Telugu"],
-  ["th", "Thai"], ["tr", "Turkish"], ["tk", "Turkmen"], ["uk", "Ukrainian"], ["ur", "Urdu"],
-  ["ug", "Uyghur"], ["uz", "Uzbek"], ["vi", "Vietnamese"], ["cy", "Welsh"], ["xh", "Xhosa"],
-  ["yi", "Yiddish"], ["yo", "Yoruba"], ["zu", "Zulu"]
-].map(([code, label]) => ({ code, label }));
+const state = {
+  route: "all",
+  speakEnabled: true,
+  listening: false,
+  chat: loadJSON("jarvis-chat", []),
+  notes: loadJSON("jarvis-notes", [{ id: crypto.randomUUID(), text: "Capture a business idea here." }]),
+  log: loadJSON("jarvis-log", []),
+  keys: loadJSON("jarvis-keys", {}),
+  currentPrompt: ""
+};
 
-let currentLanguage = localStorage.getItem("liberty-language") || "en";
-let translateReady = false;
-let pendingLanguageCode = currentLanguage;
+const el = {};
 
-function injectAssistant() {
-  const shell = document.createElement("section");
-  shell.className = "assistant-shell";
-  shell.innerHTML = `
-    <button class="assistant-toggle" type="button" aria-expanded="false">
-      <span class="assistant-toggle-icon" aria-hidden="true">AI</span>
-      <span class="assistant-toggle-label">Ask Liberty Assistant</span>
-    </button>
-    <div class="assistant-panel" aria-live="polite">
-      <h3>Liberty Assistant</h3>
-      <p>Ask about beer and wine, soda, candy, energy drinks, snacks, specials, hours, or directions.</p>
-      <div class="assistant-chips">
-        <button class="assistant-chip" type="button" data-question="Do you have soda?">Soda</button>
-        <button class="assistant-chip" type="button" data-question="Where are the snacks?">Snacks</button>
-        <button class="assistant-chip" type="button" data-question="Show me the specials">Specials</button>
-      </div>
-      <form class="assistant-form">
-        <input type="text" name="question" placeholder="Ask a question..." aria-label="Ask Liberty Assistant a question">
-        <div class="assistant-actions">
-          <button class="button button-primary" type="submit">Ask</button>
-        </div>
-      </form>
-      <div class="assistant-response">
-        <strong>Ready to help.</strong> Ask about categories, hours, or directions.
-      </div>
-    </div>
-  `;
-  document.body.appendChild(shell);
+function loadJSON(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
 
-  const toggle = shell.querySelector(".assistant-toggle");
-  const form = shell.querySelector(".assistant-form");
-  const input = shell.querySelector("input");
-  const response = shell.querySelector(".assistant-response");
+function saveJSON(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
 
-  toggle.addEventListener("click", () => {
-    const isOpen = shell.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
-    if (isOpen) {
-      input.focus();
-    }
+async function api(path, body) {
+  const response = await fetch(`${API_BASE}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
   });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || "Request failed.");
+  return data;
+}
 
-  shell.querySelectorAll(".assistant-chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      input.value = chip.dataset.question || "";
-      handleAssistantQuestion(input.value, response);
+function nowTime() {
+  return new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+}
+
+function pushLog(message) {
+  state.log.unshift({ id: crypto.randomUUID(), time: nowTime(), message });
+  state.log = state.log.slice(0, 20);
+  saveJSON("jarvis-log", state.log);
+  renderLogs();
+}
+
+function addMessage(role, text) {
+  state.chat.push({ id: crypto.randomUUID(), role, text, time: nowTime() });
+  saveJSON("jarvis-chat", state.chat);
+  renderChat();
+}
+
+function renderLaunchers() {
+  el.launchGrid.innerHTML = "";
+  LAUNCH_ITEMS.forEach((item) => {
+    const tpl = document.getElementById("launchButtonTemplate");
+    const node = tpl.content.firstElementChild.cloneNode(true);
+    node.querySelector(".launch-label").textContent = item;
+    node.addEventListener("click", () => routeLauncher(item));
+    el.launchGrid.appendChild(node);
+  });
+}
+
+function renderIdeas(items = IDEA_PROMPTS) {
+  el.ideaGrid.innerHTML = "";
+  items.forEach((idea) => {
+    const tpl = document.getElementById("ideaTemplate");
+    const node = tpl.content.firstElementChild.cloneNode(true);
+    node.querySelector("h3").textContent = idea.title;
+    node.querySelector("p").textContent = idea.description;
+    node.querySelector(".idea-meta").innerHTML = `<span>${idea.difficulty}</span><span>${idea.cost}</span><span>${idea.start}</span>`;
+    el.ideaGrid.appendChild(node);
+  });
+}
+
+function renderChat() {
+  el.chatStream.innerHTML = "";
+  state.chat.forEach((msg) => {
+    const tpl = document.getElementById("chatMessageTemplate");
+    const node = tpl.content.firstElementChild.cloneNode(true);
+    node.classList.add(msg.role);
+    node.querySelector(".message-role").textContent = msg.role === "user" ? "You" : "Assistant";
+    node.querySelector(".message-time").textContent = msg.time;
+    node.querySelector(".message-body").textContent = msg.text;
+    node.querySelector(".copy-btn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText(msg.text);
+      pushLog("Copied assistant response.");
+    });
+    el.chatStream.appendChild(node);
+  });
+}
+
+function renderNotes() {
+  const filter = el.noteSearch.value.trim().toLowerCase();
+  el.notesList.innerHTML = "";
+  state.notes
+    .filter((note) => note.text.toLowerCase().includes(filter))
+    .forEach((note) => {
+      const tpl = document.getElementById("noteTemplate");
+      const node = tpl.content.firstElementChild.cloneNode(true);
+      const textarea = node.querySelector("textarea");
+      textarea.value = note.text;
+      node.querySelector(".save-note-btn").addEventListener("click", () => {
+        note.text = textarea.value.trim();
+        saveJSON("jarvis-notes", state.notes);
+        pushLog("Saved note.");
+        renderNotes();
+      });
+      node.querySelector(".delete-note-btn").addEventListener("click", () => {
+        state.notes = state.notes.filter((entry) => entry.id !== note.id);
+        saveJSON("jarvis-notes", state.notes);
+        pushLog("Deleted note.");
+        renderNotes();
+      });
+      el.notesList.appendChild(node);
+    });
+}
+
+function renderLogs() {
+  el.actionLog.innerHTML = state.log.map((entry) => `<div class="log-item"><strong>${entry.time}</strong> ${entry.message}</div>`).join("");
+}
+
+function setOrbMode(mode) {
+  el.assistantState.textContent = mode;
+  el.voiceOrb.dataset.mode = mode;
+}
+
+function speak(text) {
+  if (!state.speakEnabled || !("speechSynthesis" in window)) return;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = Number(el.voiceRate.value);
+  utterance.pitch = el.voiceStyle.value === "Bright" ? 1.15 : el.voiceStyle.value === "Focused" ? 0.95 : 1;
+  utterance.onstart = () => setOrbMode("Speaking");
+  utterance.onend = () => setOrbMode("Listening for a command");
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance);
+}
+
+function requestConfirmation(title, text, callback) {
+  el.confirmTitle.textContent = title;
+  el.confirmText.textContent = text;
+  el.confirmDialog.showModal();
+  el.confirmProceedBtn.onclick = async () => {
+    try {
+      await callback?.();
+    } finally {
+      el.confirmDialog.close();
+    }
+  };
+}
+
+async function routeLauncher(item) {
+  const websiteMap = {
+    Google: "google",
+    YouTube: "youtube",
+    Gmail: "gmail",
+    ChatGPT: "chatgpt",
+    Gemini: "gemini",
+    Claude: "claude",
+    Spotify: "spotify"
+  };
+  if (websiteMap[item]) {
+    const result = await api("/api/open", { type: "website", target: websiteMap[item], confirmed: true });
+    addMessage("assistant", `${item} opened.`);
+    pushLog(`Opened ${item}.`);
+    speak(`${item} opened.`);
+    return;
+  }
+
+  if (item === "Notes") {
+    document.querySelector(".notes-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    pushLog("Opened notes panel.");
+    return;
+  }
+
+  requestConfirmation(`JARVIS wants to open ${item}`, `Confirm opening ${item} on this computer.`, async () => {
+    const result = await api("/api/open", { type: "app", target: item.toLowerCase(), confirmed: true });
+    addMessage("assistant", `${item} opened.`);
+    pushLog(`${item} launch result: ${result.opened || "success"}.`);
+    speak(`${item} opened.`);
+  });
+}
+
+async function handleCommand(input) {
+  const text = input.trim();
+  if (!text) return;
+  state.currentPrompt = text;
+  addMessage("user", text);
+  try {
+    const lower = text.toLowerCase();
+    if (lower.includes("clear the chat")) {
+      state.chat = [];
+      saveJSON("jarvis-chat", state.chat);
+      renderChat();
+      const reply = "Chat cleared.";
+      addMessage("assistant", reply);
+      speak(reply);
+      pushLog(reply);
+      return;
+    }
+
+    if (/open my (downloads|desktop|documents) folder/i.test(text)) {
+      const target = text.match(/open my (downloads|desktop|documents) folder/i)[1].toLowerCase();
+      requestConfirmation(`JARVIS wants to open ${target}`, `Confirm opening your approved ${target} folder.`, async () => {
+        const result = await api("/api/open", { type: "folder", target, confirmed: true });
+        const reply = `${target} folder opened.`;
+        addMessage("assistant", reply);
+        pushLog(reply);
+        speak(reply);
+        return result;
+      });
+      return;
+    }
+
+    if (/open (roblox|minecraft|steam|discord|spotify|notepad)/i.test(text)) {
+      const target = text.match(/open (roblox|minecraft|steam|discord|spotify|notepad)/i)[1].toLowerCase();
+      requestConfirmation(`JARVIS wants to open ${target}`, `Confirm opening ${target} on this computer.`, async () => {
+        const result = await api("/api/open", { type: "app", target, confirmed: true });
+        const reply = `${target} opened.`;
+        addMessage("assistant", reply);
+        pushLog(reply);
+        speak(reply);
+        return result;
+      });
+      return;
+    }
+
+    const modelMode = state.route === "all" ? "all" : state.route;
+    const result = await api("/api/chat", { message: text, modelMode });
+    const reply = result.reply || "No reply returned.";
+    addMessage("assistant", reply);
+    pushLog(`AI replied: ${reply}`);
+    speak(reply);
+
+    if (result.models) {
+      el.modelCards.innerHTML = "";
+      Object.entries(result.models).forEach(([name, value]) => {
+        if (!value) return;
+        const card = document.createElement("article");
+        card.className = "model-card";
+        card.innerHTML = `<h3>${name}</h3><p>${value}</p>`;
+        el.modelCards.appendChild(card);
+      });
+      el.combinedAnswer.textContent = reply;
+    } else {
+      const card = document.createElement("article");
+      card.className = "model-card";
+      card.innerHTML = `<h3>Assistant</h3><p>${reply}</p>`;
+      el.modelCards.innerHTML = "";
+      el.modelCards.appendChild(card);
+      el.combinedAnswer.textContent = reply;
+    }
+
+    if (/idea|search|latest|current|news/i.test(text)) renderIdeas();
+  } catch (error) {
+    const message = error.message || "Backend is not running.";
+    addMessage("assistant", message);
+    pushLog(message);
+  }
+}
+
+function setupVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    el.micBtn.disabled = true;
+    el.micBtn.textContent = "Mic Unavailable";
+    pushLog("Speech recognition is not available in this browser.");
+    return;
+  }
+  const recognition = new SR();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = "en-US";
+  recognition.onstart = () => {
+    state.listening = true;
+    setOrbMode("Listening...");
+    el.micBtn.textContent = "Stop Mic";
+  };
+  recognition.onresult = (event) => {
+    const result = Array.from(event.results).map((r) => r[0].transcript).join(" ");
+    el.liveTranscript.textContent = result;
+    if (event.results[0].isFinal) handleCommand(result);
+  };
+  recognition.onerror = (event) => {
+    const message = event.error === "not-allowed" ? "Microphone permission was denied." : "Mic error.";
+    addMessage("assistant", message);
+    pushLog(message);
+  };
+  recognition.onend = () => {
+    state.listening = false;
+    el.micBtn.textContent = "Start Mic";
+    setOrbMode("Listening for a command");
+  };
+  el.micBtn.addEventListener("click", () => {
+    if (state.listening) recognition.stop();
+    else recognition.start();
+  });
+}
+
+async function loadHealth() {
+  try {
+    const health = await fetch(`${API_BASE}/api/health`).then((r) => r.json());
+    const missing = [];
+    if (!health.env?.openai) missing.push("OpenAI");
+    if (!health.env?.gemini) missing.push("Gemini");
+    if (!health.env?.anthropic) missing.push("Claude");
+    el.modelStatus.textContent = missing.length ? `Missing: ${missing.join(", ")}` : "All AI keys detected";
+    pushLog("Backend connected.");
+  } catch {
+    el.modelStatus.textContent = "Backend offline";
+    pushLog("Backend is not running.");
+  }
+}
+
+function init() {
+  el.launchGrid = document.getElementById("launchGrid");
+  el.ideaGrid = document.getElementById("ideaGrid");
+  el.notesList = document.getElementById("notesList");
+  el.chatStream = document.getElementById("chatStream");
+  el.actionLog = document.getElementById("actionLog");
+  el.combinedAnswer = document.getElementById("combinedAnswer");
+  el.assistantState = document.getElementById("assistantState");
+  el.liveTranscript = document.getElementById("liveTranscript");
+  el.voiceOrb = document.getElementById("voiceOrb");
+  el.micBtn = document.getElementById("micBtn");
+  el.voiceRate = document.getElementById("voiceRate");
+  el.voiceStyle = document.getElementById("voiceStyle");
+  el.chatForm = document.getElementById("chatForm");
+  el.chatInput = document.getElementById("chatInput");
+  el.noteSearch = document.getElementById("noteSearch");
+  el.confirmDialog = document.getElementById("confirmDialog");
+  el.confirmTitle = document.getElementById("confirmTitle");
+  el.confirmText = document.getElementById("confirmText");
+  el.confirmProceedBtn = document.getElementById("confirmProceedBtn");
+  el.confirmActionBtn = document.getElementById("confirmActionBtn");
+  el.savePromptBtn = document.getElementById("savePromptBtn");
+  el.clearChatBtn = document.getElementById("clearChatBtn");
+  el.toggleChatBtn = document.getElementById("toggleChatBtn");
+  el.connectModelsBtn = document.getElementById("connectModelsBtn");
+  el.saveKeysBtn = document.getElementById("saveKeysBtn");
+  el.openaiKey = document.getElementById("openaiKey");
+  el.geminiKey = document.getElementById("geminiKey");
+  el.claudeKey = document.getElementById("claudeKey");
+  el.closeSetupBtn = document.getElementById("closeSetupBtn");
+  el.setupPanel = document.getElementById("setupPanel");
+  el.modelStatus = document.getElementById("modelStatus");
+
+  renderLaunchers();
+  renderIdeas();
+  renderChat();
+  renderNotes();
+  renderLogs();
+  setupVoice();
+  loadHealth();
+  setOrbMode("Listening for a command");
+
+  document.querySelectorAll(".segment").forEach((segment) => {
+    segment.addEventListener("click", () => {
+      document.querySelectorAll(".segment").forEach((btn) => btn.classList.remove("active"));
+      segment.classList.add("active");
+      state.route = segment.dataset.route;
+      el.modelStatus.textContent = `Routing: ${segment.textContent}`;
+      pushLog(`Model route set to ${segment.textContent}.`);
     });
   });
 
-  form.addEventListener("submit", (event) => {
+  el.chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    handleAssistantQuestion(input.value, response);
-  });
-}
-
-function initMobileNav() {
-  const nav = document.querySelector(".nav");
-  const navLinks = nav?.querySelector(".nav-links");
-  if (!nav || !navLinks) {
-    return;
-  }
-
-  const toggle = document.createElement("button");
-  toggle.className = "nav-toggle";
-  toggle.type = "button";
-  toggle.setAttribute("aria-expanded", "false");
-  toggle.setAttribute("aria-label", "Open menu");
-  toggle.innerHTML = `<span class="nav-toggle-lines" aria-hidden="true"></span>`;
-  nav.insertBefore(toggle, navLinks);
-
-  toggle.addEventListener("click", () => {
-    const isOpen = nav.classList.toggle("nav-open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
+    const value = el.chatInput.value;
+    el.chatInput.value = "";
+    await handleCommand(value);
   });
 
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      nav.classList.remove("nav-open");
-      toggle.setAttribute("aria-expanded", "false");
-    });
+  el.noteSearch.addEventListener("input", renderNotes);
+  el.clearChatBtn.addEventListener("click", () => {
+    state.chat = [];
+    saveJSON("jarvis-chat", state.chat);
+    renderChat();
+    pushLog("Cleared chat history.");
   });
-}
-
-function injectLanguageSwitcher() {
-  const nav = document.querySelector(".nav");
-  if (!nav || nav.querySelector(".lang-switcher")) {
-    return;
-  }
-
-  const switcher = document.createElement("div");
-  switcher.className = "lang-switcher notranslate";
-  switcher.setAttribute("translate", "no");
-  switcher.innerHTML = `
-    <button class="lang-toggle notranslate" type="button" aria-expanded="false" translate="no">
-      <span>Language</span>
-      <span class="lang-current"></span>
-    </button>
-    <div class="lang-menu notranslate" translate="no">
-      <input class="lang-search notranslate" type="text" placeholder="Search language..." aria-label="Search language" translate="no">
-      <div class="lang-list notranslate" translate="no"></div>
-    </div>
-  `;
-
-  const navLinks = nav.querySelector(".nav-links");
-  nav.insertBefore(switcher, navLinks);
-
-  const toggle = switcher.querySelector(".lang-toggle");
-  const menu = switcher.querySelector(".lang-menu");
-  const search = switcher.querySelector(".lang-search");
-  const list = switcher.querySelector(".lang-list");
-  const currentLabel = switcher.querySelector(".lang-current");
-
-  const renderLanguages = (filter = "") => {
-    const filterLower = filter.trim().toLowerCase();
-    const current = languageOptions.find((language) => language.code === currentLanguage) || languageOptions[0];
-    currentLabel.textContent = current.label;
-
-    const sorted = [
-      current,
-      ...languageOptions.filter((language) => language.code !== current.code)
-    ].filter((language) => language.label.toLowerCase().includes(filterLower));
-
-    list.innerHTML = sorted.map((language) => `
-      <button class="lang-option notranslate ${language.code === currentLanguage ? "active" : ""}" type="button" data-lang="${language.code}" translate="no">
-        <span>${language.label}</span>
-        <span class="lang-check">${language.code === currentLanguage ? "✓" : ""}</span>
-      </button>
-    `).join("");
-
-    list.querySelectorAll(".lang-option").forEach((option) => {
-      option.addEventListener("click", () => {
-        setLanguage(option.dataset.lang || "en");
-        switcher.classList.remove("open");
-        toggle.setAttribute("aria-expanded", "false");
-      });
-    });
-  };
-
-  renderLanguages();
-
-  toggle.addEventListener("click", () => {
-    const isOpen = switcher.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(isOpen));
-    if (isOpen) {
-      search.focus();
-    }
+  el.toggleChatBtn.addEventListener("click", () => {
+    document.querySelector(".chat-panel")?.classList.toggle("hidden-panel");
   });
-
-  search.addEventListener("input", () => renderLanguages(search.value));
-
-  document.addEventListener("click", (event) => {
-    if (!switcher.contains(event.target)) {
-      switcher.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-    }
+  document.getElementById("newNoteBtn").addEventListener("click", () => {
+    state.notes.unshift({ id: crypto.randomUUID(), text: "" });
+    saveJSON("jarvis-notes", state.notes);
+    renderNotes();
+    pushLog("Created a new note.");
   });
-}
-
-function ensureGoogleTranslateHost() {
-  if (!document.getElementById("google_translate_element")) {
-    const host = document.createElement("div");
-    host.id = "google_translate_element";
-    host.style.display = "none";
-    document.body.appendChild(host);
-  }
-}
-
-function loadGoogleTranslate() {
-  ensureGoogleTranslateHost();
-
-  window.googleTranslateElementInit = function googleTranslateElementInit() {
-    if (window.google?.translate?.TranslateElement) {
-      new window.google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          autoDisplay: false,
-          includedLanguages: languageOptions.map((language) => language.code).join(",")
-        },
-        "google_translate_element"
-      );
-      translateReady = true;
-      applyGoogleLanguage(pendingLanguageCode);
-    }
-  };
-
-  if (!document.querySelector('script[data-google-translate="true"]')) {
-    const script = document.createElement("script");
-    script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-    script.async = true;
-    script.dataset.googleTranslate = "true";
-    document.body.appendChild(script);
-  }
-}
-
-function waitForTranslateCombo(callback, tries = 40) {
-  const combo = document.querySelector(".goog-te-combo");
-  if (combo) {
-    callback(combo);
-    return;
-  }
-  if (tries <= 0) {
-    return;
-  }
-  window.setTimeout(() => waitForTranslateCombo(callback, tries - 1), 250);
-}
-
-function applyGoogleLanguage(languageCode) {
-  if (!translateReady) {
-    pendingLanguageCode = languageCode;
-    return;
-  }
-
-  waitForTranslateCombo((combo) => {
-    combo.value = languageCode;
-    combo.dispatchEvent(new Event("change"));
+  el.savePromptBtn.addEventListener("click", () => {
+    if (!state.currentPrompt) return;
+    state.notes.unshift({ id: crypto.randomUUID(), text: state.currentPrompt });
+    saveJSON("jarvis-notes", state.notes);
+    renderNotes();
+    pushLog("Saved the current prompt as a note.");
   });
-
-  document.documentElement.lang = languageCode === "ar" ? "ar" : languageCode;
-  document.documentElement.dir = languageCode === "ar" ? "rtl" : "ltr";
-}
-
-function setLanguage(languageCode) {
-  currentLanguage = languageCode;
-  pendingLanguageCode = languageCode;
-  localStorage.setItem("liberty-language", languageCode);
-  applyGoogleLanguage(languageCode);
-  const currentLabel = document.querySelector(".lang-current");
-  const current = languageOptions.find((language) => language.code === languageCode);
-  if (currentLabel && current) {
-    currentLabel.textContent = current.label;
-  }
-  const list = document.querySelector(".lang-list");
-  if (list) {
-    const search = document.querySelector(".lang-search");
-    const filter = search ? search.value : "";
-    document.querySelector(".lang-switcher")?.remove();
-    injectLanguageSwitcher();
-    const newSearch = document.querySelector(".lang-search");
-    if (newSearch) {
-      newSearch.value = filter;
-      newSearch.dispatchEvent(new Event("input"));
-    }
-  }
-}
-
-function initClickBursts() {
-  const burstTargets = document.querySelectorAll(".category-card, .gallery-card-link");
-  burstTargets.forEach((target) => {
-    const burst = document.createElement("span");
-    burst.className = "click-burst";
-    for (let i = 0; i < 9; i += 1) {
-      const piece = document.createElement("span");
-      piece.className = "confetti-piece";
-      burst.appendChild(piece);
-    }
-    target.appendChild(burst);
-
-    const playBurst = () => {
-      target.classList.remove("burst-active");
-      void target.offsetWidth;
-      target.classList.add("burst-active");
-      window.setTimeout(() => {
-        target.classList.remove("burst-active");
-      }, 760);
+  el.connectModelsBtn.addEventListener("click", () => el.setupPanel.scrollIntoView({ behavior: "smooth", block: "center" }));
+  el.confirmActionBtn.addEventListener("click", () => requestConfirmation("Confirm local action", "This would trigger the local helper and requires approval before it runs."));
+  el.saveKeysBtn.addEventListener("click", () => {
+    state.keys = {
+      openai: el.openaiKey.value.trim(),
+      gemini: el.geminiKey.value.trim(),
+      claude: el.claudeKey.value.trim()
     };
-
-    target.addEventListener("click", playBurst);
+    saveJSON("jarvis-keys", state.keys);
+    pushLog("Saved API keys locally.");
+    el.setupPanel.style.display = "none";
   });
-}
+  el.closeSetupBtn.addEventListener("click", () => {
+    el.setupPanel.style.display = "none";
+  });
 
-function initScrollReveal() {
-  const targets = document.querySelectorAll(
-    ".hero-copy, .hero-card, .section-heading, .category-card, .delivery-panel, .about-copy, .about-panel, .gallery-card, .special-card, .testimonial-card, .site-footer"
-  );
+  document.getElementById("speakToggleBtn").addEventListener("click", () => {
+    state.speakEnabled = !state.speakEnabled;
+    document.getElementById("speakToggleBtn").textContent = state.speakEnabled ? "Voice On" : "Voice Off";
+    pushLog(`Voice output ${state.speakEnabled ? "enabled" : "muted"}.`);
+  });
 
-  if (!targets.length) {
-    return;
-  }
-
-  targets.forEach((target) => target.classList.add("reveal-3d"));
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-        } else {
-          entry.target.classList.remove("is-visible");
-        }
+  document.querySelectorAll("[data-folder]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const folder = button.dataset.folder;
+      requestConfirmation(`JARVIS wants to open ${folder}`, `Confirm opening your approved ${folder} folder.`, async () => {
+        await api("/api/open", { type: "folder", target: folder, confirmed: true });
+        addMessage("assistant", `${folder} folder opened.`);
+        pushLog(`${folder} folder opened.`);
       });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -40px 0px"
-    }
-  );
-
-  targets.forEach((target) => observer.observe(target));
-}
-
-const discountWheelSlices = [
-  {
-    type: "three",
-    label: "$3 off",
-    code: "89036",
-    title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
-  },
-  {
-    type: "one",
-    label: "$1 off",
-    code: "5272",
-    title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
-  },
-  {
-    type: "three",
-    label: "$3 off",
-    code: "89036",
-    title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
-  },
-  {
-    type: "one",
-    label: "$1 off",
-    code: "5272",
-    title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
-  },
-  {
-    type: "three",
-    label: "$3 off",
-    code: "89036",
-    title: "$3 off",
-    terms: "$3 off is only valid on purchases of $30 or more.",
-    image: "assets/discount-89036-3-off.jpeg",
-    fileName: "liberty-oil-3-off.jpeg"
-  },
-  {
-    type: "again",
-    label: "Spin Again"
-  },
-  {
-    type: "one",
-    label: "$1 off",
-    code: "5272",
-    title: "$1 off",
-    terms: "$1 off is only valid on purchases of $20 or more.",
-    image: "assets/discount-5272-1-off.png",
-    fileName: "liberty-oil-1-off.png"
-  }
-];
-
-const discountWinningIndexes = discountWheelSlices
-  .map((slice, index) => ({ slice, index }))
-  .filter((entry) => entry.slice.type !== "again");
-
-function initDiscountWheel() {
-  const currentPage = window.location.pathname.split("/").pop().toLowerCase();
-  const isHomePage = currentPage === "" || currentPage === "index.html";
-  if (!isHomePage) {
-    return;
-  }
-
-  const storageKey = "libertyDiscountWheelResult";
-  if (localStorage.getItem(storageKey) || document.querySelector(".discount-popup")) {
-    return;
-  }
-
-  const popup = document.createElement("section");
-  popup.className = "discount-popup";
-  popup.setAttribute("aria-modal", "true");
-  popup.setAttribute("role", "dialog");
-  popup.setAttribute("aria-label", "Discount mystery spin wheel");
-  popup.innerHTML = `
-    <div class="discount-card">
-      <button class="discount-close" type="button" aria-label="Close discount popup">&times;</button>
-      <div class="discount-intro">
-        <span class="discount-kicker">Liberty Oil Inc</span>
-        <h2>Discount Mystery Wheel</h2>
-        <p>Spin once for a surprise coupon to use in store.</p>
-      </div>
-      <div class="wheel-stage">
-        <span class="wheel-pointer" aria-hidden="true"></span>
-        <div class="discount-wheel" aria-hidden="true">
-          ${discountWheelSlices.map((slice, index) => `
-            <span class="wheel-label wheel-label-${index}">
-              <small>Discount Mystery</small>
-            </span>
-          `).join("")}
-        </div>
-        <button class="spin-button" type="button">SPIN</button>
-      </div>
-      <div class="discount-rules">
-        <p><strong>$1 off</strong> is only valid on purchases of $20 or more.</p>
-        <p><strong>$3 off</strong> is only valid on purchases of $30 or more.</p>
-      </div>
-      <div class="discount-result" hidden></div>
-    </div>
-  `;
-  document.body.appendChild(popup);
-  document.body.classList.add("discount-open");
-
-  const wheel = popup.querySelector(".discount-wheel");
-  const spinButton = popup.querySelector(".spin-button");
-  const resultBox = popup.querySelector(".discount-result");
-  const closeButton = popup.querySelector(".discount-close");
-
-  const closePopup = () => {
-    popup.remove();
-    document.body.classList.remove("discount-open");
-  };
-
-  closeButton.addEventListener("click", closePopup);
-
-  spinButton.addEventListener("click", () => {
-    if (spinButton.disabled) {
-      return;
-    }
-
-    const winning = discountWinningIndexes[Math.floor(Math.random() * discountWinningIndexes.length)];
-    const selected = winning.slice;
-    const sliceDegrees = 360 / discountWheelSlices.length;
-    const centerAngle = (winning.index * sliceDegrees) + (sliceDegrees / 2);
-    const finalRotation = (360 * 6) + (360 - centerAngle);
-
-    spinButton.disabled = true;
-    spinButton.textContent = "SPINNING";
-    wheel.style.transform = `rotate(${finalRotation}deg)`;
-
-    window.setTimeout(() => {
-      localStorage.setItem(storageKey, JSON.stringify({
-        type: selected.type,
-        code: selected.code,
-        claimedAt: new Date().toISOString()
-      }));
-
-      resultBox.hidden = false;
-      resultBox.innerHTML = `
-        <div class="discount-win">
-          <span class="discount-win-pill">You won</span>
-          <h3>${selected.title}</h3>
-          <p>${selected.terms}</p>
-          <p class="discount-code">Coupon code: <strong>${selected.code}</strong></p>
-          <img src="${selected.image}" alt="${selected.title} coupon barcode code ${selected.code}">
-          <div class="discount-result-actions">
-            <a class="button button-primary" href="${selected.image}" download="${selected.fileName}">Save / Download Photo</a>
-            <a class="button button-secondary" href="${selected.image}" target="_blank" rel="noreferrer">Open Image</a>
-          </div>
-          <p class="discount-save-note">On iPhone, tap Open Image, then press and hold the photo to save it.</p>
-        </div>
-      `;
-      spinButton.textContent = "USED";
-    }, 4400);
+    });
   });
-}
 
-function handleAssistantQuestion(question, responseEl) {
-  const cleanQuestion = question.trim().toLowerCase();
-  if (!cleanQuestion) {
-    responseEl.innerHTML = "<strong>Try a question.</strong> Ask about beer and wine, soda, candy, snacks, energy drinks, specials, hours, or directions.";
-    return;
-  }
-
-  const languageCommand = cleanQuestion.match(/(?:change|switch|translate).*(?:language|to)\s+(.+)/i);
-  if (languageCommand) {
-    const requested = languageCommand[1].trim().toLowerCase();
-    const found = languageOptions.find((language) => language.label.toLowerCase() === requested || language.label.toLowerCase().includes(requested));
-    if (found) {
-      setLanguage(found.code);
-      responseEl.innerHTML = `<strong>Liberty Assistant:</strong> Changing the language to ${found.label}.`;
-      return;
-    }
-  }
-
-  const match = assistantRoutes.find((entry) =>
-    entry.keywords.some((keyword) => cleanQuestion.includes(keyword))
-  );
-
-  if (!match) {
-    responseEl.innerHTML = "<strong>I can help with store questions.</strong> Try asking about beer and wine, soda, candy, snacks, energy drinks, specials, hours, or directions.";
-    return;
-  }
-
-  let actionMarkup = "";
-  if (match.action) {
-    const isExternal = match.action.href.startsWith("http");
-    const target = isExternal ? ' target="_blank"' : "";
-    const rel = isExternal ? ' rel="noreferrer"' : "";
-    actionMarkup = `<div class="assistant-actions" style="margin-top: 0.8rem;"><a class="button button-secondary" href="${match.action.href}"${target}${rel}>${match.action.label}</a></div>`;
-  }
-
-  responseEl.innerHTML = `<strong>Liberty Assistant:</strong> ${match.response}${actionMarkup}`;
-
-  if (match.href) {
-    window.setTimeout(() => {
-      window.location.href = match.href;
-    }, 420);
+  if (!state.chat.length) {
+    addMessage("assistant", "I'm online. Say or type a command, ask for ideas, or open the setup panel for API keys.");
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initMobileNav();
-  injectLanguageSwitcher();
-  loadGoogleTranslate();
-  initDiscountWheel();
-  injectAssistant();
-  initClickBursts();
-  initScrollReveal();
-  applyGoogleLanguage(currentLanguage);
-});
+init();
