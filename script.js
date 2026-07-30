@@ -379,56 +379,59 @@ function initScrollReveal() {
 
 const discountWheelSlices = [
   {
-    type: "two",
-    label: "$2 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "89036",
-    title: "$2 off",
-    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "one",
-    label: "$1 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "5272",
-    title: "$1 off",
-    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "two",
-    label: "$2 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "89036",
-    title: "$2 off",
-    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "one",
-    label: "$1 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "5272",
-    title: "$1 off",
-    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "two",
-    label: "$2 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "89036",
-    title: "$2 off",
-    terms: "$2 off purchases of $30 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   },
   {
-    type: "again",
-    label: "Spin Again"
-  },
-  {
-    type: "one",
-    label: "$1 off",
+    type: "sour",
+    label: "Free Sour Punch",
     code: "5272",
-    title: "$1 off",
-    terms: "$1 off purchases of $20 or more. Excludes gas, cigarettes, and liquor."
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
+  },
+  {
+    type: "sour",
+    label: "Free Sour Punch",
+    code: "89036",
+    title: "Free Sour Punch",
+    terms: "Free Sour Punch with any purchase. Excludes gas, cigarettes, and liquor."
   }
 ];
 
 const discountWinningIndexes = discountWheelSlices
   .map((slice, index) => ({ slice, index }))
-  .filter((entry) => entry.slice.type !== "again");
+  .filter((entry) => entry.slice.type === "sour");
 
 function initDiscountWheel() {
   const currentPage = window.location.pathname.split("/").pop().toLowerCase();
@@ -453,22 +456,21 @@ function initDiscountWheel() {
       <div class="discount-intro">
         <span class="discount-kicker">Liberty Oil Inc</span>
         <h2>Discount Mystery Wheel</h2>
-        <p>Spin once for a surprise coupon to use in store.</p>
+        <p>Spin once for a guaranteed free Sour Punch with any purchase.</p>
       </div>
       <div class="wheel-stage">
         <span class="wheel-pointer" aria-hidden="true"></span>
         <div class="discount-wheel" aria-hidden="true">
           ${discountWheelSlices.map((slice, index) => `
             <span class="wheel-label wheel-label-${index}">
-              <small>Discount Mystery</small>
+              <small>Free Sour Punch</small>
             </span>
           `).join("")}
         </div>
         <button class="spin-button" type="button">SPIN</button>
       </div>
       <div class="discount-rules">
-        <p><strong>$1 off</strong> is only valid on purchases of $20 or more.</p>
-        <p><strong>$2 off</strong> is only valid on purchases of $30 or more.</p>
+        <p><strong>Free Sour Punch</strong> is valid with any purchase.</p>
         <p>Discounts do not apply to gas, cigarettes, or liquor.</p>
       </div>
       <div class="discount-result" hidden></div>
@@ -516,7 +518,7 @@ function initDiscountWheel() {
         <div class="discount-win">
           <div class="discount-watermark" aria-hidden="true">LIBERTY OIL</div>
           <span class="discount-win-pill">Official Liberty Oil Coupon</span>
-          <h3>${selected.title}</h3>
+          <h3>Free Sour Punch</h3>
           <p class="discount-coupon-line">${selected.terms}</p>
           <p class="discount-code">Verification code: <strong>${selected.code}</strong></p>
           <p class="discount-genuine">Official Liberty Oil Inc discount. Present this screen in store to redeem.</p>
