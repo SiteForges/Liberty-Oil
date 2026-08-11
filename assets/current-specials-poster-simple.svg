@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="520" viewBox="0 0 360 520">
+  <defs>
+    <linearGradient id="hdr" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d92128"/>
+      <stop offset="0.5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#0b4ea2"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf2"/>
+      <stop offset="1" stop-color="#f5efe0"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="520" fill="#ffffff"/>
+  <rect x="14" y="14" width="332" height="492" rx="16" fill="#fff" stroke="#c9b7a1" stroke-width="2"/>
+  <rect x="22" y="22" width="316" height="42" rx="10" fill="url(#hdr)"/>
+  <text x="180" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" fill="#ffffff">WEEKLY SPECIALS</text>
+
+  <text x="180" y="96" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="800" fill="#0b4ea2">LIBERTY OIL INC</text>
+  <text x="180" y="114" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#6b5a4c">Featured favorites from the store</text>
+
+  <g fill="#fff" stroke="#c8d3e2" stroke-width="2">
+    <rect x="20" y="134" width="102" height="108" rx="8"/>
+    <rect x="129" y="134" width="102" height="108" rx="8"/>
+    <rect x="238" y="134" width="102" height="108" rx="8"/>
+    <rect x="20" y="261" width="102" height="108" rx="8"/>
+    <rect x="129" y="261" width="102" height="108" rx="8"/>
+    <rect x="238" y="261" width="102" height="108" rx="8"/>
+  </g>
+
+  <text x="71" y="153" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#123c67">BUTANE CAN</text>
+  <rect x="55" y="164" width="32" height="58" rx="6" fill="#ef2027"/>
+  <rect x="61" y="175" width="20" height="16" rx="3" fill="#ffd21b"/>
+  <circle cx="71" cy="202" r="7" fill="#ffb000"/>
+  <text x="71" y="232" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="800" fill="#111">$3.99</text>
+
+  <text x="180" y="153" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#4c2470">TAKIS FUEGO</text>
+  <path d="M160 218 L180 165 L200 218 Z" fill="#6e2fb0"/>
+  <path d="M167 206 L180 179 L193 206 Z" fill="#ffd32b"/>
+  <text x="180" y="232" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="800" fill="#111">$1.99</text>
+
+  <text x="289" y="153" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#15506f">VITAMIN WATER</text>
+  <g>
+    <rect x="258" y="168" width="12" height="46" rx="4" fill="#f3c62c"/>
+    <rect x="274" y="160" width="12" height="54" rx="4" fill="#d81f27"/>
+    <rect x="290" y="166" width="12" height="48" rx="4" fill="#da5d98"/>
+    <rect x="306" y="163" width="12" height="51" rx="4" fill="#f58d72"/>
+  </g>
+  <text x="289" y="232" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="800" fill="#111">$1.89</text>
+
+  <text x="71" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#123c67">CHIP ASSORTMENT</text>
+  <rect x="34" y="294" width="30" height="48" rx="3" fill="#0f5fb2"/>
+  <rect x="68" y="289" width="30" height="53" rx="3" fill="#f28a00"/>
+  <rect x="33" y="348" width="76" height="18" rx="4" fill="#ffd32b"/>
+  <text x="71" y="361" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="800" fill="#111">2 FOR $5</text>
+
+  <text x="180" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#123c67">CELSIUS CANS</text>
+  <g fill="#fff" stroke="#bbb">
+    <rect x="150" y="294" width="12" height="48" rx="4"/>
+    <rect x="165" y="291" width="12" height="51" rx="4"/>
+    <rect x="180" y="296" width="12" height="46" rx="4"/>
+    <rect x="195" y="292" width="12" height="50" rx="4"/>
+    <rect x="210" y="295" width="12" height="47" rx="4"/>
+  </g>
+  <text x="180" y="361" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="800" fill="#111">$2.49 ea</text>
+
+  <text x="289" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#6f321f">PEANUT M&amp;M&apos;S</text>
+  <rect x="255" y="296" width="68" height="38" rx="7" fill="#c89431"/>
+  <circle cx="275" cy="314" r="4" fill="#fff"/>
+  <circle cx="289" cy="306" r="4" fill="#fff"/>
+  <circle cx="304" cy="318" r="4" fill="#fff"/>
+  <rect x="247" y="347" width="84" height="18" rx="4" fill="#f4e3ce"/>
+  <text x="289" y="360" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="800" fill="#5b3b1f">FREE WITH $50+</text>
+
+  <rect x="28" y="388" width="304" height="72" rx="12" fill="url(#cream)" stroke="#d2b98d"/>
+  <text x="180" y="418" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#0b4ea2">BEST SELLERS THIS WEEK</text>
+  <text x="180" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#6b5a4c">While supplies last</text>
+  <text x="180" y="461" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#0b4ea2">Liberty Oil Website</text>
+</svg>
