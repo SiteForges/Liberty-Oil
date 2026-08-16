@@ -105,15 +105,16 @@ def footer():
         <h4>Quick Links</h4>
         <a href="about.html">About</a>
         <a href="specials.html">Specials</a>
+        <a href="index.html#location">Directions &amp; Location</a>
         <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
-        <a href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; Liberty Oil Inc, Oceanside CA.</span>
-      <span>1943 S Coast Hwy, Oceanside, CA 92054</span>
+      <span>Pier photography: Redideo &amp; Visitor7 via Wikimedia Commons (CC BY-SA)</span>
     </div>
   </footer>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>'''
 
@@ -171,7 +172,7 @@ def category_grid():
     for slug, name, blurb in CATEGORIES:
         href = "specials.html" if slug == "specials" else f"{slug}.html"
         arrow_label = "See this week's" if slug == "specials" else "Browse aisle"
-        cards.append(f'''        <a class="cat-card" href="{href}">
+        cards.append(f'''        <a class="cat-card reveal" href="{href}">
           <div class="cat-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{CAT_ICONS[slug]}</svg>
           </div>
@@ -207,7 +208,6 @@ index_html = head(
         <div class="hero-cta-row">
           <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
           <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
-          <span class="pill-note">Also on Bevz</span>
         </div>
       </div>
       <aside class="signpost">
@@ -239,20 +239,20 @@ index_html = head(
   </section>
 
   <div class="trust-strip">
-    <div class="container trust-grid">
-      <div class="trust-item">
+    <div class="container trust-grid reveal-group">
+      <div class="trust-item reveal">
         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.3 2.3L16 10"/></svg>
         <div><strong>Open until midnight</strong><span>Every day, all year</span></div>
       </div>
-      <div class="trust-item">
+      <div class="trust-item reveal">
         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12l1.5-5.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 12"/><rect x="4" y="12" width="16" height="6" rx="1.5"/><circle cx="7.5" cy="18" r="1.3"/><circle cx="16.5" cy="18" r="1.3"/></svg>
         <div><strong>Lowest area gas prices</strong><span>Straight from our regulars</span></div>
       </div>
-      <div class="trust-item">
+      <div class="trust-item reveal">
         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3.5v5c0 4.7-3 8.3-7 9.5-4-1.2-7-4.8-7-9.5v-5L12 3Z"/></svg>
         <div><strong>Family-run</strong><span>Owners on-site, not a franchise</span></div>
       </div>
-      <div class="trust-item">
+      <div class="trust-item reveal">
         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">{CAT_ICONS['specials']}</svg>
         <div><strong>5-star service</strong><span>What our regulars say</span></div>
       </div>
@@ -261,14 +261,14 @@ index_html = head(
 
   <section class="section" id="categories">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow">In The Store</p>
           <h2>Everything you'd grab on the way through.</h2>
         </div>
         <p class="sub">Six aisles worth checking &mdash; browse what we keep stocked, then swing by or order ahead.</p>
       </div>
-      <div class="category-grid">
+      <div class="category-grid reveal-group">
 {category_grid()}
       </div>
     </div>
@@ -276,7 +276,7 @@ index_html = head(
 
   <section class="section-tight" id="specials">
     <div class="container">
-      <div class="ribbon">
+      <div class="ribbon reveal">
         <div>
           <p class="eyebrow" style="color:var(--gold-500);">This Week</p>
           <h2>New specials go up in-store every week.</h2>
@@ -291,34 +291,23 @@ index_html = head(
 
   <section class="section-tight">
     <div class="container">
-      <div class="section-heading">
+      <div class="delivery-single reveal">
         <div>
-          <p class="eyebrow">Delivery</p>
-          <h2>Order store items without making the trip.</h2>
-        </div>
-      </div>
-      <div class="delivery-grid">
-        <div class="delivery-card">
           <span class="badge">DoorDash</span>
-          <h3>Main store, full catalog</h3>
-          <p>Every category we carry, delivered. Best for a full run &mdash; drinks, snacks, and specials in one order.</p>
-          <a class="btn btn-primary btn-sm" style="width:fit-content;" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+          <h3>Order the full store without making the trip.</h3>
+          <p>Every category we carry, delivered &mdash; drinks, snacks, candy, and specials in one order.</p>
         </div>
-        <div class="delivery-card">
-          <span class="badge">Bevz</span>
-          <h3>Quick beverage runs</h3>
-          <p>Prefer Bevz? We're listed there too &mdash; good for a fast, drinks-only order.</p>
-        </div>
+        <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
       </div>
     </div>
   </section>
 
   <section class="section" id="about">
     <div class="container about-wrap">
-      <div class="about-visual">
+      <div class="about-visual reveal">
         <img src="assets/optimized/beer-wine.webp" alt="Beer and wine lineup at Liberty Oil Inc" loading="lazy">
       </div>
-      <div class="about-copy">
+      <div class="about-copy reveal">
         <p class="eyebrow">About Liberty Oil</p>
         <h2>Run by a family, not a franchise.</h2>
         <p>Liberty Oil Inc has been Oceanside's fast, friendly stop on South Coast Highway &mdash; the kind of place where the owners know your order and the gas prices don't punish you for filling up close to home.</p>
@@ -330,26 +319,49 @@ index_html = head(
     </div>
   </section>
 
+  <section class="section-tight location" id="location">
+    <div class="container location-wrap">
+      <div class="location-media reveal">
+        <img src="assets/optimized/pier-drone.webp" alt="Aerial view of Oceanside Pier stretching into the Pacific" loading="lazy">
+      </div>
+      <div class="location-copy reveal">
+        <p class="eyebrow">Right By The Coast</p>
+        <h2>Minutes from Oceanside Pier.</h2>
+        <p>Liberty Oil Inc sits just up South Coast Highway from the pier &mdash; a quick stop before the beach, a fill-up on the way home, or a snack run between waves.</p>
+        <div class="location-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div>
+            <strong>1943 S Coast Hwy, Oceanside, CA 92054</strong>
+          </div>
+        </div>
+        <div class="location-actions">
+          <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+          <a class="btn btn-ghost btn-on-dark" href="tel:+17607548045">Call the Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section-tight" id="reviews" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow">Reviews</p>
           <h2>Friendly service still stands out.</h2>
         </div>
       </div>
-      <div class="review-grid">
-        <blockquote class="review-card">
+      <div class="review-grid reveal-group">
+        <blockquote class="review-card reveal">
           {stars_block()}
           <p>&ldquo;Always lowest price in area &amp; friendly staff.&rdquo;</p>
           <div class="review-author">Anonymous, Oceanside</div>
         </blockquote>
-        <blockquote class="review-card">
+        <blockquote class="review-card reveal">
           {stars_block()}
           <p>&ldquo;The friendliest gas station and you really can't beat the gas prices.&rdquo;</p>
           <div class="review-author">Anonymous, Oceanside</div>
         </blockquote>
-        <blockquote class="review-card">
+        <blockquote class="review-card reveal">
           {stars_block()}
           <p>&ldquo;Very friendly owners who run the place!&rdquo;</p>
           <div class="review-author">Anonymous, Oceanside</div>
@@ -376,12 +388,12 @@ about_html = head(
     "About",
     "Local, welcoming, and built around quick convenience.",
     "Liberty Oil Inc is a family-run stop where fuel, drinks, snacks, and everyday convenience all come together in one easy location.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <span class="pill-note">Also on Bevz</span>'
+    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>'
 )}
 
   <section class="section">
     <div class="container about-wrap">
-      <div class="about-copy">
+      <div class="about-copy reveal">
         <h2>We keep the stop simple and useful.</h2>
         <p>People come to Liberty Oil Inc for low gas prices, a friendly local feel, and a store stocked with the things they actually want to grab quickly. From beer and wine to soda, candy, energy drinks, and snacks, the focus is on speed, convenience, and a welcoming stop every time.</p>
         <p>Our store is set up to help customers get in, get what they need, and get moving &mdash; whether that's a morning commute, an afternoon drink stop, or a late-night snack run.</p>
@@ -389,7 +401,7 @@ about_html = head(
           <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
         </div>
       </div>
-      <div class="about-panel">
+      <div class="about-panel reveal">
         <h3>Why people stop here</h3>
         <ul class="check-list">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>Friendly neighborhood service</li>
@@ -401,15 +413,37 @@ about_html = head(
     </div>
   </section>
 
+  <section class="section-tight location">
+    <div class="container location-wrap">
+      <div class="location-media reveal">
+        <img src="assets/optimized/pier-palms.webp" alt="Palm-lined view of Oceanside Pier from the boardwalk" loading="lazy">
+      </div>
+      <div class="location-copy reveal">
+        <p class="eyebrow">Right By The Coast</p>
+        <h2>A short drive from Oceanside Pier.</h2>
+        <p>Fuel up or grab a cold drink on your way to the beach &mdash; we're just up South Coast Highway from the pier, the boardwalk, and the harbor.</p>
+        <div class="location-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div>
+            <strong>1943 S Coast Hwy, Oceanside, CA 92054</strong>
+          </div>
+        </div>
+        <div class="location-actions">
+          <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow">Browse</p>
           <h2>Find what you're after.</h2>
         </div>
       </div>
-      <div class="category-grid">
+      <div class="category-grid reveal-group">
 {category_grid()}
       </div>
     </div>
@@ -433,23 +467,23 @@ specials_html = head(
     "Best Sellers",
     "Best sellers this week at Liberty Oil.",
     "Check out this week's featured customer favorites. Deals and availability may vary in store.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <span class="pill-note">Also on Bevz</span>',
+    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>',
     note="Best sellers are available while supplies last. Prices and availability may vary in store."
 )}
 
   <section class="section">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow">Best Sellers This Week</p>
           <h2>Featured customer favorites.</h2>
         </div>
       </div>
-      <div class="showcase">
-        <a class="showcase-media" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">
+      <div class="showcase reveal-group">
+        <a class="showcase-media reveal" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">
           <img src="assets/optimized/specials.webp" alt="This week's best sellers at Liberty Oil Inc" loading="lazy">
         </a>
-        <div class="showcase-copy">
+        <div class="showcase-copy reveal">
           <h2>Order this week's picks on DoorDash.</h2>
           <p>Tap the poster to jump straight to our DoorDash storefront, or stop in &mdash; the counter always has the current lineup.</p>
           <div class="showcase-links">
@@ -463,7 +497,7 @@ specials_html = head(
 
   <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container">
-      <div class="ribbon" style="background:linear-gradient(120deg, var(--navy-800), var(--navy-950) 75%);">
+      <div class="ribbon reveal" style="background:linear-gradient(120deg, var(--navy-800), var(--navy-950) 75%);">
         <div>
           <p class="eyebrow" style="color:var(--gold-500);">Every Category</p>
           <h2>Specials rotate &mdash; the full store doesn't.</h2>
@@ -583,7 +617,7 @@ for slug, c in CATEGORY_PAGES.items():
     gallery_html = ""
     if c["gallery"]:
         figs = "\n".join(
-            f'''        <figure>
+            f'''        <figure class="reveal">
           <div class="figure-media"><img src="{src}" alt="{alt}" loading="lazy"></div>
           <figcaption>{alt}</figcaption>
         </figure>'''
@@ -592,13 +626,13 @@ for slug, c in CATEGORY_PAGES.items():
         gallery_html = f'''
   <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
     <div class="container">
-      <div class="section-heading">
+      <div class="section-heading reveal">
         <div>
           <p class="eyebrow">In Store</p>
           <h2>A closer look at the {c["eyebrow"].lower()} aisle.</h2>
         </div>
       </div>
-      <div class="mini-gallery">
+      <div class="mini-gallery reveal-group">
 {figs}
       </div>
     </div>
@@ -608,14 +642,14 @@ for slug, c in CATEGORY_PAGES.items():
         c["topbar_msg"], "This week's specials", "specials.html", cta_external=False
     ) + "\n" + header(f"{slug}.html") + f'''
 <main>
-{page_hero(c["eyebrow"], c["h1"], c["lede"], links_html + '\n            <span class="pill-note">Also on Bevz</span>', note="This is a sample of what we carry. There's more in store and on DoorDash.")}
+{page_hero(c["eyebrow"], c["h1"], c["lede"], links_html, note="This is a sample of what we carry. There's more in store and on DoorDash.")}
 
   <section class="section">
     <div class="container showcase">
-      <a class="showcase-media" href="{c["links"][0][1]}" target="_blank" rel="noreferrer">
+      <a class="showcase-media reveal" href="{c["links"][0][1]}" target="_blank" rel="noreferrer">
         <img src="{c["img"]}" alt="{c["img_alt"]}" loading="lazy">
       </a>
-      <div class="showcase-copy">
+      <div class="showcase-copy reveal">
         <h2>{c["eyebrow"]}, stocked and ready.</h2>
         <p>Tap the image to jump straight to this category on DoorDash, or stop by 1943 S Coast Hwy &mdash; we're open until midnight, every day.</p>
         <div class="chip-row">
@@ -630,7 +664,7 @@ for slug, c in CATEGORY_PAGES.items():
 {gallery_html}
   <section class="section-tight">
     <div class="container">
-      <div class="ribbon">
+      <div class="ribbon reveal">
         <div>
           <p class="eyebrow" style="color:var(--gold-500);">Keep Browsing</p>
           <h2>See what else we've got stocked.</h2>
