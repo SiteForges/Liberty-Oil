@@ -584,7 +584,7 @@ for slug, c in CATEGORY_PAGES.items():
     if c["gallery"]:
         figs = "\n".join(
             f'''        <figure>
-          <img src="{src}" alt="{alt}" loading="lazy">
+          <div class="figure-media"><img src="{src}" alt="{alt}" loading="lazy"></div>
           <figcaption>{alt}</figcaption>
         </figure>'''
             for src, alt in c["gallery"]
