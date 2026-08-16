@@ -3,68 +3,179 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liberty Oil Inc | Summer Specials</title>
-  <meta name="description" content="Browse current summer specials at Liberty Oil Inc in Oceanside, CA.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <title>Liberty Oil Inc | Weekly Specials</title>
+  <meta name="description" content="Browse this week's specials and deals at Liberty Oil Inc in Oceanside, CA.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="topbar">
     <div class="container topbar-inner">
-      <p>Best sellers and limited-time favorites</p>
+      <span class="open-status"><span class="open-dot"></span>This week's specials, in store now</span>
       <div class="topbar-actions">
         <a href="tel:+17607548045">(760) 754-8045</a>
-        <a class="button button-small button-accent" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">DoorDash Main Store</a>
+        <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">DoorDash main store &rarr;</a>
       </div>
     </div>
   </div>
   <header class="site-header">
-    <div class="container nav">
+    <div class="nav">
       <a class="brand" href="index.html">
-        <span class="brand-mark">L</span>
-        <span><strong>Liberty Oil Inc</strong><small>Oceanside, CA</small></span>
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="10" fill="var(--navy-950)"/>
+  <path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M13 21H23" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M23 16L26.2 18.2C26.7 18.55 27 19.13 27 19.75V26.5C27 27.6 27.9 28.5 29 28.5C30.1 28.5 31 27.6 31 26.5V19" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28.5 15.5L31.5 18.5" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <rect x="15" y="14" width="6" height="4" rx="1" stroke="var(--gold-500)" stroke-width="1.6"/>
+</svg>
+        <span class="brand-text">
+          <strong>Liberty Oil Inc</strong>
+          <small>Oceanside, CA</small>
+        </span>
       </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a class="active" href="specials.html">Specials</a>
-        <a href="beer-wine.html">Beer & Wine</a>
-        <a href="soda-beverage.html">Soda & Beverage</a>
-        <a href="candy.html">Candy</a>
-        <a href="energy-drinks.html">Energy Drinks</a>
-        <a href="snacks.html">Snacks</a>
+      <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a class="active" href="specials.html">Specials</a>
+      <a href="beer-wine.html">Beer & Wine</a>
+      <a href="soda-beverage.html">Soda & Beverage</a>
+      <a href="candy.html">Candy</a>
+      <a href="energy-drinks.html">Energy Drinks</a>
+      <a href="snacks.html">Snacks</a>
       </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+        <a class="btn btn-primary btn-sm" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order Now</a>
+      </div>
     </div>
   </header>
-  <main class="page-layout">
+<main>
     <section class="page-hero">
       <div class="container">
-        <p class="eyebrow">Best Sellers</p>
-        <h1>Best sellers this week at Liberty Oil.</h1>
-        <p class="lede">Check out this week&apos;s featured customer favorites. Deals and availability may vary in store.</p>
-        <div class="inventory-note">Best sellers are available while supplies last. Prices and availability may vary in store.</div>
+        <p class="eyebrow">Weekly Specials</p>
+        <h1>This week's specials at Liberty Oil.</h1>
+        <p class="lede">Six deals in store right now &mdash; from a quick butane refill to a free bag of Peanut M&amp;M's on a $50+ purchase.</p>
+        <div class="inventory-note">While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor.</div>
         <div class="page-actions">
-          <a class="button button-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
-          <span class="text-pill">We're on Bevz</span>
+          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
         </div>
       </div>
     </section>
-    <section class="section">
-      <div class="container section-heading">
-        <p class="eyebrow">Best Sellers This Week</p>
-        <h2>Featured customer favorites.</h2>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">This Week</p>
+          <h2>Six deals, updated weekly.</h2>
+        </div>
+        <p class="sub">New picks go up in-store every week &mdash; here's what's on right now.</p>
       </div>
-      <div class="container specials-flyer-grid">
-        <a class="special-flyer-card current-specials-card" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">
-          <img src="data:image/jpeg;base64,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
-          ">
-        </a>
+      <div class="category-grid reveal-group">
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="7" height="18" rx="2"/><path d="M8 10h7"/><path d="M11.5 3V1.5"/></svg>
+          </div>
+          <h3>Butane Can</h3>
+          <div class="special-price">$3.99</div>
+          <p class="note">Universal lighter refill</p>
+        </div>
+
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5C4 7 8 6 12 6s8 1 8 3.5S16.5 14 12 14 4 12 4 9.5Z"/><path d="M4 9.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+          </div>
+          <h3>Takis Fuego</h3>
+          <div class="special-price">$1.99</div>
+          <p class="note">3.25oz bag</p>
+        </div>
+
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6l.6 3.3a5 5 0 0 1-.8 3.7L12 12l-2.8-3a5 5 0 0 1-.8-3.7L9 2Z"/><path d="M12 12v8"/><path d="M8.5 20h7"/></svg>
+          </div>
+          <h3>Vitamin Water</h3>
+          <div class="special-price">$1.89</div>
+          <p class="note">20oz bottle</p>
+        </div>
+
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5C4 7 8 6 12 6s8 1 8 3.5S16.5 14 12 14 4 12 4 9.5Z"/><path d="M4 9.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg>
+          </div>
+          <h3>Chip Assortment</h3>
+          <div class="special-price">2 for $5</div>
+          <p class="note">Doritos &amp; Cheetos varieties</p>
+        </div>
+
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/></svg>
+          </div>
+          <h3>Celsius Cans</h3>
+          <div class="special-price">$2.49</div>
+          <p class="note">each &mdash; assorted flavors</p>
+        </div>
+
+        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="6" rx="3" transform="rotate(-8 12 12)"/><circle cx="8.3" cy="11" r="1"/><circle cx="15.7" cy="13" r="1"/></svg>
+          </div>
+          <h3>Peanut M&amp;M's</h3>
+          <div class="special-price">Free</div>
+          <p class="note">With any purchase of $50 or more</p>
+        </div>
       </div>
-    </section>
-  </main>
-  <footer class="site-footer"><div class="container footer-grid"><div><h3>Liberty Oil Inc</h3><p>1943 S Coast Hwy, Oceanside, CA 92054</p></div><div><h3>DoorDash</h3><p><a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Main Store</a></p></div><div><h3>Bevz</h3><p>We're on Bevz</p></div></div></footer>
-  <script src="script.js"></script>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="container">
+      <div class="ribbon reveal" style="background:linear-gradient(120deg, var(--navy-800), var(--navy-950) 75%);">
+        <div>
+          <p class="eyebrow" style="color:var(--gold-500);">Every Category</p>
+          <h2>Specials rotate &mdash; the full store doesn't.</h2>
+          <p>Beer &amp; wine, soda, candy, energy drinks, and snacks are stocked every day, special or not.</p>
+        </div>
+        <div class="ribbon-cta">
+          <a class="btn btn-invert" href="index.html#categories">See All Categories</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#f4ecdb" fill-opacity="0.08"/><path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/><path d="M13 21H23" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/></svg>
+          <strong>Liberty Oil Inc</strong>
+        </div>
+        <p style="max-width:32ch;">A family-run gas station and convenience store on South Coast Highway in Oceanside, CA.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <p>1943 S Coast Hwy<br>Oceanside, CA 92054</p>
+        <a href="tel:+17607548045">(760) 754-8045</a>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <p>Sunday &ndash; Saturday</p>
+        <p>7:00 AM &ndash; 12:00 AM</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="about.html">About</a>
+        <a href="specials.html">Specials</a>
+        <a href="index.html#location">Directions &amp; Location</a>
+        <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; Liberty Oil Inc, Oceanside CA.</span>
+      <span>Pier photography: Redideo &amp; Visitor7 via Wikimedia Commons (CC BY-SA)</span>
+    </div>
+  </footer>
+  <script src="assets/js/site.js"></script>
 </body>
 </html>
