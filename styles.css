@@ -213,6 +213,13 @@ html{scroll-behavior:smooth;}
 .cat-arrow svg{width:14px;height:14px;transition:transform .15s ease;}
 .cat-card:hover .cat-arrow svg{transform:translateX(3px);}
 
+/* ---------- specials grid ---------- */
+.special-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);padding:26px;box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:10px;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+.special-item:hover{transform:translateY(-4px);border-color:var(--gold-500);box-shadow:0 18px 34px rgba(10,28,46,0.14);}
+.special-item h3{font-size:17.5px;margin-top:2px;}
+.special-price{font-family:'Fraunces',serif;font-weight:700;font-size:27px;color:var(--gold-600);letter-spacing:-0.01em;}
+.special-item .note{color:var(--ink-600);font-size:13.5px;}
+
 /* ---------- product showcase (category pages) ---------- */
 .showcase{display:grid;grid-template-columns:1.1fr 0.9fr;gap:44px;align-items:center;}
 .showcase-media{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-soft);border:1px solid var(--line);background:var(--sand-50);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:22px;}

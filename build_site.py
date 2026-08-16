@@ -146,7 +146,31 @@ CAT_ICONS = {
     "candy": '<rect x="4" y="9" width="16" height="6" rx="3" transform="rotate(-8 12 12)"/><circle cx="8.3" cy="11" r="1"/><circle cx="15.7" cy="13" r="1"/>',
     "energy-drinks": '<path d="M13 2 5 14h5l-1 8 8-12h-5l1-8Z"/>',
     "specials": '<path d="M12 3l2.3 5.4L20 9l-4.6 4 1.4 6-4.8-3-4.8 3 1.4-6L4 9l5.7-.6L12 3Z"/>',
+    "fuel": '<rect x="8" y="3" width="7" height="18" rx="2"/><path d="M8 10h7"/><path d="M11.5 3V1.5"/>',
 }
+
+SPECIALS_ITEMS = [
+    {"name": "Butane Can", "price": "$3.99", "note": "Universal lighter refill", "icon": "fuel"},
+    {"name": "Takis Fuego", "price": "$1.99", "note": "3.25oz bag", "icon": "snacks"},
+    {"name": "Vitamin Water", "price": "$1.89", "note": "20oz bottle", "icon": "soda-beverage"},
+    {"name": "Chip Assortment", "price": "2 for $5", "note": "Doritos &amp; Cheetos varieties", "icon": "snacks"},
+    {"name": "Celsius Cans", "price": "$2.49", "note": "each &mdash; assorted flavors", "icon": "energy-drinks"},
+    {"name": "Peanut M&amp;M's", "price": "Free", "note": "With any purchase of $50 or more", "icon": "candy"},
+]
+
+
+def specials_grid():
+    cards = []
+    for item in SPECIALS_ITEMS:
+        cards.append(f'''        <div class="special-item reveal">
+          <div class="cat-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{CAT_ICONS[item["icon"]]}</svg>
+          </div>
+          <h3>{item["name"]}</h3>
+          <div class="special-price">{item["price"]}</div>
+          <p class="note">{item["note"]}</p>
+        </div>''')
+    return "\n\n".join(cards)
 
 CATEGORIES = [
     ("beer-wine", "Beer & Wine", "Cold beer picks and wine options for easy stop-ins and quick orders."),
@@ -457,40 +481,31 @@ write("about.html", about_html)
 # SPECIALS
 # ---------------------------------------------------------------------------
 specials_html = head(
-    "Liberty Oil Inc | Specials",
-    "Browse current best sellers and weekly specials at Liberty Oil Inc in Oceanside, CA."
+    "Liberty Oil Inc | Weekly Specials",
+    "Browse this week's specials and deals at Liberty Oil Inc in Oceanside, CA."
 ) + "\n" + topbar(
-    "Best sellers and limited-time favorites", "DoorDash main store", "https://www.doordash.com/convenience/store/24620532"
+    "This week's specials, in store now", "DoorDash main store", "https://www.doordash.com/convenience/store/24620532"
 ) + "\n" + header("specials.html") + f'''
 <main>
 {page_hero(
-    "Best Sellers",
-    "Best sellers this week at Liberty Oil.",
-    "Check out this week's featured customer favorites. Deals and availability may vary in store.",
+    "Weekly Specials",
+    "This week's specials at Liberty Oil.",
+    "Six deals in store right now &mdash; from a quick butane refill to a free bag of Peanut M&amp;M's on a $50+ purchase.",
     '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>',
-    note="Best sellers are available while supplies last. Prices and availability may vary in store."
+    note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
 
   <section class="section">
     <div class="container">
       <div class="section-heading reveal">
         <div>
-          <p class="eyebrow">Best Sellers This Week</p>
-          <h2>Featured customer favorites.</h2>
+          <p class="eyebrow">This Week</p>
+          <h2>Six deals, updated weekly.</h2>
         </div>
+        <p class="sub">New picks go up in-store every week &mdash; here's what's on right now.</p>
       </div>
-      <div class="showcase reveal-group">
-        <a class="showcase-media reveal" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">
-          <img src="assets/optimized/specials.webp" alt="This week's best sellers at Liberty Oil Inc" loading="lazy">
-        </a>
-        <div class="showcase-copy reveal">
-          <h2>Order this week's picks on DoorDash.</h2>
-          <p>Tap the poster to jump straight to our DoorDash storefront, or stop in &mdash; the counter always has the current lineup.</p>
-          <div class="showcase-links">
-            <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
-            <a class="btn btn-ghost" href="index.html#categories">Browse All Categories</a>
-          </div>
-        </div>
+      <div class="category-grid reveal-group">
+{specials_grid()}
       </div>
     </div>
   </section>
