@@ -5,21 +5,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Liberty Oil Inc | Soda & Beverage</title>
   <meta name="description" content="Browse soda and beverage selections at Liberty Oil Inc.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="topbar"><div class="container topbar-inner"><p>Cold drinks and beverage favorites</p><div class="topbar-actions"><a href="tel:+17607548045">(760) 754-8045</a><a class="button button-small button-accent" href="https://www.doordash.com/convenience/store/24620532/category/drinks%20%26%20mixers-814473445767577624" target="_blank" rel="noreferrer">DoorDash Drinks</a></div></div></div>
-  <header class="site-header"><div class="container nav"><a class="brand" href="index.html"><span class="brand-mark">L</span><span><strong>Liberty Oil Inc</strong><small>Oceanside, CA</small></span></a><nav class="nav-links" aria-label="Primary navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="specials.html">Specials</a><a href="beer-wine.html">Beer & Wine</a><a class="active" href="soda-beverage.html">Soda & Beverage</a><a href="candy.html">Candy</a><a href="energy-drinks.html">Energy Drinks</a><a href="snacks.html">Snacks</a></nav></div></header>
-  <main class="page-layout">
-    <section class="page-hero"><div class="container"><p class="eyebrow">Soda & Beverage</p><h1>Cold cooler favorites and bottled drink picks.</h1><p class="lede">This page highlights a clean soda and beverage lineup so the category feels easier to shop fast.</p><div class="inventory-note">This is just a sample of what we carry. There are more options available in store and on DoorDash.</div><div class="click-note">Click the item image below to open this category on DoorDash.</div><div class="page-actions"><a class="button button-primary" href="https://www.doordash.com/convenience/store/24620532/category/drinks%20%26%20mixers-814473445767577624" target="_blank" rel="noreferrer">DoorDash Drinks & Mixers</a><span class="text-pill">We're on Bevz</span></div></div></section>
-    <section class="section"><div class="container gallery-grid">
-      <a class="gallery-card gallery-card-link category-showcase-card" href="https://www.doordash.com/convenience/store/24620532/category/drinks%20%26%20mixers-814473445767577624" target="_blank" rel="noreferrer"><img src="assets/category-soda-beverage-white.png" alt="Soda and beverage product lineup"><div class="gallery-caption">Soda & beverage lineup</div></a>
-    </div></section>
-  </main>
-  <footer class="site-footer"><div class="container footer-grid"><div><h3>Liberty Oil Inc</h3><p>Soda and beverage favorites</p></div><div><h3>DoorDash</h3><p><a href="https://www.doordash.com/convenience/store/24620532/category/drinks%20%26%20mixers-814473445767577624" target="_blank" rel="noreferrer">Drinks & Mixers</a></p></div><div><h3>Bevz</h3><p>We're on Bevz</p></div></div></footer>
-  <script src="script.js"></script>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span class="open-status"><span class="open-dot"></span>Cooler favorites and easy beverage grabs</span>
+      <div class="topbar-actions">
+        <a href="tel:+17607548045">(760) 754-8045</a>
+        <a href="specials.html">This week's specials &rarr;</a>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="nav">
+      <a class="brand" href="index.html">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="10" fill="var(--navy-950)"/>
+  <path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M13 21H23" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M23 16L26.2 18.2C26.7 18.55 27 19.13 27 19.75V26.5C27 27.6 27.9 28.5 29 28.5C30.1 28.5 31 27.6 31 26.5V19" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M28.5 15.5L31.5 18.5" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <rect x="15" y="14" width="6" height="4" rx="1" stroke="var(--gold-500)" stroke-width="1.6"/>
+</svg>
+        <span class="brand-text">
+          <strong>Liberty Oil Inc</strong>
+          <small>Oceanside, CA</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="specials.html">Specials</a>
+      <a href="beer-wine.html">Beer & Wine</a>
+      <a class="active" href="soda-beverage.html">Soda & Beverage</a>
+      <a href="candy.html">Candy</a>
+      <a href="energy-drinks.html">Energy Drinks</a>
+      <a href="snacks.html">Snacks</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+        <a class="btn btn-primary btn-sm" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order Now</a>
+      </div>
+    </div>
+  </header>
+<main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Soda & Beverage</p>
+        <h1>Cooler favorites for every kind of stop.</h1>
+        <p class="lede">Soda, bottled drinks, and everyday beverages &mdash; stocked cold and easy to grab on your way through.</p>
+        <div class="inventory-note">This is a sample of what we carry. There's more in store and on DoorDash.</div>
+        <div class="page-actions">
+            <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532/category/drinks" target="_blank" rel="noreferrer">Shop Beverages on DoorDash</a>
+            <span class="pill-note">Also on Bevz</span>
+        </div>
+      </div>
+    </section>
+
+  <section class="section">
+    <div class="container showcase">
+      <a class="showcase-media" href="https://www.doordash.com/convenience/store/24620532/category/drinks" target="_blank" rel="noreferrer">
+        <img src="assets/optimized/soda-beverage.webp" alt="Soda and beverage product lineup" loading="lazy">
+      </a>
+      <div class="showcase-copy">
+        <h2>Soda & Beverage, stocked and ready.</h2>
+        <p>Tap the image to jump straight to this category on DoorDash, or stop by 1943 S Coast Hwy &mdash; we're open until midnight, every day.</p>
+        <div class="chip-row">
+          <span class="chip">Classic sodas</span>
+          <span class="chip">Bottled water & juice</span>
+          <span class="chip">Iced tea & sports drinks</span>
+          <span class="chip">Always ice cold</span>
+        </div>
+        <div class="showcase-links">
+            <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532/category/drinks" target="_blank" rel="noreferrer">Shop Beverages on DoorDash</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">In Store</p>
+          <h2>A closer look at the soda & beverage aisle.</h2>
+        </div>
+      </div>
+      <div class="mini-gallery">
+        <figure>
+          <img src="assets/soda.avif" alt="Soda, chilled and ready" loading="lazy">
+          <figcaption>Soda, chilled and ready</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/beverage.avif" alt="Bottled beverage favorites" loading="lazy">
+          <figcaption>Bottled beverage favorites</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="container">
+      <div class="ribbon">
+        <div>
+          <p class="eyebrow" style="color:var(--gold-500);">Keep Browsing</p>
+          <h2>See what else we've got stocked.</h2>
+          <p>Six aisles worth checking &mdash; beer &amp; wine, soda, snacks, candy, energy drinks, and weekly specials.</p>
+        </div>
+        <div class="ribbon-cta">
+          <a class="btn btn-invert" href="index.html#categories">Browse All Categories</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+          <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#f4ecdb" fill-opacity="0.08"/><path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/><path d="M13 21H23" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/></svg>
+          <strong>Liberty Oil Inc</strong>
+        </div>
+        <p style="max-width:32ch;">A family-run gas station and convenience store on South Coast Highway in Oceanside, CA.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <p>1943 S Coast Hwy<br>Oceanside, CA 92054</p>
+        <a href="tel:+17607548045">(760) 754-8045</a>
+      </div>
+      <div class="footer-col">
+        <h4>Hours</h4>
+        <p>Sunday &ndash; Saturday</p>
+        <p>7:00 AM &ndash; 12:00 AM</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="about.html">About</a>
+        <a href="specials.html">Specials</a>
+        <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; Liberty Oil Inc, Oceanside CA.</span>
+      <span>1943 S Coast Hwy, Oceanside, CA 92054</span>
+    </div>
+  </footer>
 </body>
 </html>
