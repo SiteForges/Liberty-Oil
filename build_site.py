@@ -190,14 +190,14 @@ CAT_ICONS = {
 }
 
 SPECIALS_ITEMS = [
-    {"name": "Celsius Cans", "price": "$3.79", "note": "Assorted flavors", "icon": "energy-drinks"},
-    {"name": "Ghost Energy", "price": "$2.99", "note": "12oz, with tax", "icon": "energy-drinks"},
-    {"name": "Calypso Lemonade", "price": "2 for $5", "note": "Assorted flavors", "icon": "soda-beverage"},
-    {"name": "Snapple", "price": "2 for $3", "note": "Assorted flavors", "icon": "soda-beverage"},
-    {"name": "Takis Fuego", "price": "$2.69", "note": "each &mdash; or 2 for $5", "icon": "snacks"},
-    {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "icon": "snacks"},
-    {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "icon": "candy"},
-    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "icon": "candy"},
+    {"name": "Celsius Cans", "price": "$3.79", "note": "Assorted flavors", "img": "celsius.webp"},
+    {"name": "Ghost Energy", "price": "$2.99", "note": "12oz, with tax", "img": "ghost.webp"},
+    {"name": "Calypso Lemonade", "price": "2 for $5", "note": "Assorted flavors", "img": "calypso.webp"},
+    {"name": "Snapple", "price": "2 for $3", "note": "Assorted flavors", "img": "snapple.webp"},
+    {"name": "Takis", "price": "$2.69", "note": "each &mdash; or 2 for $5", "img": "takis.webp"},
+    {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "img": "sun.webp"},
+    {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "img": "kozed.webp"},
+    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "img": "welchs.webp"},
 ]
 
 
@@ -205,9 +205,7 @@ def specials_grid():
     cards = []
     for item in SPECIALS_ITEMS:
         cards.append(f'''        <div class="special-item reveal">
-          <div class="cat-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">{CAT_ICONS[item["icon"]]}</svg>
-          </div>
+          <div class="special-media"><img src="assets/specials/{item["img"]}" alt="{item["name"]}" loading="lazy"></div>
           <h3>{item["name"]}</h3>
           <div class="special-price">{item["price"]}</div>
           <p class="note">{item["note"]}</p>
