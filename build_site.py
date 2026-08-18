@@ -70,7 +70,7 @@ def header(active):
     return f'''  <header class="site-header">
     <div class="nav">
       <a class="brand" href="index.html">
-        {FUEL_ICON}
+        <img class="brand-mark" src="assets/icons/logo-header.png" alt="" width="38" height="38">
         <span class="brand-text">
           <strong>Liberty Oil Inc</strong>
           <small>Oceanside, CA</small>
@@ -96,7 +96,7 @@ def footer():
     <div class="container footer-grid">
       <div>
         <div class="footer-brand">
-          <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="10" fill="#f4ecdb" fill-opacity="0.08"/><path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/><path d="M13 21H23" stroke="#e0a03e" stroke-width="2" stroke-linecap="round"/></svg>
+          <img src="assets/icons/logo-header.png" alt="" width="30" height="30">
           <strong>Liberty Oil Inc</strong>
         </div>
         <p style="max-width:32ch;">A family-run gas station and convenience store on South Coast Highway in Oceanside, CA.</p>
