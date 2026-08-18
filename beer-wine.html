@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Liberty Oil Inc | Beer & Wine</title>
   <meta name="description" content="Browse beer and wine selections at Liberty Oil Inc.">
+  <meta name="theme-color" content="#0a1c2e">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,11 +27,12 @@
       <a class="brand" href="index.html">
         <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="40" height="40" rx="10" fill="var(--navy-950)"/>
-  <path d="M13 30V13.5C13 12.1193 14.1193 11 15.5 11H20.5C21.8807 11 23 12.1193 23 13.5V30" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
-  <path d="M13 21H23" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
-  <path d="M23 16L26.2 18.2C26.7 18.55 27 19.13 27 19.75V26.5C27 27.6 27.9 28.5 29 28.5C30.1 28.5 31 27.6 31 26.5V19" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M28.5 15.5L31.5 18.5" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
-  <rect x="15" y="14" width="6" height="4" rx="1" stroke="var(--gold-500)" stroke-width="1.6"/>
+  <path d="M20 8v6" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M20 8c-2.4 0-4 1.8-4 3.6 0 2 4 4.4 4 4.4s4-2.4 4-4.4c0-1.8-1.6-3.6-4-3.6Z" fill="var(--gold-500)"/>
+  <rect x="17.3" y="15" width="5.4" height="3" rx="0.8" stroke="var(--gold-500)" stroke-width="1.5"/>
+  <path d="M18 18v3M22 18v3" stroke="var(--gold-500)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M14 32V22.5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2V32" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 32h16" stroke="var(--gold-500)" stroke-width="2" stroke-linecap="round"/>
 </svg>
         <span class="brand-text">
           <strong>Liberty Oil Inc</strong>
@@ -152,6 +158,31 @@
       <span>Pier photography: Redideo &amp; Visitor7 via Wikimedia Commons (CC BY-SA)</span>
     </div>
   </footer>
+
+  <div class="ai-widget" id="aiWidget">
+    <div class="ai-panel" id="aiPanel" hidden>
+      <div class="ai-panel-head">
+        <strong>Liberty Oil AI</strong>
+        <button class="ai-close" id="aiClose" aria-label="Close">&times;</button>
+      </div>
+      <p>Quick links:</p>
+      <a class="btn btn-primary btn-sm" href="tel:+17607548045">Call the Store</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+      <a class="btn btn-ghost btn-sm" href="specials.html">This Week's Specials</a>
+    </div>
+    <button class="ai-bubble" id="aiBubble" aria-label="Liberty Oil AI" aria-expanded="false">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 8v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M20 8c-2.4 0-4 1.8-4 3.6 0 2 4 4.4 4 4.4s4-2.4 4-4.4c0-1.8-1.6-3.6-4-3.6Z" fill="currentColor"/>
+        <rect x="17.3" y="15" width="5.4" height="3" rx="0.8" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M18 18v3M22 18v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14 32V22.5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2V32" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 32h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
   <script src="assets/js/site.js"></script>
 </body>
 </html>
