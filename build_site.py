@@ -190,14 +190,14 @@ CAT_ICONS = {
 }
 
 SPECIALS_ITEMS = [
-    {"name": "Celsius Cans", "price": "$3.79", "note": "Assorted flavors", "img": "celsius.webp"},
-    {"name": "Ghost Energy", "price": "$2.99", "note": "12oz, with tax", "img": "ghost.webp"},
-    {"name": "Calypso Lemonade", "price": "2 for $5", "note": "Assorted flavors", "img": "calypso.webp"},
-    {"name": "Snapple", "price": "2 for $3", "note": "Assorted flavors", "img": "snapple.webp"},
-    {"name": "Takis", "price": "$2.69", "note": "each &mdash; or 2 for $5", "img": "takis.webp"},
-    {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "img": "sun.webp"},
-    {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "img": "kozed.webp"},
-    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "img": "welchs.webp"},
+    {"name": "Celsius Cans", "price": "$3.79", "note": "Assorted flavors", "img": "celsius.webp", "w": 402, "h": 497},
+    {"name": "Ghost Energy", "price": "$2.99", "note": "12oz, with tax", "img": "ghost.webp", "w": 215, "h": 235},
+    {"name": "Calypso Lemonade", "price": "2 for $5", "note": "Assorted flavors", "img": "calypso.webp", "w": 375, "h": 500},
+    {"name": "Snapple", "price": "2 for $3", "note": "Assorted flavors", "img": "snapple.webp", "w": 461, "h": 500},
+    {"name": "Takis", "price": "$2.69", "note": "each &mdash; or 2 for $5", "img": "takis.webp", "w": 500, "h": 500},
+    {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "img": "sun.webp", "w": 371, "h": 500},
+    {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "img": "kozed.webp", "w": 500, "h": 413},
+    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "img": "welchs.webp", "w": 500, "h": 500},
 ]
 
 
@@ -205,7 +205,7 @@ def specials_grid():
     cards = []
     for item in SPECIALS_ITEMS:
         cards.append(f'''        <div class="special-item reveal">
-          <div class="special-media"><img src="assets/specials/{item["img"]}" alt="{item["name"]}" loading="lazy"></div>
+          <div class="special-media"><img src="assets/specials/{item["img"]}" alt="{item["name"]}" width="{item["w"]}" height="{item["h"]}" loading="lazy"></div>
           <h3>{item["name"]}</h3>
           <div class="special-price">{item["price"]}</div>
           <p class="note">{item["note"]}</p>
