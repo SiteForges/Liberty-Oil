@@ -188,7 +188,7 @@ SPECIALS_ITEMS = [
     {"name": "Takis Fuego", "price": "$2.69", "note": "each &mdash; or 2 for $5", "icon": "snacks"},
     {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "icon": "snacks"},
     {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "icon": "candy"},
-    {"name": "Crunchy Munchies Almonds", "price": "Best Seller", "note": "Get in for a good deal", "icon": "snacks"},
+    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "icon": "candy"},
 ]
 
 
