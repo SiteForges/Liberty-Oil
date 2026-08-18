@@ -21,6 +21,22 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  // Mobile hamburger menu.
+  var navToggle = document.getElementById("navToggle");
+  var navLinks = document.getElementById("navLinks");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function () {
+      var isOpen = navLinks.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+    navLinks.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        navLinks.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   // Scroll-reveal: only opt in if motion is allowed and the browser supports it.
   if (reduceMotion || !("IntersectionObserver" in window)) {
     return;
@@ -137,6 +153,67 @@
     if (e.key === "Escape") {
       panel.setAttribute("hidden", "");
       bubble.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Simple Q&A: answer directly, or navigate the visitor to the right page.
+  var form = document.getElementById("aiForm");
+  var input = document.getElementById("aiInput");
+  var log = document.getElementById("aiLog");
+  if (!form || !input || !log) return;
+
+  var RULES = [
+    { test: /hour|open|close|time/i, reply: "We're open every day, 7:00 AM to 12:00 AM (midnight)." },
+    { test: /special|deal|discount|sale/i, reply: "Taking you to this week's specials…", go: "specials.html" },
+    { test: /direction|address|where.*(you|store|located)|located|find you/i, reply: "1943 S Coast Hwy, Oceanside, CA 92054 — opening directions…", go: "https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" },
+    { test: /phone|call|number/i, reply: "You can reach us at (760) 754-8045." },
+    { test: /doordash|deliver|order/i, reply: "Opening our DoorDash store…", go: "https://www.doordash.com/convenience/store/24620532" },
+    { test: /beer|wine/i, reply: "Taking you to Beer & Wine…", go: "beer-wine.html" },
+    { test: /soda|beverage|drink(?!.*energy)/i, reply: "Taking you to Soda & Beverage…", go: "soda-beverage.html" },
+    { test: /snack|chip/i, reply: "Taking you to Snacks…", go: "snacks.html" },
+    { test: /candy|sweet|gummy/i, reply: "Taking you to Candy…", go: "candy.html" },
+    { test: /energy/i, reply: "Taking you to Energy Drinks…", go: "energy-drinks.html" },
+    { test: /about|family|story/i, reply: "Taking you to our About page…", go: "about.html" },
+    { test: /gas|fuel|price/i, reply: "We're known for low gas prices — stop by 1943 S Coast Hwy any time, 7 AM to midnight." },
+    { test: /pier|beach|ocean/i, reply: "We're just up South Coast Highway from Oceanside Pier — see the map on our homepage." },
+  ];
+
+  function addMsg(text, isUser) {
+    var p = document.createElement("p");
+    p.className = "ai-msg" + (isUser ? " user" : "");
+    p.textContent = text;
+    log.appendChild(p);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var q = input.value.trim();
+    if (!q) return;
+    addMsg(q, true);
+    input.value = "";
+
+    var matched = null;
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i].test.test(q)) {
+        matched = RULES[i];
+        break;
+      }
+    }
+
+    if (matched) {
+      addMsg(matched.reply, false);
+      if (matched.go) {
+        setTimeout(function () {
+          if (/^https?:/.test(matched.go)) {
+            window.open(matched.go, "_blank", "noreferrer");
+          } else {
+            location.href = matched.go;
+          }
+        }, 700);
+      }
+    } else {
+      addMsg("I can help with hours, specials, directions, our phone number, or what we carry — try asking one of those.", false);
     }
   });
 })();

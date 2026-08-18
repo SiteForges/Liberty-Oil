@@ -76,12 +76,16 @@ def header(active):
           <small>Oceanside, CA</small>
         </span>
       </a>
-      <nav class="nav-links" aria-label="Primary">
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
 {links_html}
+        <a class="btn btn-ghost nav-links-cta" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
       </nav>
       <div class="nav-cta">
         <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
         <a class="btn btn-primary btn-sm" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order Now</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
       </div>
     </div>
   </header>'''
@@ -127,11 +131,16 @@ def footer():
         <strong>Liberty Oil AI</strong>
         <button class="ai-close" id="aiClose" aria-label="Close">&times;</button>
       </div>
-      <p>Quick links:</p>
-      <a class="btn btn-primary btn-sm" href="tel:+17607548045">Call the Store</a>
-      <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
-      <a class="btn btn-ghost btn-sm" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
-      <a class="btn btn-ghost btn-sm" href="specials.html">This Week's Specials</a>
+      <div class="ai-log" id="aiLog"><p class="ai-msg">Hi! Ask me about hours, specials, directions, or what we carry.</p></div>
+      <form class="ai-form" id="aiForm">
+        <input class="ai-input" id="aiInput" type="text" placeholder="Ask a question&hellip;" autocomplete="off">
+        <button class="btn btn-primary btn-sm" type="submit">Ask</button>
+      </form>
+      <div class="ai-quick">
+        <a class="btn btn-ghost btn-sm" href="tel:+17607548045">Call</a>
+        <a class="btn btn-ghost btn-sm" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Directions</a>
+        <a class="btn btn-ghost btn-sm" href="specials.html">Specials</a>
+      </div>
     </div>
     <button class="ai-bubble" id="aiBubble" aria-label="Liberty Oil AI" aria-expanded="false">
       <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -523,7 +532,7 @@ specials_html = head(
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
-    "Six deals in store right now &mdash; from a quick butane refill to a free bag of Peanut M&amp;M's on a $50+ purchase.",
+    "Eight deals in store right now &mdash; from Celsius and Ghost Energy to free Welch's Fruit Snacks on a $50+ purchase.",
     '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>',
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
