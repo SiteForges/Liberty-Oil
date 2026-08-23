@@ -428,7 +428,10 @@ html{scroll-behavior:smooth;}
     var(--navy-700) 90deg 135deg, var(--gold-600) 135deg 180deg,
     var(--navy-800) 180deg 225deg, var(--gold-500) 225deg 270deg,
     var(--navy-700) 270deg 315deg, var(--gold-600) 315deg 360deg);
-  transition:transform 4.5s cubic-bezier(.12,.72,.13,1);
+  transition:transform 5.2s cubic-bezier(0.18,0.65,0.24,1);
+  will-change:transform;
+  backface-visibility:hidden;
+  transform:translateZ(0) rotate(0deg);
 }
 .wheel-label{
   position:absolute;top:50%;left:50%;width:48%;height:0;

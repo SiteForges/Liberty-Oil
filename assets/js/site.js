@@ -293,7 +293,7 @@
     spinBtn.textContent = "Spin the Wheel";
     subEl.textContent = "One free spin every 12 hours \u2014 good luck.";
     disc.style.transition = "none";
-    disc.style.transform = "rotate(0deg)";
+    disc.style.transform = "translateZ(0) rotate(0deg)";
     void disc.offsetWidth; // force reflow so the next spin animates from 0
     backdrop.hidden = false;
   }
@@ -315,14 +315,15 @@
     if (spinBtn.disabled) return;
     spinBtn.disabled = true;
 
+    var SPIN_DURATION_MS = 5200;
     var targetIndex = Math.floor(Math.random() * PRIZES.length);
     var centerAngle = targetIndex * SEGMENT_DEG + SEGMENT_DEG / 2;
-    var jitter = (Math.random() - 0.5) * (SEGMENT_DEG * 0.6);
-    var fullSpins = 6;
+    var jitter = (Math.random() - 0.5) * (SEGMENT_DEG * 0.55);
+    var fullSpins = 7;
     var rotation = fullSpins * 360 + (360 - centerAngle) + jitter;
 
-    disc.style.transition = "transform 4.5s cubic-bezier(.12,.72,.13,1)";
-    disc.style.transform = "rotate(" + rotation + "deg)";
+    disc.style.transition = "transform " + SPIN_DURATION_MS + "ms cubic-bezier(0.18,0.65,0.24,1)";
+    disc.style.transform = "translateZ(0) rotate(" + rotation + "deg)";
 
     var nextAt = Date.now() + COOLDOWN_MS;
     setTimeout(function () {
@@ -331,10 +332,10 @@
       resultEl.textContent =
         prize === "Try Again Later"
           ? "So close! No prize this time \u2014 come back in 12 hours."
-          : "You won: " + prize + "! Show this screen at checkout.";
+          : "You won: " + prize + "! Show this screen at checkout, or take a screenshot to show on your next visit. One-time use only per spin.";
       subEl.textContent = "Your next spin unlocks in 12 hours.";
       setNextAvailableAt(nextAt);
       refreshSlot();
-    }, 4600);
+    }, SPIN_DURATION_MS + 150);
   });
 })();
