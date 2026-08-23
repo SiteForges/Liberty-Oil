@@ -315,18 +315,29 @@
     if (spinBtn.disabled) return;
     spinBtn.disabled = true;
 
-    var SPIN_DURATION_MS = 5200;
     var targetIndex = Math.floor(Math.random() * PRIZES.length);
     var centerAngle = targetIndex * SEGMENT_DEG + SEGMENT_DEG / 2;
     var jitter = (Math.random() - 0.5) * (SEGMENT_DEG * 0.55);
     var fullSpins = 7;
     var rotation = fullSpins * 360 + (360 - centerAngle) + jitter;
 
-    disc.style.transition = "transform " + SPIN_DURATION_MS + "ms cubic-bezier(0.18,0.65,0.24,1)";
+    // openModal() sets an inline transition:none to reset the disc without
+    // animating; clear it here so the stylesheet's real transition applies.
+    disc.style.transition = "";
+    void disc.offsetWidth;
+
+    // Read the actual CSS transition duration rather than assuming it --
+    // prefers-reduced-motion shortens it, and the reveal has to match
+    // whatever really plays or it can fire way too early/late.
+    var durationMs = parseFloat(getComputedStyle(disc).transitionDuration) * 1000 || 3600;
+
     disc.style.transform = "translateZ(0) rotate(" + rotation + "deg)";
 
     var nextAt = Date.now() + COOLDOWN_MS;
-    setTimeout(function () {
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
       var prize = PRIZES[targetIndex];
       resultEl.hidden = false;
       resultEl.textContent =
@@ -336,6 +347,15 @@
       subEl.textContent = "Your next spin unlocks in 12 hours.";
       setNextAvailableAt(nextAt);
       refreshSlot();
-    }, SPIN_DURATION_MS + 150);
+    }
+    disc.addEventListener(
+      "transitionend",
+      function (e) {
+        if (e.propertyName === "transform") reveal();
+      },
+      { once: true }
+    );
+    // Safety net in case transitionend never fires (interrupted, tab backgrounded, etc).
+    setTimeout(reveal, durationMs + 400);
   });
 })();
