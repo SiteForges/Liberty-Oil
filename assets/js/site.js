@@ -217,3 +217,124 @@
     }
   });
 })();
+
+// Spin-to-win wheel: one free spin every 12 hours, tracked per-browser via
+// localStorage. The "_v1" key is versioned on purpose -- bumping it in a
+// future update instantly resets the cooldown for every visitor.
+(function () {
+  "use strict";
+  var STORAGE_KEY = "libertyOilWheel_v1";
+  var COOLDOWN_MS = 12 * 60 * 60 * 1000;
+
+  var PRIZES = [
+    "$1 Off Purchase",
+    "Free Fountain Drink",
+    "10% Off Snacks",
+    "$3 Off $20+",
+    "Free Candy Bar",
+    "Try Again Later",
+    "$1 Off Purchase",
+    "Free Coffee",
+  ];
+  var SEGMENT_DEG = 360 / PRIZES.length;
+
+  var slot = document.getElementById("spinSlot");
+  var backdrop = document.getElementById("wheelBackdrop");
+  var closeBtn = document.getElementById("wheelClose");
+  var disc = document.getElementById("wheelDisc");
+  var spinBtn = document.getElementById("wheelSpinBtn");
+  var resultEl = document.getElementById("wheelResult");
+  var subEl = document.getElementById("wheelSub");
+  if (!slot || !backdrop || !disc || !spinBtn) return;
+
+  function getNextAvailableAt() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      return raw && typeof raw.nextAvailableAt === "number" ? raw.nextAvailableAt : 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function setNextAvailableAt(ts) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ nextAvailableAt: ts }));
+    } catch (e) {}
+  }
+
+  function formatCountdown(ms) {
+    var totalSec = Math.max(0, Math.ceil(ms / 1000));
+    var h = Math.floor(totalSec / 3600);
+    var m = Math.floor((totalSec % 3600) / 60);
+    var s = totalSec % 60;
+    if (h > 0) return "Next spin: " + h + "h " + m + "m";
+    if (m > 0) return "Next spin: " + m + "m " + s + "s";
+    return "Next spin: " + s + "s";
+  }
+
+  function refreshSlot() {
+    var remaining = getNextAvailableAt() - Date.now();
+    if (remaining > 0) {
+      slot.disabled = true;
+      slot.textContent = formatCountdown(remaining);
+    } else {
+      slot.disabled = false;
+      slot.textContent = "\uD83C\uDFA1 Spin & Win";
+    }
+  }
+
+  refreshSlot();
+  setInterval(refreshSlot, 1000);
+
+  function openModal() {
+    if (getNextAvailableAt() - Date.now() > 0) return;
+    resultEl.hidden = true;
+    spinBtn.disabled = false;
+    spinBtn.textContent = "Spin the Wheel";
+    subEl.textContent = "One free spin every 12 hours \u2014 good luck.";
+    disc.style.transition = "none";
+    disc.style.transform = "rotate(0deg)";
+    void disc.offsetWidth; // force reflow so the next spin animates from 0
+    backdrop.hidden = false;
+  }
+
+  function closeModal() {
+    backdrop.hidden = true;
+  }
+
+  slot.addEventListener("click", openModal);
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  backdrop.addEventListener("click", function (e) {
+    if (e.target === backdrop) closeModal();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !backdrop.hidden) closeModal();
+  });
+
+  spinBtn.addEventListener("click", function () {
+    if (spinBtn.disabled) return;
+    spinBtn.disabled = true;
+
+    var targetIndex = Math.floor(Math.random() * PRIZES.length);
+    var centerAngle = targetIndex * SEGMENT_DEG + SEGMENT_DEG / 2;
+    var jitter = (Math.random() - 0.5) * (SEGMENT_DEG * 0.6);
+    var fullSpins = 6;
+    var rotation = fullSpins * 360 + (360 - centerAngle) + jitter;
+
+    disc.style.transition = "transform 4.5s cubic-bezier(.12,.72,.13,1)";
+    disc.style.transform = "rotate(" + rotation + "deg)";
+
+    var nextAt = Date.now() + COOLDOWN_MS;
+    setTimeout(function () {
+      var prize = PRIZES[targetIndex];
+      resultEl.hidden = false;
+      resultEl.textContent =
+        prize === "Try Again Later"
+          ? "So close! No prize this time \u2014 come back in 12 hours."
+          : "You won: " + prize + "! Show this screen at checkout.";
+      subEl.textContent = "Your next spin unlocks in 12 hours.";
+      setNextAvailableAt(nextAt);
+      refreshSlot();
+    }, 4600);
+  });
+})();

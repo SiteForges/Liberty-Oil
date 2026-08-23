@@ -19,6 +19,7 @@
       <div class="topbar-actions">
         <a href="tel:+17607548045">(760) 754-8045</a>
         <a href="specials.html">See this week's specials &rarr;</a>
+        <button class="spin-slot" id="spinSlot" type="button"></button>
       </div>
     </div>
   </div>
@@ -319,6 +320,30 @@
       <span>Pier photography: Redideo &amp; Visitor7 via Wikimedia Commons (CC BY-SA)</span>
     </div>
   </footer>
+
+  <div class="wheel-backdrop" id="wheelBackdrop" hidden>
+    <div class="wheel-modal" role="dialog" aria-modal="true" aria-label="Spin to win">
+      <button class="wheel-close" id="wheelClose" aria-label="Close">&times;</button>
+      <p class="eyebrow" style="color:var(--gold-500);">Spin To Win</p>
+      <h3>Give it a spin!</h3>
+      <p class="wheel-sub" id="wheelSub">One free spin every 12 hours &mdash; good luck.</p>
+      <div class="wheel-stage">
+        <div class="wheel-pointer"></div>
+        <div class="wheel-disc" id="wheelDisc">
+          <span class="wheel-label" style="--i:0">$1 Off Purchase</span>
+          <span class="wheel-label" style="--i:1">Free Fountain Drink</span>
+          <span class="wheel-label" style="--i:2">10% Off Snacks</span>
+          <span class="wheel-label" style="--i:3">$3 Off $20+</span>
+          <span class="wheel-label" style="--i:4">Free Candy Bar</span>
+          <span class="wheel-label" style="--i:5">Try Again Later</span>
+          <span class="wheel-label" style="--i:6">$1 Off Purchase</span>
+          <span class="wheel-label" style="--i:7">Free Coffee</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="wheelSpinBtn" type="button">Spin the Wheel</button>
+      <p class="wheel-result" id="wheelResult" hidden></p>
+    </div>
+  </div>
 
   <div class="ai-widget" id="aiWidget">
     <div class="ai-panel" id="aiPanel" hidden>
