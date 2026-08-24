@@ -293,7 +293,7 @@
     void disc.offsetWidth; // force reflow so the next spin animates from 0
 
     if (onCooldown) {
-      var prize = getLastPrize();
+      var prize = PRIZES[0]; // only one prize exists; ignore any stale saved text
       spinBtn.disabled = true;
       spinBtn.textContent = "Already Spun";
       subEl.textContent = "Your next spin unlocks in 12 hours.";
