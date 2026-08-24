@@ -226,16 +226,7 @@
   var STORAGE_KEY = "libertyOilWheel_v1";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
-  var PRIZES = [
-    "$1 Off Purchase",
-    "Free Fountain Drink",
-    "10% Off Snacks",
-    "$3 Off $20+",
-    "Free Candy Bar",
-    "Try Again Later",
-    "$1 Off Purchase",
-    "Free Coffee",
-  ];
+  var PRIZES = ["Free Welch's Fruit Snacks"];
   var SEGMENT_DEG = 360 / PRIZES.length;
 
   var slot = document.getElementById("spinSlot");
