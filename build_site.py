@@ -170,7 +170,7 @@ def footer():
     </button>
   </div>
 
-  <script src="assets/js/site.js"></script>
+  <script src="assets/js/site.js?v=3"></script>
 </body>
 </html>'''
 
