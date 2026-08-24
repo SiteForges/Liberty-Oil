@@ -408,7 +408,8 @@ html{scroll-behavior:smooth;}
   padding:6px 13px;cursor:pointer;white-space:nowrap;
   font-variant-numeric:tabular-nums;
 }
-.spin-slot:disabled{background:transparent;color:#aebccb;border:1px solid rgba(255,255,255,0.2);cursor:default;font-weight:600;}
+.spin-slot:disabled,.spin-slot-cooldown{background:transparent;color:#aebccb;border:1px solid rgba(255,255,255,0.2);font-weight:600;}
+.spin-slot-cooldown{cursor:pointer;}
 .spin-slot:empty{display:none;}
 
 /* ---------- spin-to-win wheel modal ---------- */

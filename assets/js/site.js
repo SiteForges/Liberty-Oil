@@ -226,7 +226,7 @@
   var STORAGE_KEY = "libertyOilWheel_v1";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
-  var PRIZES = ["Free Welch's Fruit Snacks"];
+  var PRIZES = ["Free with $50+ purchase"];
   var SEGMENT_DEG = 360 / PRIZES.length;
 
   var slot = document.getElementById("spinSlot");
@@ -238,18 +238,26 @@
   var subEl = document.getElementById("wheelSub");
   if (!slot || !backdrop || !disc || !spinBtn) return;
 
-  function getNextAvailableAt() {
+  function getState() {
     try {
-      var raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-      return raw && typeof raw.nextAvailableAt === "number" ? raw.nextAvailableAt : 0;
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || {};
     } catch (e) {
-      return 0;
+      return {};
     }
   }
 
-  function setNextAvailableAt(ts) {
+  function getNextAvailableAt() {
+    var raw = getState();
+    return typeof raw.nextAvailableAt === "number" ? raw.nextAvailableAt : 0;
+  }
+
+  function getLastPrize() {
+    return getState().lastPrize || "";
+  }
+
+  function setSpinResult(ts, prize) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ nextAvailableAt: ts }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ nextAvailableAt: ts, lastPrize: prize }));
     } catch (e) {}
   }
 
@@ -265,11 +273,12 @@
 
   function refreshSlot() {
     var remaining = getNextAvailableAt() - Date.now();
+    slot.disabled = false;
     if (remaining > 0) {
-      slot.disabled = true;
+      slot.classList.add("spin-slot-cooldown");
       slot.textContent = formatCountdown(remaining);
     } else {
-      slot.disabled = false;
+      slot.classList.remove("spin-slot-cooldown");
       slot.textContent = "\uD83C\uDFA1 Spin & Win";
     }
   }
@@ -278,14 +287,26 @@
   setInterval(refreshSlot, 1000);
 
   function openModal() {
-    if (getNextAvailableAt() - Date.now() > 0) return;
-    resultEl.hidden = true;
-    spinBtn.disabled = false;
-    spinBtn.textContent = "Spin the Wheel";
-    subEl.textContent = "One free spin every 12 hours \u2014 good luck.";
+    var onCooldown = getNextAvailableAt() - Date.now() > 0;
     disc.style.transition = "none";
     disc.style.transform = "translateZ(0) rotate(0deg)";
     void disc.offsetWidth; // force reflow so the next spin animates from 0
+
+    if (onCooldown) {
+      var prize = getLastPrize();
+      spinBtn.disabled = true;
+      spinBtn.textContent = "Already Spun";
+      subEl.textContent = "Your next spin unlocks in 12 hours.";
+      resultEl.hidden = !prize;
+      if (prize) {
+        resultEl.textContent = "You won: " + prize + "! Show this screen at checkout, or take a screenshot to show on your next visit. One-time use only per spin.";
+      }
+    } else {
+      resultEl.hidden = true;
+      spinBtn.disabled = false;
+      spinBtn.textContent = "Spin the Wheel";
+      subEl.textContent = "Free with $50+ purchase this week.";
+    }
     backdrop.hidden = false;
   }
 
@@ -336,7 +357,7 @@
           ? "So close! No prize this time \u2014 come back in 12 hours."
           : "You won: " + prize + "! Show this screen at checkout, or take a screenshot to show on your next visit. One-time use only per spin.";
       subEl.textContent = "Your next spin unlocks in 12 hours.";
-      setNextAvailableAt(nextAt);
+      setSpinResult(nextAt, prize);
       refreshSlot();
     }
     disc.addEventListener(
