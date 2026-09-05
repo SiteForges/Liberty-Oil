@@ -100,7 +100,7 @@ def footer():
           <img src="assets/icons/logo-header.png" alt="" width="30" height="30">
           <strong>Liberty Oil Inc</strong>
         </div>
-        <p style="max-width:32ch;">A family-run gas station and convenience store on South Coast Highway in Oceanside, CA.</p>
+        <p>A family-run gas station and convenience store on South Coast Highway in Oceanside, CA.</p>
       </div>
       <div class="footer-col">
         <h4>Visit</h4>
@@ -129,7 +129,7 @@ def footer():
   <div class="wheel-backdrop" id="wheelBackdrop" hidden>
     <div class="wheel-modal" role="dialog" aria-modal="true" aria-label="Spin to win">
       <button class="wheel-close" id="wheelClose" aria-label="Close">&times;</button>
-      <p class="eyebrow" style="color:var(--gold-500);">Spin To Win</p>
+      <p class="eyebrow">Spin To Win</p>
       <h3>Give it a spin!</h3>
       <p class="wheel-sub" id="wheelSub">Free Welch's Fruit Snacks with any $50+ purchase this week.</p>
       <div class="wheel-stage">
@@ -358,7 +358,7 @@ index_html = head(
     <div class="container">
       <div class="ribbon reveal">
         <div>
-          <p class="eyebrow" style="color:var(--gold-500);">This Week</p>
+          <p class="eyebrow">This Week</p>
           <h2>New specials go up in-store every week.</h2>
           <p>Grocery-style grabs and featured convenience picks &mdash; ask at the counter or check DoorDash for what's currently discounted.</p>
         </div>
@@ -392,7 +392,7 @@ index_html = head(
         <h2>Run by a family, not a franchise.</h2>
         <p>Liberty Oil Inc has been Oceanside's fast, friendly stop on South Coast Highway &mdash; the kind of place where the owners know your order and the gas prices don't punish you for filling up close to home.</p>
         <p>Alongside the pumps, the store is stocked with what people actually reach for on a quick stop: cold beer and wine, soda and bottled drinks, chips and snacks, candy, and energy drinks &mdash; plus rotating weekly specials.</p>
-        <div style="margin-top:26px;">
+        <div>
           <a class="btn btn-ghost" href="about.html">More About Us</a>
         </div>
       </div>
@@ -422,7 +422,7 @@ index_html = head(
     </div>
   </section>
 
-  <section class="section-tight" id="reviews" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <section class="section-tight band" id="reviews">
     <div class="container">
       <div class="section-heading reveal">
         <div>
@@ -477,7 +477,7 @@ about_html = head(
         <h2>We keep the stop simple and useful.</h2>
         <p>People come to Liberty Oil Inc for low gas prices, a friendly local feel, and a store stocked with the things they actually want to grab quickly. From beer and wine to soda, candy, energy drinks, and snacks, the focus is on speed, convenience, and a welcoming stop every time.</p>
         <p>Our store is set up to help customers get in, get what they need, and get moving &mdash; whether that's a morning commute, an afternoon drink stop, or a late-night snack run.</p>
-        <div style="margin-top:26px;">
+        <div>
           <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
         </div>
       </div>
@@ -515,7 +515,7 @@ about_html = head(
     </div>
   </section>
 
-  <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <section class="section-tight band">
     <div class="container">
       <div class="section-heading reveal">
         <div>
@@ -566,11 +566,11 @@ specials_html = head(
     </div>
   </section>
 
-  <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <section class="section-tight band">
     <div class="container">
-      <div class="ribbon reveal" style="background:linear-gradient(120deg, var(--navy-800), var(--navy-950) 75%);">
+      <div class="ribbon reveal">
         <div>
-          <p class="eyebrow" style="color:var(--gold-500);">Every Category</p>
+          <p class="eyebrow">Every Category</p>
           <h2>Specials rotate &mdash; the full store doesn't.</h2>
           <p>Beer &amp; wine, soda, candy, energy drinks, and snacks are stocked every day, special or not.</p>
         </div>
@@ -695,7 +695,7 @@ for slug, c in CATEGORY_PAGES.items():
             for src, alt in c["gallery"]
         )
         gallery_html = f'''
-  <section class="section-tight" style="background:var(--sand-50);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <section class="section-tight band">
     <div class="container">
       <div class="section-heading reveal">
         <div>
@@ -737,7 +737,7 @@ for slug, c in CATEGORY_PAGES.items():
     <div class="container">
       <div class="ribbon reveal">
         <div>
-          <p class="eyebrow" style="color:var(--gold-500);">Keep Browsing</p>
+          <p class="eyebrow">Keep Browsing</p>
           <h2>See what else we've got stocked.</h2>
           <p>Six aisles worth checking &mdash; beer &amp; wine, soda, snacks, candy, energy drinks, and weekly specials.</p>
         </div>
