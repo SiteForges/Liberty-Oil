@@ -117,7 +117,7 @@ def footer():
         <a href="about.html">About</a>
         <a href="specials.html">Specials</a>
         <a href="index.html#location">Directions &amp; Location</a>
-        <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+        <a href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash &middot; Free Delivery</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -170,7 +170,7 @@ def footer():
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=3"></script>
+  <script src="assets/js/site.js?v=4"></script>
 </body>
 </html>'''
 
@@ -287,7 +287,7 @@ index_html = head(
         <p class="lede">Liberty Oil Inc is a family-run gas station and convenience store in Oceanside &mdash; low prices at the pump, a cooler stocked with the drinks people actually want, and the kind of friendly service that keeps people coming back.</p>
         <div class="hero-cta-row">
           <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
-          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>\n<span class="free-tag">Free Delivery</span>
         </div>
       </div>
       <aside class="signpost">
@@ -373,7 +373,7 @@ index_html = head(
     <div class="container">
       <div class="delivery-single reveal">
         <div>
-          <span class="badge">DoorDash</span>
+          <span class="badge">DoorDash <span class="free-tag">Free Delivery</span></span>
           <h3>Order the full store without making the trip.</h3>
           <p>Every category we carry, delivered &mdash; drinks, snacks, candy, and specials in one order.</p>
         </div>
@@ -468,7 +468,7 @@ about_html = head(
     "About",
     "Local, welcoming, and built around quick convenience.",
     "Liberty Oil Inc is a family-run stop where fuel, drinks, snacks, and everyday convenience all come together in one easy location.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>'
+    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>\n<span class="free-tag">Free Delivery</span>'
 )}
 
   <section class="section">
@@ -547,7 +547,7 @@ specials_html = head(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
     "Eight deals in store right now &mdash; from Celsius and Ghost Energy to free Welch's Fruit Snacks on a $50+ purchase.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>',
+    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n<span class="free-tag">Free Delivery</span>',
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
 
@@ -713,7 +713,7 @@ for slug, c in CATEGORY_PAGES.items():
         c["topbar_msg"], "This week's specials", "specials.html", cta_external=False
     ) + "\n" + header(f"{slug}.html") + f'''
 <main>
-{page_hero(c["eyebrow"], c["h1"], c["lede"], links_html, note="This is a sample of what we carry. There's more in store and on DoorDash.")}
+{page_hero(c["eyebrow"], c["h1"], c["lede"], links_html + chr(10) + '          <span class="free-tag">Free Delivery</span>', note="This is a sample of what we carry. There's more in store and on DoorDash.")}
 
   <section class="section">
     <div class="container showcase">

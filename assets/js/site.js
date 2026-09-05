@@ -371,3 +371,68 @@
     setTimeout(reveal, durationMs + 400);
   });
 })();
+
+// 3D pointer tilt on cards + hero parallax.
+// Progressive: skipped entirely for reduced-motion and non-hover (touch)
+// devices, and everything is transform-only so it stays on the compositor.
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (reduce || !canHover) return;
+
+  var MAX_TILT = 7; // degrees, kept subtle on purpose
+  var cards = document.querySelectorAll(".cat-card, .special-item");
+  var frame = null;
+
+  cards.forEach(function (card) {
+    var rect = null;
+
+    function onEnter() {
+      rect = card.getBoundingClientRect();
+      card.classList.add("tilt");
+    }
+
+    function onMove(e) {
+      if (!rect) rect = card.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width;   // 0..1
+      var py = (e.clientY - rect.top) / rect.height;   // 0..1
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(function () {
+        var ry = (px - 0.5) * (MAX_TILT * 2);
+        var rx = (0.5 - py) * (MAX_TILT * 2);
+        card.style.transform =
+          "perspective(1100px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" +
+          ry.toFixed(2) + "deg) translateY(-4px)";
+        card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      });
+    }
+
+    function onLeave() {
+      if (frame) cancelAnimationFrame(frame);
+      card.classList.remove("tilt");
+      card.style.transform = "";
+      rect = null;
+    }
+
+    card.addEventListener("pointerenter", onEnter);
+    card.addEventListener("pointermove", onMove);
+    card.addEventListener("pointerleave", onLeave);
+  });
+
+  // Hero spec card drifts slightly as you scroll -- depth, not motion sickness.
+  var signpost = document.querySelector(".hero .signpost");
+  if (signpost) {
+    var ticking = false;
+    var apply = function () {
+      var y = window.scrollY;
+      if (y < 900) signpost.style.setProperty("--py", (y * -0.045).toFixed(1) + "px");
+      ticking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(apply); }
+    }, { passive: true });
+    apply();
+  }
+})();

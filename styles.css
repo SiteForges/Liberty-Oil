@@ -71,10 +71,10 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .container{width:100%;max-width:var(--page);margin:0 auto;padding:0 22px;}
 
 /* ---------- Sections: compact rhythm, less scrolling ---------- */
-.section{padding:56px 22px;}
-.section-tight{padding:44px 22px;}
+.section{padding:48px 22px;}
+.section-tight{padding:38px 22px;}
 .band{background:var(--grey-1);}
-.section-heading{margin-bottom:26px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.section-heading{margin-bottom:22px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;}
 
 /* ---------- Top bar ---------- */
 .topbar{background:var(--black);color:#f5f5f7;font-size:12.5px;letter-spacing:0;}
@@ -132,7 +132,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 /* ---------- Hero ---------- */
 .hero{background:var(--grey-1);color:var(--ink);position:relative;overflow:hidden;}
 .hero-inner{
-  max-width:var(--page);margin:0 auto;padding:52px 22px 48px;
+  max-width:var(--page);margin:0 auto;padding:46px 22px 42px;
   display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;
 }
 .hero-copy h1{margin-bottom:16px;}
@@ -155,7 +155,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 /* ---------- Spec card (hero aside) ---------- */
 .signpost{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);box-shadow:var(--shadow);}
 .signpost-inner{padding:8px 24px;}
-.sign-row{display:flex;gap:14px;align-items:flex-start;padding:18px 0;border-top:1px solid var(--hairline);}
+.sign-row{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-top:1px solid var(--hairline);}
 .sign-row:first-child{border-top:none;}
 .sign-icon{flex:none;width:20px;height:20px;color:var(--gold);margin-top:2px;}
 .sign-label{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px;}
@@ -171,10 +171,10 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .trust-item span{font-size:13px;color:var(--muted);}
 
 /* ---------- Category cards ---------- */
-.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .cat-card{
   background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);
-  padding:24px;display:flex;flex-direction:column;gap:14px;color:var(--ink);
+  padding:20px;display:flex;flex-direction:column;gap:12px;color:var(--ink);
   transition:transform .35s var(--ease),box-shadow .35s var(--ease);
 }
 .cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
@@ -187,7 +187,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .cat-card:hover .cat-arrow svg{transform:translateX(4px);}
 
 /* ---------- Specials grid ---------- */
-.specials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.specials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .special-item{
   background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);
   padding:16px;display:flex;flex-direction:column;gap:4px;
@@ -235,7 +235,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .delivery-single p{color:var(--muted);font-size:15px;margin-top:6px;max-width:52ch;}
 
 /* ---------- Reviews ---------- */
-.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .review-card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:12px;}
 .stars{display:flex;gap:2px;color:var(--gold);}
 .stars svg{width:15px;height:15px;}
@@ -419,4 +419,98 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
   *{transition:none !important;animation:none !important;}
   html{scroll-behavior:auto;}
   .wheel-disc{transition:transform 1s ease-out !important;}
+}
+
+/* ============================================================
+   Dimension layer — 3D depth, pointer parallax, official polish
+   Every effect is transform/opacity only (compositor-friendly),
+   pointer-driven effects are disabled on touch and reduced-motion.
+   ============================================================ */
+
+/* Free delivery tag */
+.free-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12.5px;font-weight:600;letter-spacing:-.005em;
+  color:var(--gold);background:rgba(184,135,59,.10);
+  border:1px solid rgba(184,135,59,.28);
+  padding:5px 11px;border-radius:980px;white-space:nowrap;
+}
+.free-tag::before{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--gold);flex:none;
+}
+.badge .free-tag{margin-left:7px;}
+.location .free-tag,.ribbon .free-tag{
+  color:var(--gold-soft);background:rgba(215,171,95,.14);border-color:rgba(215,171,95,.34);
+}
+.location .free-tag::before,.ribbon .free-tag::before{background:var(--gold-soft);}
+
+/* ---- 3D stage: cards tilt toward the pointer ---- */
+.category-grid,.specials-grid,.review-grid,.mini-gallery{perspective:1100px;}
+.cat-card,.special-item{
+  transform-style:preserve-3d;
+  will-change:transform;
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+.cat-card.tilt,.special-item.tilt{transition:transform .12s linear,box-shadow .4s var(--ease);}
+.cat-card:hover,.special-item:hover{box-shadow:var(--shadow-lg);}
+/* icon + media lift off the card surface while tilting */
+.cat-icon-wrap,.special-media{transform:translateZ(0);transition:transform .5s var(--ease);}
+.cat-card:hover .cat-icon-wrap{transform:translateZ(34px) scale(1.04);}
+.special-item:hover .special-media{transform:translateZ(26px);}
+.cat-card:hover h3,.cat-card:hover .cat-arrow{transform:translateZ(18px);}
+.cat-card h3,.cat-card .cat-arrow{transition:transform .5s var(--ease);}
+
+/* Specular sheen that follows the pointer across a tilted card */
+.cat-card::after,.special-item::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(340px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.30),transparent 62%);
+  opacity:0;transition:opacity .4s var(--ease);
+}
+.cat-card,.special-item{position:relative;}
+.cat-card:hover::after,.special-item:hover::after{opacity:1;}
+
+/* ---- Hero: layered parallax depth ---- */
+.hero{perspective:1200px;}
+.hero-inner{transform-style:preserve-3d;}
+.signpost{
+  transform:translate3d(0,var(--py,0px),0);
+  transition:box-shadow .5s var(--ease);
+  will-change:transform;
+}
+.hero .signpost:hover{box-shadow:var(--shadow-lg);}
+
+/* ---- Scroll reveal with a touch of rotation ---- */
+.js .reveal{transform:translate3d(0,18px,0) rotateX(4deg);transform-origin:50% 100%;}
+.js .reveal.is-visible{transform:none;}
+
+/* ---- Buttons: physical press ---- */
+.btn{transform:translateZ(0);}
+.btn-primary{box-shadow:0 1px 2px rgba(120,88,32,.22),0 6px 18px rgba(120,88,32,.20);}
+.btn-primary:hover{box-shadow:0 2px 6px rgba(120,88,32,.26),0 12px 28px rgba(120,88,32,.28);transform:translateY(-1px);}
+.btn:active{transform:translateY(0) scale(.97);}
+
+/* ---- Media: gentle depth on hover ---- */
+.showcase-media,.about-visual{overflow:hidden;}
+.showcase-media img,.about-visual img{transition:transform .7s var(--ease);}
+.showcase-media:hover img,.about-visual:hover img{transform:scale(1.04);}
+
+/* ---- Official trust bar ---- */
+.trust-item{transition:transform .4s var(--ease);}
+.trust-item:hover{transform:translateY(-2px);}
+
+/* ---- Floating widget depth ---- */
+.ai-bubble{transition:transform .4s var(--ease),box-shadow .4s var(--ease);}
+.ai-bubble:hover{transform:translateY(-2px) scale(1.05);}
+
+/* Touch devices: no hover tilt, no sheen (they stick on tap) */
+@media (hover:none){
+  .cat-card:hover,.special-item:hover{transform:none;}
+  .cat-card::after,.special-item::after{display:none;}
+  .cat-card:hover .cat-icon-wrap,.special-item:hover .special-media,
+  .cat-card:hover h3,.cat-card:hover .cat-arrow{transform:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  .cat-card,.special-item,.signpost{transform:none !important;}
+  .cat-card::after,.special-item::after{display:none;}
 }
