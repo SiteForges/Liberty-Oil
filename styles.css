@@ -591,3 +591,161 @@ h3{letter-spacing:-0.012em;}
   .topbar-actions{gap:10px;}
   .spin-slot{font-size:11.5px;padding:5px 11px;}
 }
+
+/* ============================================================
+   Apple HIG layer — materials, deference, depth
+   Clarity: type carries hierarchy. Deference: chrome recedes
+   behind content. Depth: translucent layers imply stacking.
+   ============================================================ */
+
+:root{
+  /* Materials */
+  --glass:rgba(255,255,255,.62);
+  --glass-thick:rgba(255,255,255,.78);
+  --glass-border:rgba(255,255,255,.62);
+  --glass-hairline:rgba(16,29,43,.08);
+  --glass-highlight:inset 0 1px 0 rgba(255,255,255,.65);
+  --blur:saturate(180%) blur(20px);
+  --blur-thick:saturate(180%) blur(34px);
+  /* Apple-scale continuous radii */
+  --radius-lg:26px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  /* Apple's signature easing */
+  --ease:cubic-bezier(.32,.72,0,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --glass:rgba(24,38,54,.58);
+    --glass-thick:rgba(24,38,54,.76);
+    --glass-border:rgba(255,255,255,.12);
+    --glass-hairline:rgba(255,255,255,.10);
+    --glass-highlight:inset 0 1px 0 rgba(255,255,255,.10);
+  }
+}
+:root[data-theme="dark"]{
+  --glass:rgba(24,38,54,.58);
+  --glass-thick:rgba(24,38,54,.76);
+  --glass-border:rgba(255,255,255,.12);
+  --glass-hairline:rgba(255,255,255,.10);
+  --glass-highlight:inset 0 1px 0 rgba(255,255,255,.10);
+}
+
+/* Ambient light so the glass has something to refract */
+body{position:relative;}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(46vw 40vw at 12% 8%, rgba(195,160,84,.16), transparent 62%),
+    radial-gradient(50vw 44vw at 88% 22%, rgba(26,68,103,.14), transparent 64%),
+    radial-gradient(44vw 40vw at 70% 92%, rgba(195,160,84,.10), transparent 62%);
+}
+:root[data-theme="dark"] body::before,
+:root:not([data-theme="light"]) body::before{opacity:.85;}
+
+/* Deference: let the ambient light through the page bands */
+.trust-strip,
+#reviews,
+.section-tight[style*="sand-50"],
+.section[style*="sand-50"]{background:transparent !important;}
+.trust-strip{border-top:1px solid var(--glass-hairline);border-bottom:1px solid var(--glass-hairline);}
+
+/* Clean material, not texture */
+.hero::before{background-image:none;}
+
+/* ---- Chrome recedes: header + topbar as system materials ---- */
+.site-header{
+  background:var(--glass-thick);
+  -webkit-backdrop-filter:var(--blur-thick);
+  backdrop-filter:var(--blur-thick);
+  border-bottom:1px solid var(--glass-hairline);
+  box-shadow:var(--glass-highlight);
+}
+.site-header.is-scrolled{box-shadow:var(--glass-highlight),0 8px 30px rgba(10,26,42,.08);}
+.topbar{
+  background:rgba(7,21,35,.82);
+  -webkit-backdrop-filter:var(--blur);
+  backdrop-filter:var(--blur);
+}
+
+/* ---- Surfaces as material ---- */
+.signpost,
+.about-panel,
+.delivery-single,
+.review-card,
+.wheel-modal,
+.ai-panel{
+  background:var(--glass);
+  -webkit-backdrop-filter:var(--blur);
+  backdrop-filter:var(--blur);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-highlight),var(--shadow-soft);
+}
+.signpost{border-radius:var(--radius-lg);}
+.signpost-inner{border:1px solid var(--glass-hairline);border-radius:20px;}
+/* Dark material: this note sits on the navy hero, so it stays a dark
+   vibrancy layer with light text rather than inheriting the light glass. */
+.inventory-note{
+  background:rgba(255,255,255,.10);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border:1px solid rgba(255,255,255,.18);
+  color:#e8eef4;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+.wheel-modal,.ai-panel{background:var(--glass-thick);-webkit-backdrop-filter:var(--blur-thick);backdrop-filter:var(--blur-thick);}
+.wheel-backdrop{
+  background:rgba(5,14,24,.42);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+
+/* Cards: material on capable viewports; translucent-flat on phones so
+   we never stack a dozen blur layers on a mobile GPU. */
+.cat-card,.special-item,.mini-gallery figure{
+  background:var(--glass-thick);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-highlight),var(--shadow-card);
+}
+@media (min-width:900px){
+  .cat-card,.special-item{
+    -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  }
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .site-header,.topbar,.signpost,.about-panel,.delivery-single,.review-card,
+  .wheel-modal,.ai-panel,.cat-card,.special-item,.mini-gallery figure{
+    background:var(--card);
+  }
+  .topbar{background:var(--navy-950);}
+}
+
+/* Controls: pill capsules with material fill */
+.btn-ghost{
+  background:var(--glass);
+  -webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
+  border-color:var(--glass-hairline);
+}
+.btn-on-dark{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);}
+.btn-on-dark:hover{background:rgba(255,255,255,.16);}
+.nav-toggle{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-color:var(--glass-hairline);}
+.ai-bubble{box-shadow:var(--glass-highlight),0 8px 24px rgba(10,26,42,.24);}
+
+/* Clarity: type does the hierarchy work */
+body{line-height:1.6;letter-spacing:-0.003em;}
+h1{letter-spacing:-0.035em;}
+h2{letter-spacing:-0.028em;}
+h3{letter-spacing:-0.02em;}
+.hero-copy h1{letter-spacing:-0.038em;}
+.eyebrow{letter-spacing:0.06em;font-size:12px;}
+.eyebrow::before{width:18px;}
+
+/* Motion: Apple's easing, applied to the interactive surfaces */
+.btn,.cat-card,.special-item,.nav-links,.site-header,.ai-bubble,.nav-toggle{
+  transition-timing-function:var(--ease);
+}
+.cat-card:hover,.special-item:hover{transform:translateY(-4px) scale(1.006);}
+.btn:active{transform:scale(.97);}
+
+/* Mobile: thinner materials, lighter blur for scroll performance */
+@media (max-width:720px){
+  :root{--blur:saturate(170%) blur(14px);--blur-thick:saturate(170%) blur(22px);--radius-lg:22px;--radius-md:16px;}
+}
