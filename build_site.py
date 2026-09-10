@@ -206,14 +206,12 @@ CAT_ICONS = {
 }
 
 SPECIALS_ITEMS = [
-    {"name": "Celsius Cans", "price": "$3.79", "note": "Assorted flavors", "img": "celsius.webp", "w": 402, "h": 497},
-    {"name": "Ghost Energy", "price": "$2.99", "note": "12oz, with tax", "img": "ghost.webp", "w": 215, "h": 235},
-    {"name": "Calypso Lemonade", "price": "2 for $5", "note": "Assorted flavors", "img": "calypso.webp", "w": 375, "h": 500},
-    {"name": "Snapple", "price": "2 for $3", "note": "Assorted flavors", "img": "snapple.webp", "w": 461, "h": 500},
-    {"name": "Takis", "price": "$2.69", "note": "each &mdash; or 2 for $5", "img": "takis.webp", "w": 500, "h": 500},
-    {"name": "Sun Hot Spicy Chips", "price": "Best Seller", "note": "Get in for a good deal", "img": "sun.webp", "w": 371, "h": 500},
-    {"name": "Kozed Gummy Candy", "price": "Best Seller", "note": "Get in for a good deal", "img": "kozed.webp", "w": 500, "h": 413},
-    {"name": "Welch's Fruit Snacks", "price": "Free", "note": "With any purchase of $50 or more", "img": "welchs.webp", "w": 500, "h": 500},
+    {"name": "Red Bull Energy Drinks", "price": "$1 Off", "note": "All varieties", "img": "redbull.webp", "w": 492, "h": 160},
+    {"name": "Hello Panda", "price": "$1 Off", "note": "Chocolate &amp; strawberry", "img": "panda.webp", "w": 490, "h": 215},
+    {"name": "Takis", "price": "$1 Off", "note": "Fuego, Blue Heat &amp; Guacamole", "img": "takis.webp", "w": 492, "h": 245},
+    {"name": "Alien Fresh Jerky", "price": "$1 Off", "note": "Premium beef jerky", "img": "jerky.webp", "w": 490, "h": 230},
+    {"name": "19 Crimes Wine", "price": "10% Off", "note": "All varieties", "img": "wine.webp", "w": 540, "h": 385},
+    {"name": "SD Snapback Hats", "price": "$14.99", "note": "Plus tax", "img": "hats.webp", "w": 530, "h": 470},
 ]
 
 
@@ -546,7 +544,7 @@ specials_html = head(
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
-    "Eight deals in store right now &mdash; from Celsius and Ghost Energy to free Welch's Fruit Snacks on a $50+ purchase.",
+    "Six deals in store right now &mdash; $1 off Red Bull, Hello Panda, Takis and Alien Fresh Jerky, 10% off 19 Crimes wine, and Padres snapback hats for $14.99.",
     '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n<span class="free-tag">Free Delivery</span>',
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
