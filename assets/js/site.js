@@ -226,7 +226,7 @@
   var STORAGE_KEY = "libertyOilWheel_v1";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
-  var PRIZES = ["Free Welch's Fruit Snacks"];
+  var PRIZES = ["Free Loacker Mini Wafers"];
   var SEGMENT_DEG = 360 / PRIZES.length;
 
   var slot = document.getElementById("spinSlot");
@@ -305,7 +305,7 @@
       resultEl.hidden = true;
       spinBtn.disabled = false;
       spinBtn.textContent = "Spin the Wheel";
-      subEl.textContent = "Free Welch's Fruit Snacks with $50 or more purchase.";
+      subEl.textContent = "Free Loacker Mini Wafers with $25 or more purchase.";
     }
     backdrop.hidden = false;
   }

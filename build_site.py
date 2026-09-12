@@ -131,7 +131,7 @@ def footer():
       <button class="wheel-close" id="wheelClose" aria-label="Close">&times;</button>
       <p class="eyebrow">Spin To Win</p>
       <h3>Give it a spin!</h3>
-      <p class="wheel-sub" id="wheelSub">Free Welch's Fruit Snacks with any $50+ purchase this week.</p>
+      <p class="wheel-sub" id="wheelSub">Free Loacker Mini Wafers with any $25+ purchase this week.</p>
       <div class="wheel-stage">
         <div class="wheel-pointer"></div>
         <div class="wheel-disc" id="wheelDisc"></div>
@@ -170,7 +170,7 @@ def footer():
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=4"></script>
+  <script src="assets/js/site.js?v=5"></script>
 </body>
 </html>'''
 
