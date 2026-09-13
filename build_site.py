@@ -30,7 +30,43 @@ ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width
 STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.2L21 9l-5 4.4L17.4 20 12 16.6 6.6 20 8 13.4 3 9l6.4-.8Z"/></svg>'
 
 
-def head(title, description):
+SITE_URL = "https://siteforges.github.io/Liberty-Oil"
+
+# Structured data so Google can surface hours, address and phone directly
+# in search and Maps results.
+LOCAL_BUSINESS_JSONLD = """  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ConvenienceStore",
+    "name": "Liberty Oil Inc",
+    "description": "Family-run gas station and convenience store on South Coast Highway in Oceanside, CA.",
+    "url": "%s/",
+    "telephone": "+1-760-754-8045",
+    "image": "%s/assets/optimized/pier-drone.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1943 S Coast Hwy",
+      "addressLocality": "Oceanside",
+      "addressRegion": "CA",
+      "postalCode": "92054",
+      "addressCountry": "US"
+    },
+    "geo": {"@type": "GeoCoordinates", "latitude": 33.1819, "longitude": -117.3706},
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "07:00",
+      "closes": "24:00"
+    }],
+    "paymentAccepted": "Cash, Credit Card, Debit Card",
+    "currenciesAccepted": "USD"
+  }
+  </script>
+""" % (SITE_URL, SITE_URL)
+
+
+def head(title, description, page="index.html"):
+    canonical = f"{SITE_URL}/" if page == "index.html" else f"{SITE_URL}/{page}"
     return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,13 +74,28 @@ def head(title, description):
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{title}</title>
   <meta name="description" content="{description}">
-  <meta name="theme-color" content="#0a1c2e">
+  <link rel="canonical" href="{canonical}">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Liberty Oil Inc">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:url" content="{canonical}">
+  <meta property="og:image" content="{SITE_URL}/assets/optimized/pier-drone.webp">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{SITE_URL}/assets/optimized/pier-drone.webp">
   <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Liberty Oil">
   <link rel="stylesheet" href="styles.css">
-</head>
+{LOCAL_BUSINESS_JSONLD}</head>
 <body>'''
 
 
@@ -235,14 +286,6 @@ CATEGORIES = [
     ("specials", "Specials", "Store picks, grocery-style grabs, and featured convenience items."),
 ]
 
-CAT_IMG = {
-    "beer-wine": "assets/optimized/beer-wine.webp",
-    "soda-beverage": "assets/optimized/soda-beverage.webp",
-    "snacks": "assets/optimized/snacks.webp",
-    "candy": "assets/optimized/candy.webp",
-    "energy-drinks": "assets/optimized/energy-drinks.webp",
-    "specials": "assets/optimized/specials.webp",
-}
 
 
 def category_grid():
@@ -272,7 +315,8 @@ def stars_block():
 # ---------------------------------------------------------------------------
 index_html = head(
     "Liberty Oil Inc | Home",
-    "Liberty Oil Inc in Oceanside, CA offers gas, drinks, snacks, candy, beer and wine, energy drinks, and weekly store picks."
+    "Liberty Oil Inc in Oceanside, CA offers gas, drinks, snacks, candy, beer and wine, energy drinks, and weekly store picks.",
+    "index.html"
 ) + "\n" + topbar(
     "Open now &middot; 7:00 AM &ndash; 12:00 AM, every day", "See this week's specials", "specials.html", cta_external=False
 ) + "\n" + header("index.html") + f'''
@@ -457,7 +501,8 @@ write("index.html", index_html)
 # ---------------------------------------------------------------------------
 about_html = head(
     "Liberty Oil Inc | About",
-    "Learn about Liberty Oil Inc, a family-run gas station and convenience store in Oceanside, CA."
+    "Learn about Liberty Oil Inc, a family-run gas station and convenience store in Oceanside, CA.",
+    "about.html"
 ) + "\n" + topbar(
     "Family-run convenience in Oceanside", "This week's specials", "specials.html", cta_external=False
 ) + "\n" + header("about.html") + f'''
@@ -536,7 +581,8 @@ write("about.html", about_html)
 # ---------------------------------------------------------------------------
 specials_html = head(
     "Liberty Oil Inc | Weekly Specials",
-    "Browse this week's specials and deals at Liberty Oil Inc in Oceanside, CA."
+    "Browse this week's specials and deals at Liberty Oil Inc in Oceanside, CA.",
+    "specials.html"
 ) + "\n" + topbar(
     "This week's specials, in store now", "DoorDash main store", "https://www.doordash.com/convenience/store/24620532"
 ) + "\n" + header("specials.html") + f'''
@@ -582,6 +628,52 @@ specials_html = head(
 ''' + footer()
 
 write("specials.html", specials_html)
+
+# ---------------------------------------------------------------------------
+# 404 — branded, not a bare redirect
+# ---------------------------------------------------------------------------
+notfound_html = head(
+    "Page Not Found | Liberty Oil Inc",
+    "That page doesn't exist. Find hours, directions and this week's specials at Liberty Oil Inc in Oceanside, CA.",
+    "404.html"
+) + "\n" + topbar(
+    "Open daily, 7:00 AM &ndash; 12:00 AM", "This week's specials", "specials.html", cta_external=False
+) + "\n" + header("") + '''
+<main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">404</p>
+        <h1>We couldn't find that page.</h1>
+        <p class="lede">It may have moved, or the link might be out of date. Here's where most people are headed.</p>
+        <div class="page-actions">
+          <a class="btn btn-primary" href="index.html">Back to Home</a>
+          <a class="btn btn-ghost btn-on-dark" href="specials.html">This Week's Specials</a>
+        </div>
+      </div>
+    </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <p class="eyebrow">Browse</p>
+          <h2>Find what you're after.</h2>
+        </div>
+      </div>
+      <div class="category-grid reveal-group">
+''' + category_grid() + '''
+      </div>
+    </div>
+  </section>
+</main>
+''' + footer()
+
+# A 404 should never be indexed or treated as canonical content.
+notfound_html = notfound_html.replace(
+    '<link rel="canonical"',
+    '<meta name="robots" content="noindex, follow">' + chr(10) + '  <link rel="canonical"'
+)
+write("404.html", notfound_html)
 
 # ---------------------------------------------------------------------------
 # CATEGORY PAGES
@@ -657,6 +749,7 @@ CATEGORY_PAGES = {
         "chips": ["Chocolate favorites", "Gummy & sour candy", "Checkout-line grabs", "Road trip stock-ups"],
         "gallery": [
             ("assets/candy.avif", "Candy, stocked at the counter"),
+            ("assets/candyss.avif", "Share-size chocolate favorites"),
         ],
     },
     "energy-drinks": {
@@ -672,7 +765,10 @@ CATEGORY_PAGES = {
             ("Shop Energy Drinks on DoorDash", "https://www.doordash.com/convenience/store/24620532/category/drinks"),
         ],
         "chips": ["Classic & sugar-free", "Single cans", "Cold cooler stock", "Grab-and-go"],
-        "gallery": [],
+        "gallery": [
+            ("assets/energy drink.avif", "Cold cans in the cooler"),
+            ("assets/energy driiink.avif", "Energy shots at the counter"),
+        ],
     },
 }
 
@@ -707,7 +803,7 @@ for slug, c in CATEGORY_PAGES.items():
     </div>
   </section>'''
 
-    page = head(c["title"], c["description"]) + "\n" + topbar(
+    page = head(c["title"], c["description"], f"{slug}.html") + "\n" + topbar(
         c["topbar_msg"], "This week's specials", "specials.html", cta_external=False
     ) + "\n" + header(f"{slug}.html") + f'''
 <main>

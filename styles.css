@@ -208,7 +208,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .showcase-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
 .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
 .chip{background:var(--grey-1);border-radius:980px;padding:7px 14px;font-size:13px;font-weight:500;color:var(--muted);}
-.mini-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.mini-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 .mini-gallery figure{margin:0;background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);overflow:hidden;}
 .mini-gallery .figure-media{position:relative;width:100%;padding-top:75%;background:var(--grey-1);overflow:hidden;}
 .mini-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:16px;box-sizing:border-box;}
@@ -370,6 +370,22 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 :root[data-theme="dark"] .ribbon h2,
 :root[data-theme="dark"] .location-copy h2,
 :root[data-theme="dark"] .location-address strong{color:var(--ink);}
+
+
+/* ---------- Product image wells stay light in both themes ----------
+   The product photography is shot on white. In dark mode a white-backed
+   cutout inside a near-black well renders as a harsh white rectangle, so
+   the wells keep a light photographic ground regardless of theme. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .special-media,
+  :root:not([data-theme="light"]) .showcase-media,
+  :root:not([data-theme="light"]) .mini-gallery .figure-media,
+  :root:not([data-theme="light"]) .about-visual{background:#f2f2f5;}
+}
+:root[data-theme="dark"] .special-media,
+:root[data-theme="dark"] .showcase-media,
+:root[data-theme="dark"] .mini-gallery .figure-media,
+:root[data-theme="dark"] .about-visual{background:#f2f2f5;}
 
 /* ---------- Responsive ---------- */
 @media (max-width:1040px){

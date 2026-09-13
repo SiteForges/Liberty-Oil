@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://siteforges.github.io/Liberty-Oil/sitemap.xml
