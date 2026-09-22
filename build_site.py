@@ -221,7 +221,7 @@ def footer():
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=5"></script>
+  <script src="assets/js/site.js?v=6"></script>
 </body>
 </html>'''
 
@@ -590,7 +590,7 @@ specials_html = head(
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
-    "Six deals in store right now &mdash; $1 off Red Bull, Hello Panda, Takis and Alien Fresh Jerky, 10% off 19 Crimes wine, and Padres snapback hats for $14.99.",
+    "Six deals in store right now &mdash; $1 off Red Bull, Hello Panda, Takis and Alien Fresh Jerky, 10% off 19 Crimes wine, and Padres snapback hats for $14.99. Plus $1 off any $20+ purchase with the coupon below.",
     '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n<span class="free-tag">Free Delivery</span>',
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
@@ -606,6 +606,23 @@ specials_html = head(
       </div>
       <div class="specials-grid reveal-group">
 {specials_grid()}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" id="coupon">
+    <div class="container">
+      <div class="coupon reveal">
+        <div class="coupon-copy">
+          <p class="eyebrow">In-Store Coupon</p>
+          <h2>$1 off when you spend $20 or more.</h2>
+          <p>Spend $20 or more on in-store merchandise and take $1 off at the register. Show this barcode to the cashier to redeem.</p>
+          <p class="coupon-terms">Excludes beer, cigarettes, and gas.</p>
+        </div>
+        <figure class="coupon-code">
+          <img src="assets/coupons/dollar-off-20.svg" alt="Coupon barcode 0096619408399 for $1 off a $20 or more purchase" width="351" height="237">
+          <figcaption>Scan at checkout &middot; turn your screen brightness up</figcaption>
+        </figure>
       </div>
     </div>
   </section>

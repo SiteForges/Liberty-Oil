@@ -164,6 +164,7 @@
 
   var RULES = [
     { test: /hour|open|close|time/i, reply: "We're open every day, 7:00 AM to 12:00 AM (midnight)." },
+    { test: /coupon|barcode|\$1 off|dollar off|\$20/i, reply: "Spend $20+ on in-store merchandise (not beer, cigarettes or gas) and get $1 off. Taking you to the coupon…", go: "specials.html#coupon" },
     { test: /special|deal|discount|sale/i, reply: "Taking you to this week's specials…", go: "specials.html" },
     { test: /direction|address|where.*(you|store|located)|located|find you/i, reply: "1943 S Coast Hwy, Oceanside, CA 92054 — opening directions…", go: "https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" },
     { test: /phone|call|number/i, reply: "You can reach us at (760) 754-8045." },

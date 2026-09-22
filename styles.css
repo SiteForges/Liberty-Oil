@@ -387,6 +387,49 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 :root[data-theme="dark"] .mini-gallery .figure-media,
 :root[data-theme="dark"] .about-visual{background:#f2f2f5;}
 
+
+/* ---------- In-store coupon (scannable barcode) ----------
+   The barcode panel is hard-coded white/black on purpose: scanners need
+   dark bars on a light ground, so it must NOT follow the dark theme
+   tokens (var(--white) is #000 in dark mode). */
+.coupon{
+  display:grid;grid-template-columns:1.1fr .9fr;align-items:center;
+  background:var(--surface);border:1px solid var(--hairline);
+  border-radius:var(--r-lg);box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.coupon::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--gold-soft),var(--gold));
+}
+.coupon-copy{padding:32px 34px 32px 38px;}
+.coupon-copy h2{font-size:clamp(26px,3.2vw,36px);}
+.coupon-copy p{color:var(--muted);margin-top:12px;max-width:44ch;font-size:16px;}
+.coupon-copy .coupon-terms{
+  display:inline-block;margin-top:16px;font-size:13px;font-weight:500;
+  color:var(--ink);background:var(--grey-1);border-radius:980px;padding:6px 13px;
+}
+.coupon-code{
+  margin:0;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  padding:26px 28px;
+  border-left:2px dashed var(--hairline);          /* ticket perforation */
+}
+.coupon-code img{
+  width:100%;max-width:330px;height:auto;
+  background:#fff;border-radius:12px;padding:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
+  image-rendering:crisp-edges;
+}
+.coupon-code figcaption{font-size:12.5px;color:var(--muted);text-align:center;}
+
+@media (max-width:760px){
+  .coupon{grid-template-columns:1fr;}
+  .coupon-copy{padding:26px 22px 8px 26px;}
+  .coupon-code{border-left:none;border-top:2px dashed var(--hairline);padding:22px 18px 24px;}
+  .coupon-code img{max-width:100%;}
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width:1040px){
   .nav-links{
