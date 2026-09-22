@@ -187,7 +187,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .cat-card:hover .cat-arrow svg{transform:translateX(4px);}
 
 /* ---------- Specials grid ---------- */
-.specials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.specials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
 .special-item{
   background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-lg);
   padding:16px;display:flex;flex-direction:column;gap:4px;

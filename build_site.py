@@ -261,12 +261,10 @@ CAT_ICONS = {
 }
 
 SPECIALS_ITEMS = [
-    {"name": "Red Bull Energy Drinks", "price": "$1 Off", "note": "All varieties", "img": "redbull.webp", "w": 492, "h": 160},
-    {"name": "Hello Panda", "price": "$1 Off", "note": "Chocolate &amp; strawberry", "img": "panda.webp", "w": 490, "h": 215},
-    {"name": "Takis", "price": "$1 Off", "note": "Fuego, Blue Heat &amp; Guacamole", "img": "takis.webp", "w": 492, "h": 245},
-    {"name": "Alien Fresh Jerky", "price": "$1 Off", "note": "Premium beef jerky", "img": "jerky.webp", "w": 490, "h": 230},
-    {"name": "19 Crimes Wine", "price": "10% Off", "note": "All varieties", "img": "wine.webp", "w": 540, "h": 385},
-    {"name": "SD Snapback Hats", "price": "$14.99", "note": "Plus tax", "img": "hats.webp", "w": 530, "h": 470},
+    {"name": "Catch A Ride 500ML", "price": "Free", "note": "With any bottle of wine &middot; any flavor", "img": "catch-a-ride.webp", "w": 316, "h": 319},
+    {"name": "Quart of Motor Oil", "price": "$1 Off", "note": "Any 1-quart bottle", "img": "motor-oil.webp", "w": 447, "h": 447},
+    {"name": "Sunglasses", "price": "$1 Off", "note": "Any pair", "img": "sunglasses.webp", "w": 228, "h": 259},
+    {"name": "Cantarito Loco Mix Kit", "price": "$4.99", "note": "Small size", "img": "cantarito.webp", "w": 447, "h": 447},
 ]
 
 
@@ -594,7 +592,7 @@ specials_html = head(
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
-    "Six deals in store right now &mdash; $1 off Red Bull, Hello Panda, Takis and Alien Fresh Jerky, 10% off 19 Crimes wine, and Padres snapback hats for $14.99.",
+    "Four deals in store right now &mdash; a free Catch A Ride 500ML with any bottle of wine, $1 off any quart of motor oil, $1 off sunglasses, and the Cantarito Loco mix kit for $4.99.",
     '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n<span class="free-tag">Free Delivery</span>',
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
