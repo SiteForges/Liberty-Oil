@@ -164,7 +164,7 @@
 
   var RULES = [
     { test: /hour|open|close|time/i, reply: "We're open every day, 7:00 AM to 12:00 AM (midnight)." },
-    { test: /coupon|barcode|\$1 off|dollar off|\$20/i, reply: "Spend $20+ on in-store merchandise (not beer, cigarettes or gas) and get $1 off. Taking you to the coupon…", go: "specials.html#coupon" },
+    { test: /coupon|barcode|\$1 off|dollar off|\$20|spin|wheel/i, reply: "Tap Spin & Win at the top of the page — every spin wins $1 off a $20+ purchase (excludes beer, cigarettes and gas). You’ll get a barcode to show at checkout." },
     { test: /special|deal|discount|sale/i, reply: "Taking you to this week's specials…", go: "specials.html" },
     { test: /direction|address|where.*(you|store|located)|located|find you/i, reply: "1943 S Coast Hwy, Oceanside, CA 92054 — opening directions…", go: "https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" },
     { test: /phone|call|number/i, reply: "You can reach us at (760) 754-8045." },
@@ -224,10 +224,11 @@
 // future update instantly resets the cooldown for every visitor.
 (function () {
   "use strict";
-  var STORAGE_KEY = "libertyOilWheel_v1";
+  var STORAGE_KEY = "libertyOilWheel_v2";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
-  var PRIZES = ["Free Loacker Mini Wafers"];
+  var PRIZES = ["$1 off a $20+ purchase"];
+  var WIN_MSG = "You won $1 off any $20+ purchase! Show this barcode at checkout, or screenshot it for your next visit. One-time use per spin.";
   var SEGMENT_DEG = 360 / PRIZES.length;
 
   var slot = document.getElementById("spinSlot");
@@ -237,6 +238,7 @@
   var spinBtn = document.getElementById("wheelSpinBtn");
   var resultEl = document.getElementById("wheelResult");
   var subEl = document.getElementById("wheelSub");
+  var couponEl = document.getElementById("wheelCoupon");
   if (!slot || !backdrop || !disc || !spinBtn) return;
 
   function getState() {
@@ -300,13 +302,15 @@
       subEl.textContent = "Your next spin unlocks in 12 hours.";
       resultEl.hidden = !prize;
       if (prize) {
-        resultEl.textContent = "You won: " + prize + "! Show this screen at checkout, or take a screenshot to show on your next visit. One-time use only per spin.";
+        resultEl.textContent = WIN_MSG;
       }
+      if (couponEl) couponEl.hidden = !prize;
     } else {
       resultEl.hidden = true;
       spinBtn.disabled = false;
       spinBtn.textContent = "Spin the Wheel";
-      subEl.textContent = "Free Loacker Mini Wafers with $25 or more purchase.";
+      subEl.textContent = "Spin to win $1 off when you spend $20 or more.";
+      if (couponEl) couponEl.hidden = true;
     }
     backdrop.hidden = false;
   }
@@ -356,8 +360,9 @@
       resultEl.textContent =
         prize === "Try Again Later"
           ? "So close! No prize this time \u2014 come back in 12 hours."
-          : "You won: " + prize + "! Show this screen at checkout, or take a screenshot to show on your next visit. One-time use only per spin.";
+          : WIN_MSG;
       subEl.textContent = "Your next spin unlocks in 12 hours.";
+      if (couponEl) couponEl.hidden = false;
       setSpinResult(nextAt, prize);
       refreshSlot();
     }
