@@ -199,6 +199,16 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .special-item h3{font-size:15.5px;font-weight:600;}
 .special-price{font-size:22px;font-weight:700;letter-spacing:-.03em;color:var(--ink);}
 .special-item .note{font-size:13px;color:var(--muted);}
+.weekly-poster{margin:0 auto 34px;max-width:720px;background:var(--surface);border:1px solid var(--hairline);border-radius:24px;padding:14px;box-shadow:var(--shadow-lg);}
+.weekly-poster img{display:block;width:100%;height:auto;border-radius:14px;object-fit:contain;}
+.weekly-poster figcaption{padding:12px 4px 2px;text-align:center;color:var(--muted);font-size:13px;font-weight:600;}
+.deal-summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.deal-summary{min-height:132px;box-sizing:border-box;background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:17px;display:flex;flex-direction:column;gap:7px;box-shadow:var(--shadow-sm);}
+.deal-summary h3{font-size:16px;line-height:1.2;letter-spacing:-.015em;}
+.deal-summary strong{margin-top:auto;font-size:18px;line-height:1.2;color:var(--ink);}
+.deal-type{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--gold);}
+.deal-summary.featured{border:2px solid #e6b323;background:linear-gradient(145deg,#fff9df,var(--surface));}
+.deal-summary.adult{border-top:4px solid var(--navy-950);}
 
 /* ---------- Showcase / gallery ---------- */
 .showcase{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
@@ -444,6 +454,7 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
   .trust-grid{grid-template-columns:repeat(2,1fr);}
   .category-grid{grid-template-columns:repeat(2,1fr);}
   .specials-grid{grid-template-columns:repeat(2,1fr);}
+  .deal-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .about-wrap,.location-wrap,.showcase{grid-template-columns:1fr;gap:28px;}
   .location-wrap .location-media{order:-1;}
   .review-grid{grid-template-columns:1fr;}
@@ -463,6 +474,11 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
   .wheel-rim{width:236px;height:236px;}
   .wheel-label{transform:rotate(calc(var(--i) * 45deg)) translateY(-79px) rotate(calc(var(--i) * -45deg));font-size:9.5px;}
   .wheel-spin-center{width:70px;height:70px;}
+  .weekly-poster{padding:8px;border-radius:17px;margin-bottom:24px;}
+  .weekly-poster img{border-radius:11px;}
+  .deal-summary-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .deal-summary{min-height:120px;padding:14px;}
+  .deal-summary strong{font-size:16px;}
   .ai-widget{right:14px;bottom:14px;}
   .accessibility-widget{left:10px;bottom:10px;}
 }

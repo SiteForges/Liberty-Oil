@@ -304,25 +304,6 @@ CAT_ICONS = {
     "fuel": '<rect x="8" y="3" width="7" height="18" rx="2"/><path d="M8 10h7"/><path d="M11.5 3V1.5"/>',
 }
 
-SPECIALS_ITEMS = [
-    {"name": "Catch A Ride 500ML", "price": "Free", "note": "With any bottle of wine &middot; any flavor", "img": "catch-a-ride.webp", "w": 316, "h": 319},
-    {"name": "Quart of Motor Oil", "price": "$1 Off", "note": "Any 1-quart bottle", "img": "motor-oil.webp", "w": 447, "h": 447},
-    {"name": "Sunglasses", "price": "$1 Off", "note": "Any pair", "img": "sunglasses.webp", "w": 228, "h": 259},
-    {"name": "Cantarito Loco Mix Kit", "price": "$4.99", "note": "Small size", "img": "cantarito.webp", "w": 447, "h": 447},
-]
-
-
-def specials_grid():
-    cards = []
-    for item in SPECIALS_ITEMS:
-        cards.append(f'''        <div class="special-item reveal">
-          <div class="special-media"><img src="assets/specials/{item["img"]}" alt="{item["name"]}" width="{item["w"]}" height="{item["h"]}" loading="lazy"></div>
-          <h3>{item["name"]}</h3>
-          <div class="special-price">{item["price"]}</div>
-          <p class="note">{item["note"]}</p>
-        </div>''')
-    return "\n\n".join(cards)
-
 CATEGORIES = [
     ("beer-wine", "Beer & Wine", "Cold beer picks and wine options for easy stop-ins and quick orders."),
     ("soda-beverage", "Soda & Beverage", "Cooler favorites, bottled drinks, and easy beverage grabs."),
@@ -627,7 +608,7 @@ write("about.html", about_html)
 # ---------------------------------------------------------------------------
 specials_html = head(
     "Liberty Oil Inc | Weekly Specials",
-    "Browse this week's specials and deals at Liberty Oil Inc in Oceanside, CA.",
+    "Browse Liberty Oil weekly specials for October 17–24, 2026, including drinks, candy, household items, motor oil, sunglasses, and 21+ offers.",
     "specials.html"
 ) + "\n" + topbar(
     "This week's specials, in store now", "DoorDash main store", "https://www.doordash.com/convenience/store/24620532"
@@ -636,22 +617,34 @@ specials_html = head(
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
-    "Four deals in store right now &mdash; a free Catch A Ride 500ML with any bottle of wine, $1 off any quart of motor oil, $1 off sunglasses, and the Cantarito Loco mix kit for $4.99.",
+    "Eight limited-time offers are available October 17&ndash;24, 2026, including C4 Energy, OH! Chile Candy, Modest Odor Spray, Peanut M&amp;M's, Chevron Supreme Motor Oil, sunglasses, BuzzBallz Biggies, and Apothic wine.",
     SPECIALS_ACTIONS,
-    note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
+    note="While supplies last. Prices and availability may vary in store. Valid October 17&ndash;24, 2026. Alcohol offers require valid ID and are available to customers age 21 and older only."
 )}
 
   <section class="section">
     <div class="container">
       <div class="section-heading reveal">
         <div>
-          <p class="eyebrow">This Week</p>
-          <h2>This week's deals, updated weekly.</h2>
+          <p class="eyebrow">October 17&ndash;24, 2026</p>
+          <h2>This week's complete specials.</h2>
         </div>
-        <p class="sub">New picks go up in-store every week &mdash; here's what's on right now.</p>
+        <p class="sub">Show the poster in store if you need help finding an item. Offers are available while supplies last.</p>
       </div>
-      <div class="specials-grid reveal-group">
-{specials_grid()}
+      <figure class="weekly-poster reveal">
+        <img src="assets/specials/weekly-specials-oct-17-24-2026.png" alt="Liberty Oil weekly specials poster for October 17 through 24, 2026" width="1024" height="1536">
+        <figcaption>Liberty Oil weekly specials &middot; October 17&ndash;24, 2026</figcaption>
+      </figure>
+
+      <div class="deal-summary-grid reveal-group" aria-label="Weekly specials in text">
+        <article class="deal-summary reveal"><span class="deal-type">Energy Drink</span><h3>C4 Energy</h3><strong>$3.29 + tax</strong></article>
+        <article class="deal-summary reveal"><span class="deal-type">Candy</span><h3>OH! Chile Candy</h3><strong>$4.99</strong></article>
+        <article class="deal-summary reveal"><span class="deal-type">Household</span><h3>Modest Odor Spray</h3><strong>$5.99</strong></article>
+        <article class="deal-summary reveal featured"><span class="deal-type">Grocery Reward</span><h3>Peanut M&amp;M's</h3><strong>Free with a grocery purchase of $50 or more</strong></article>
+        <article class="deal-summary reveal"><span class="deal-type">Automotive</span><h3>Chevron Supreme Motor Oil</h3><strong>$5.99</strong></article>
+        <article class="deal-summary reveal"><span class="deal-type">Accessories</span><h3>Sunglasses</h3><strong>$2 off</strong></article>
+        <article class="deal-summary reveal adult"><span class="deal-type">21+ Only</span><h3>BuzzBallz Biggies</h3><strong>$23.99</strong></article>
+        <article class="deal-summary reveal adult"><span class="deal-type">21+ Only</span><h3>Apothic Wine</h3><strong>$12.99</strong></article>
       </div>
     </div>
   </section>
