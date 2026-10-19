@@ -96,7 +96,8 @@ def head(title, description, page="index.html"):
   <meta name="apple-mobile-web-app-title" content="Liberty Oil">
   <link rel="stylesheet" href="styles.css">
 {LOCAL_BUSINESS_JSONLD}</head>
-<body>'''
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>'''
 
 
 def topbar(message, cta_label, cta_href, cta_external=True):
@@ -178,21 +179,50 @@ def footer():
   </footer>
 
   <div class="wheel-backdrop" id="wheelBackdrop" hidden>
-    <div class="wheel-modal" role="dialog" aria-modal="true" aria-label="Spin to win">
+    <div class="wheel-modal" role="dialog" aria-modal="true" aria-labelledby="wheelTitle" aria-describedby="wheelSub">
       <button class="wheel-close" id="wheelClose" aria-label="Close">&times;</button>
       <p class="eyebrow">Spin To Win</p>
-      <h3>Give it a spin!</h3>
-      <p class="wheel-sub" id="wheelSub">Spin to win $1 off when you spend $20 or more.</p>
-      <div class="wheel-stage">
+      <h3 id="wheelTitle">Every spin wins!</h3>
+      <p class="wheel-sub" id="wheelSub">Spin for a free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more.</p>
+      <div class="wheel-stage" aria-hidden="true">
         <div class="wheel-pointer"></div>
-        <div class="wheel-disc" id="wheelDisc"></div>
+        <div class="wheel-disc" id="wheelDisc">
+          <span class="wheel-label wheel-label-1">Free M&amp;M's</span>
+          <span class="wheel-label wheel-label-2">You Win</span>
+          <span class="wheel-label wheel-label-3">Peanut M&amp;M's</span>
+          <span class="wheel-label wheel-label-4">Free Treat</span>
+        </div>
       </div>
       <button class="btn btn-primary" id="wheelSpinBtn" type="button">Spin the Wheel</button>
-      <p class="wheel-result" id="wheelResult" hidden></p>
+      <p class="wheel-result" id="wheelResult" role="status" aria-live="polite" hidden></p>
       <div class="wheel-coupon" id="wheelCoupon" hidden>
-        <img src="assets/coupons/dollar-off-20.svg" alt="Coupon barcode 0096619408399 for $1 off a $20 or more purchase" width="351" height="237">
-        <p>Excludes beer, cigarettes, and gas. Turn your screen brightness up to scan.</p>
+        <div class="prize-card" aria-label="Free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more">
+          <span class="prize-kicker">LIBERTY OIL SPIN &amp; WIN</span>
+          <strong>FREE PEANUT M&amp;M'S</strong>
+          <span>with a qualifying grocery purchase of $50 or more</span>
+        </div>
+        <p>Show this screen at checkout. One reward per qualifying purchase. Gas, tobacco, alcohol, lottery, and services do not count toward the $50 grocery minimum. While supplies last.</p>
       </div>
+    </div>
+  </div>
+
+  <div class="accessibility-widget" id="accessibilityWidget">
+    <button class="accessibility-toggle" id="accessibilityToggle" type="button" aria-expanded="false" aria-controls="accessibilityPanel">Accessibility</button>
+    <div class="accessibility-panel" id="accessibilityPanel" hidden>
+      <div class="accessibility-head">
+        <strong>Accessibility tools</strong>
+        <button class="accessibility-close" id="accessibilityClose" type="button" aria-label="Close accessibility tools">&times;</button>
+      </div>
+      <p>Adjust the page or have the main content read aloud.</p>
+      <div class="accessibility-actions">
+        <button type="button" id="readPageBtn">Read page</button>
+        <button type="button" id="pauseSpeechBtn">Pause</button>
+        <button type="button" id="stopSpeechBtn">Stop</button>
+        <button type="button" id="largeTextBtn" aria-pressed="false">Larger text</button>
+        <button type="button" id="contrastBtn" aria-pressed="false">High contrast</button>
+        <button type="button" id="resetAccessBtn">Reset</button>
+      </div>
+      <p class="accessibility-status" id="accessibilityStatus" role="status" aria-live="polite">Ready.</p>
     </div>
   </div>
 
@@ -225,7 +255,7 @@ def footer():
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=7"></script>
+  <script src="assets/js/site.js?v=8"></script>
 </body>
 </html>'''
 
@@ -242,6 +272,14 @@ def page_hero(eyebrow, h1, lede, actions_html, note=None):
         </div>
       </div>
     </section>'''
+
+
+ABOUT_ACTIONS = '''          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>
+          <span class="free-tag">Free Delivery</span>'''
+
+SPECIALS_ACTIONS = '''          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>
+          <span class="free-tag">Free Delivery</span>'''
 
 
 def write(path, content):
@@ -322,7 +360,7 @@ index_html = head(
 ) + "\n" + topbar(
     "Open now &middot; 7:00 AM &ndash; 12:00 AM, every day", "See this week's specials", "specials.html", cta_external=False
 ) + "\n" + header("index.html") + f'''
-<main>
+<main id="main-content" tabindex="-1">
   <section class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
@@ -508,12 +546,12 @@ about_html = head(
 ) + "\n" + topbar(
     "Family-run convenience in Oceanside", "This week's specials", "specials.html", cta_external=False
 ) + "\n" + header("about.html") + f'''
-<main>
+<main id="main-content" tabindex="-1">
 {page_hero(
     "About",
     "Local, welcoming, and built around quick convenience.",
     "Liberty Oil Inc is a family-run stop where fuel, drinks, snacks, and everyday convenience all come together in one easy location.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n          <a class="btn btn-ghost btn-on-dark" href="https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" target="_blank" rel="noreferrer">Get Directions</a>\n<span class="free-tag">Free Delivery</span>'
+    ABOUT_ACTIONS
 )}
 
   <section class="section">
@@ -588,12 +626,12 @@ specials_html = head(
 ) + "\n" + topbar(
     "This week's specials, in store now", "DoorDash main store", "https://www.doordash.com/convenience/store/24620532"
 ) + "\n" + header("specials.html") + f'''
-<main>
+<main id="main-content" tabindex="-1">
 {page_hero(
     "Weekly Specials",
     "This week's specials at Liberty Oil.",
     "Four deals in store right now &mdash; a free Catch A Ride 500ML with any bottle of wine, $1 off any quart of motor oil, $1 off sunglasses, and the Cantarito Loco mix kit for $4.99.",
-    '          <a class="btn btn-primary" href="https://www.doordash.com/convenience/store/24620532" target="_blank" rel="noreferrer">Order on DoorDash</a>\n<span class="free-tag">Free Delivery</span>',
+    SPECIALS_ACTIONS,
     note="While supplies last. Prices and availability may vary in store. Discounts do not apply to gas, cigarettes, or liquor."
 )}
 
@@ -642,7 +680,7 @@ notfound_html = head(
 ) + "\n" + topbar(
     "Open daily, 7:00 AM &ndash; 12:00 AM", "This week's specials", "specials.html", cta_external=False
 ) + "\n" + header("") + '''
-<main>
+<main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">404</p>
@@ -809,7 +847,7 @@ for slug, c in CATEGORY_PAGES.items():
     page = head(c["title"], c["description"], f"{slug}.html") + "\n" + topbar(
         c["topbar_msg"], "This week's specials", "specials.html", cta_external=False
     ) + "\n" + header(f"{slug}.html") + f'''
-<main>
+<main id="main-content" tabindex="-1">
 {page_hero(c["eyebrow"], c["h1"], c["lede"], links_html + chr(10) + '          <span class="free-tag">Free Delivery</span>', note="This is a sample of what we carry. There's more in store and on DoorDash.")}
 
   <section class="section">

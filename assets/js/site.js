@@ -164,7 +164,7 @@
 
   var RULES = [
     { test: /hour|open|close|time/i, reply: "We're open every day, 7:00 AM to 12:00 AM (midnight)." },
-    { test: /coupon|barcode|\$1 off|dollar off|\$20|spin|wheel/i, reply: "Tap Spin & Win at the top of the page — every spin wins $1 off a $20+ purchase (excludes beer, cigarettes and gas). You’ll get a barcode to show at checkout." },
+    { test: /coupon|prize|m&m|peanut|\$50|spin|wheel/i, reply: "Tap Spin & Win at the top of the page. Every spin wins a free Peanut M&M's with a qualifying grocery purchase of $50 or more. Gas, tobacco, alcohol, lottery, and services do not count toward the minimum." },
     { test: /special|deal|discount|sale/i, reply: "Taking you to this week's specials…", go: "specials.html" },
     { test: /direction|address|where.*(you|store|located)|located|find you/i, reply: "1943 S Coast Hwy, Oceanside, CA 92054 — opening directions…", go: "https://www.google.com/maps/search/?api=1&query=1943+S+Coast+Hwy+Oceanside+CA+92054" },
     { test: /phone|call|number/i, reply: "You can reach us at (760) 754-8045." },
@@ -224,11 +224,11 @@
 // future update instantly resets the cooldown for every visitor.
 (function () {
   "use strict";
-  var STORAGE_KEY = "libertyOilWheel_v2";
+  var STORAGE_KEY = "libertyOilWheel_v3";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
-  var PRIZES = ["$1 off a $20+ purchase"];
-  var WIN_MSG = "You won $1 off any $20+ purchase! Show this barcode at checkout, or screenshot it for your next visit. One-time use per spin.";
+  var PRIZES = ["Free Peanut M&M's", "Free Peanut M&M's", "Free Peanut M&M's", "Free Peanut M&M's"];
+  var WIN_MSG = "You won a free Peanut M&M's with a qualifying grocery purchase of $50 or more! Show this screen at checkout. One reward per qualifying purchase, while supplies last.";
   var SEGMENT_DEG = 360 / PRIZES.length;
 
   var slot = document.getElementById("spinSlot");
@@ -296,7 +296,7 @@
     void disc.offsetWidth; // force reflow so the next spin animates from 0
 
     if (onCooldown) {
-      var prize = PRIZES[0]; // only one prize exists; ignore any stale saved text
+      var prize = PRIZES[0];
       spinBtn.disabled = true;
       spinBtn.textContent = "Already Spun";
       subEl.textContent = "Your next spin unlocks in 12 hours.";
@@ -309,7 +309,7 @@
       resultEl.hidden = true;
       spinBtn.disabled = false;
       spinBtn.textContent = "Spin the Wheel";
-      subEl.textContent = "Spin to win $1 off when you spend $20 or more.";
+      subEl.textContent = "Every spin wins a free Peanut M&M's with a qualifying grocery purchase of $50 or more.";
       if (couponEl) couponEl.hidden = true;
     }
     backdrop.hidden = false;
@@ -376,6 +376,121 @@
     // Safety net in case transitionend never fires (interrupted, tab backgrounded, etc).
     setTimeout(reveal, durationMs + 400);
   });
+})();
+
+// Accessibility controls: read-aloud, text sizing and contrast preferences.
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var toggle = document.getElementById("accessibilityToggle");
+  var panel = document.getElementById("accessibilityPanel");
+  var close = document.getElementById("accessibilityClose");
+  var readBtn = document.getElementById("readPageBtn");
+  var pauseBtn = document.getElementById("pauseSpeechBtn");
+  var stopBtn = document.getElementById("stopSpeechBtn");
+  var largeBtn = document.getElementById("largeTextBtn");
+  var contrastBtn = document.getElementById("contrastBtn");
+  var resetBtn = document.getElementById("resetAccessBtn");
+  var status = document.getElementById("accessibilityStatus");
+  if (!toggle || !panel) return;
+
+  function announce(message) {
+    if (status) status.textContent = message;
+  }
+
+  function setPanel(open) {
+    panel.hidden = !open;
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && close) close.focus();
+  }
+
+  function savePreferences() {
+    try {
+      localStorage.setItem("libertyOilAccessibility", JSON.stringify({
+        largeText: root.classList.contains("large-text"),
+        highContrast: root.classList.contains("high-contrast")
+      }));
+    } catch (e) {}
+  }
+
+  function applyPreferences() {
+    try {
+      var saved = JSON.parse(localStorage.getItem("libertyOilAccessibility") || "null") || {};
+      root.classList.toggle("large-text", !!saved.largeText);
+      root.classList.toggle("high-contrast", !!saved.highContrast);
+    } catch (e) {}
+    if (largeBtn) largeBtn.setAttribute("aria-pressed", root.classList.contains("large-text") ? "true" : "false");
+    if (contrastBtn) contrastBtn.setAttribute("aria-pressed", root.classList.contains("high-contrast") ? "true" : "false");
+  }
+
+  toggle.addEventListener("click", function () { setPanel(panel.hidden); });
+  if (close) close.addEventListener("click", function () { setPanel(false); toggle.focus(); });
+
+  if (largeBtn) largeBtn.addEventListener("click", function () {
+    root.classList.toggle("large-text");
+    largeBtn.setAttribute("aria-pressed", root.classList.contains("large-text") ? "true" : "false");
+    savePreferences();
+    announce(root.classList.contains("large-text") ? "Larger text enabled." : "Larger text disabled.");
+  });
+
+  if (contrastBtn) contrastBtn.addEventListener("click", function () {
+    root.classList.toggle("high-contrast");
+    contrastBtn.setAttribute("aria-pressed", root.classList.contains("high-contrast") ? "true" : "false");
+    savePreferences();
+    announce(root.classList.contains("high-contrast") ? "High contrast enabled." : "High contrast disabled.");
+  });
+
+  var speechSupported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  function stopSpeech() {
+    if (speechSupported) window.speechSynthesis.cancel();
+    if (pauseBtn) pauseBtn.textContent = "Pause";
+  }
+
+  if (!speechSupported) {
+    [readBtn, pauseBtn, stopBtn].forEach(function (button) { if (button) button.disabled = true; });
+    announce("Read aloud is not supported by this browser. Other accessibility controls are available.");
+  } else {
+    if (readBtn) readBtn.addEventListener("click", function () {
+      stopSpeech();
+      var main = document.getElementById("main-content");
+      var text = main ? main.innerText.replace(/\s+/g, " ").trim() : "";
+      if (!text) return announce("There is no page content to read.");
+      var utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.95;
+      utterance.onstart = function () { announce("Reading the page aloud."); };
+      utterance.onend = function () { announce("Finished reading the page."); if (pauseBtn) pauseBtn.textContent = "Pause"; };
+      utterance.onerror = function () { announce("Read aloud stopped."); };
+      window.speechSynthesis.speak(utterance);
+    });
+    if (pauseBtn) pauseBtn.addEventListener("click", function () {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        pauseBtn.textContent = "Pause";
+        announce("Reading resumed.");
+      } else if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        pauseBtn.textContent = "Resume";
+        announce("Reading paused.");
+      }
+    });
+    if (stopBtn) stopBtn.addEventListener("click", function () { stopSpeech(); announce("Reading stopped."); });
+  }
+
+  if (resetBtn) resetBtn.addEventListener("click", function () {
+    stopSpeech();
+    root.classList.remove("large-text", "high-contrast");
+    try { localStorage.removeItem("libertyOilAccessibility"); } catch (e) {}
+    applyPreferences();
+    announce("Accessibility settings reset.");
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !panel.hidden) {
+      setPanel(false);
+      toggle.focus();
+    }
+  });
+  applyPreferences();
 })();
 
 // 3D pointer tilt on cards + hero parallax.

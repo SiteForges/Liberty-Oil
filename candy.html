@@ -56,6 +56,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="topbar">
     <div class="container topbar-inner">
       <span class="open-status"><span class="open-dot"></span>Sweet quick-pick items at checkout</span>
@@ -95,7 +96,7 @@
       </div>
     </div>
   </header>
-<main>
+<main id="main-content" tabindex="-1">
     <section class="page-hero">
       <div class="container">
         <p class="eyebrow">Candy</p>
@@ -199,21 +200,50 @@
   </footer>
 
   <div class="wheel-backdrop" id="wheelBackdrop" hidden>
-    <div class="wheel-modal" role="dialog" aria-modal="true" aria-label="Spin to win">
+    <div class="wheel-modal" role="dialog" aria-modal="true" aria-labelledby="wheelTitle" aria-describedby="wheelSub">
       <button class="wheel-close" id="wheelClose" aria-label="Close">&times;</button>
       <p class="eyebrow">Spin To Win</p>
-      <h3>Give it a spin!</h3>
-      <p class="wheel-sub" id="wheelSub">Spin to win $1 off when you spend $20 or more.</p>
-      <div class="wheel-stage">
+      <h3 id="wheelTitle">Every spin wins!</h3>
+      <p class="wheel-sub" id="wheelSub">Spin for a free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more.</p>
+      <div class="wheel-stage" aria-hidden="true">
         <div class="wheel-pointer"></div>
-        <div class="wheel-disc" id="wheelDisc"></div>
+        <div class="wheel-disc" id="wheelDisc">
+          <span class="wheel-label wheel-label-1">Free M&amp;M's</span>
+          <span class="wheel-label wheel-label-2">You Win</span>
+          <span class="wheel-label wheel-label-3">Peanut M&amp;M's</span>
+          <span class="wheel-label wheel-label-4">Free Treat</span>
+        </div>
       </div>
       <button class="btn btn-primary" id="wheelSpinBtn" type="button">Spin the Wheel</button>
-      <p class="wheel-result" id="wheelResult" hidden></p>
+      <p class="wheel-result" id="wheelResult" role="status" aria-live="polite" hidden></p>
       <div class="wheel-coupon" id="wheelCoupon" hidden>
-        <img src="assets/coupons/dollar-off-20.svg" alt="Coupon barcode 0096619408399 for $1 off a $20 or more purchase" width="351" height="237">
-        <p>Excludes beer, cigarettes, and gas. Turn your screen brightness up to scan.</p>
+        <div class="prize-card" aria-label="Free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more">
+          <span class="prize-kicker">LIBERTY OIL SPIN &amp; WIN</span>
+          <strong>FREE PEANUT M&amp;M'S</strong>
+          <span>with a qualifying grocery purchase of $50 or more</span>
+        </div>
+        <p>Show this screen at checkout. One reward per qualifying purchase. Gas, tobacco, alcohol, lottery, and services do not count toward the $50 grocery minimum. While supplies last.</p>
       </div>
+    </div>
+  </div>
+
+  <div class="accessibility-widget" id="accessibilityWidget">
+    <button class="accessibility-toggle" id="accessibilityToggle" type="button" aria-expanded="false" aria-controls="accessibilityPanel">Accessibility</button>
+    <div class="accessibility-panel" id="accessibilityPanel" hidden>
+      <div class="accessibility-head">
+        <strong>Accessibility tools</strong>
+        <button class="accessibility-close" id="accessibilityClose" type="button" aria-label="Close accessibility tools">&times;</button>
+      </div>
+      <p>Adjust the page or have the main content read aloud.</p>
+      <div class="accessibility-actions">
+        <button type="button" id="readPageBtn">Read page</button>
+        <button type="button" id="pauseSpeechBtn">Pause</button>
+        <button type="button" id="stopSpeechBtn">Stop</button>
+        <button type="button" id="largeTextBtn" aria-pressed="false">Larger text</button>
+        <button type="button" id="contrastBtn" aria-pressed="false">High contrast</button>
+        <button type="button" id="resetAccessBtn">Reset</button>
+      </div>
+      <p class="accessibility-status" id="accessibilityStatus" role="status" aria-live="polite">Ready.</p>
     </div>
   </div>
 
@@ -246,6 +276,6 @@
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=7"></script>
+  <script src="assets/js/site.js?v=8"></script>
 </body>
 </html>
