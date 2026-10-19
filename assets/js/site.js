@@ -224,7 +224,7 @@
 // future update instantly resets the cooldown for every visitor.
 (function () {
   "use strict";
-  var STORAGE_KEY = "libertyOilWheel_v3";
+  var STORAGE_KEY = "libertyOilWheel_v4";
   var COOLDOWN_MS = 12 * 60 * 60 * 1000;
 
   var PRIZES = ["Free Peanut M&M's", "Free Peanut M&M's", "Free Peanut M&M's", "Free Peanut M&M's"];
@@ -298,7 +298,7 @@
     if (onCooldown) {
       var prize = PRIZES[0];
       spinBtn.disabled = true;
-      spinBtn.textContent = "Already Spun";
+      spinBtn.textContent = "CLAIMED";
       subEl.textContent = "Your next spin unlocks in 12 hours.";
       resultEl.hidden = !prize;
       if (prize) {
@@ -308,7 +308,7 @@
     } else {
       resultEl.hidden = true;
       spinBtn.disabled = false;
-      spinBtn.textContent = "Spin the Wheel";
+      spinBtn.textContent = "SPIN";
       subEl.textContent = "Every spin wins a free Peanut M&M's with a qualifying grocery purchase of $50 or more.";
       if (couponEl) couponEl.hidden = true;
     }

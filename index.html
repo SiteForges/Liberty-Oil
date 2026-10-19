@@ -372,16 +372,22 @@
       <p class="eyebrow">Spin To Win</p>
       <h3 id="wheelTitle">Every spin wins!</h3>
       <p class="wheel-sub" id="wheelSub">Spin for a free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more.</p>
-      <div class="wheel-stage" aria-hidden="true">
+      <div class="wheel-stage">
         <div class="wheel-pointer"></div>
-        <div class="wheel-disc" id="wheelDisc">
-          <span class="wheel-label wheel-label-1">Free M&amp;M's</span>
-          <span class="wheel-label wheel-label-2">You Win</span>
-          <span class="wheel-label wheel-label-3">Peanut M&amp;M's</span>
-          <span class="wheel-label wheel-label-4">Free Treat</span>
+        <div class="wheel-rim" aria-hidden="true">
+          <div class="wheel-disc" id="wheelDisc">
+            <span class="wheel-label" style="--i:0">M&amp;M's</span>
+            <span class="wheel-label" style="--i:1">Winner</span>
+            <span class="wheel-label" style="--i:2">Free Treat</span>
+            <span class="wheel-label" style="--i:3">Peanut</span>
+            <span class="wheel-label" style="--i:4">M&amp;M's</span>
+            <span class="wheel-label" style="--i:5">Winner</span>
+            <span class="wheel-label" style="--i:6">Free Treat</span>
+            <span class="wheel-label" style="--i:7">Peanut</span>
+          </div>
         </div>
+        <button class="wheel-spin-center" id="wheelSpinBtn" type="button">SPIN</button>
       </div>
-      <button class="btn btn-primary" id="wheelSpinBtn" type="button">Spin the Wheel</button>
       <p class="wheel-result" id="wheelResult" role="status" aria-live="polite" hidden></p>
       <div class="wheel-coupon" id="wheelCoupon" hidden>
         <div class="prize-card" aria-label="Free Peanut M&amp;M's with a qualifying grocery purchase of $50 or more">
@@ -443,6 +449,6 @@
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=8"></script>
+  <script src="assets/js/site.js?v=9"></script>
 </body>
 </html>
