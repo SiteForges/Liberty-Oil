@@ -26,7 +26,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Liberty Oil">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=10">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -262,11 +262,11 @@
         <strong>Accessibility tools</strong>
         <button class="accessibility-close" id="accessibilityClose" type="button" aria-label="Close accessibility tools">&times;</button>
       </div>
-      <p>Adjust the page or have the main content read aloud.</p>
+      <p>Adjust the page or have the main content read aloud. Your display choices are saved on this device.</p>
       <div class="accessibility-actions">
-        <button type="button" id="readPageBtn">Read page</button>
-        <button type="button" id="pauseSpeechBtn">Pause</button>
-        <button type="button" id="stopSpeechBtn">Stop</button>
+        <button type="button" id="readPageBtn">Read aloud</button>
+        <button type="button" id="pauseSpeechBtn" disabled>Pause</button>
+        <button type="button" id="stopSpeechBtn" disabled>Stop</button>
         <button type="button" id="largeTextBtn" aria-pressed="false">Larger text</button>
         <button type="button" id="contrastBtn" aria-pressed="false">High contrast</button>
         <button type="button" id="resetAccessBtn">Reset</button>
@@ -304,6 +304,6 @@
     </button>
   </div>
 
-  <script src="assets/js/site.js?v=9"></script>
+  <script src="assets/js/site.js?v=10"></script>
 </body>
 </html>

@@ -428,12 +428,20 @@ h3{font-size:21px;letter-spacing:-.02em;font-weight:600;}
 .accessibility-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0 10px;}
 .accessibility-actions button{border:1px solid var(--hairline);border-radius:10px;background:var(--grey-1);color:var(--ink);font:600 13px/1.2 var(--font);padding:10px 8px;cursor:pointer;}
 .accessibility-actions button[aria-pressed="true"]{background:var(--gold);color:#fff;border-color:var(--gold);}
+.accessibility-actions button:disabled{cursor:not-allowed;opacity:.48;}
 .accessibility-status{min-height:18px;margin:0;}
-:root.large-text{font-size:112.5%;}
-:root.high-contrast{--surface:#fff;--ink:#000;--muted:#171717;--hairline:#000;--grey-1:#fff;--grey-2:#f0f0f0;}
-:root.high-contrast body{background:#fff;color:#000;}
-:root.high-contrast a{text-decoration:underline;text-decoration-thickness:2px;}
-:root.high-contrast .btn,:root.high-contrast button{border-color:#000;}
+:root.large-text{font-size:118.75%;}
+:root.large-text p,:root.large-text li,:root.large-text .lede,:root.large-text .sub,:root.large-text .inventory-note,:root.large-text .sign-value{line-height:1.62;}
+:root.large-text .btn,:root.large-text button,:root.large-text input,:root.large-text .nav-links a{font-size:1.1em;}
+:root.high-contrast{--surface:#000;--ink:#fff;--muted:#fff;--hairline:#fff;--grey-1:#111;--grey-2:#1b1b1b;--gold:#ffe500;--red:#ff3b30;--shadow-lg:0 12px 28px rgba(0,0,0,.7);}
+:root.high-contrast body,:root.high-contrast .section,:root.high-contrast .page-hero,:root.high-contrast .site-header,:root.high-contrast .site-footer,:root.high-contrast .topbar{background:#000!important;color:#fff!important;}
+:root.high-contrast :is(p,h1,h2,h3,h4,h5,h6,strong,small,span,li,label,.lede,.sub,.sign-label,.sign-value,.inventory-note,.footer-col p,.footer-col a){color:#fff!important;}
+:root.high-contrast a{color:#ffe500!important;text-decoration:underline;text-decoration-thickness:2px;}
+:root.high-contrast :is(.btn,.accessibility-actions button,.accessibility-toggle,.accessibility-close,.ai-bubble,.nav-toggle){border-color:#fff!important;}
+:root.high-contrast :is(.btn-primary,.accessibility-actions button[aria-pressed="true"]){background:#ffe500!important;color:#000!important;}
+:root.high-contrast :is(.btn-primary,.accessibility-actions button[aria-pressed="true"]) :is(span,strong){color:#000!important;}
+:root.high-contrast .nav-links a[aria-current="page"]{color:#000!important;background:#ffe500!important;}
+:root.high-contrast .deal-card,:root.high-contrast .category-card,:root.high-contrast .feature-card,:root.high-contrast .info-card,:root.high-contrast .accessibility-panel,:root.high-contrast .ai-panel{background:#000!important;border-color:#fff!important;color:#fff!important;}
 
 /* ---------- Responsive ---------- */
 @media (max-width:1040px){

@@ -404,9 +404,11 @@
     if (open && close) close.focus();
   }
 
+  var preferenceKey = "libertyOilAccessibilityV2";
+
   function savePreferences() {
     try {
-      localStorage.setItem("libertyOilAccessibility", JSON.stringify({
+      localStorage.setItem(preferenceKey, JSON.stringify({
         largeText: root.classList.contains("large-text"),
         highContrast: root.classList.contains("high-contrast")
       }));
@@ -415,7 +417,7 @@
 
   function applyPreferences() {
     try {
-      var saved = JSON.parse(localStorage.getItem("libertyOilAccessibility") || "null") || {};
+      var saved = JSON.parse(localStorage.getItem(preferenceKey) || "null") || {};
       root.classList.toggle("large-text", !!saved.largeText);
       root.classList.toggle("high-contrast", !!saved.highContrast);
     } catch (e) {}
@@ -441,36 +443,99 @@
   });
 
   var speechSupported = "speechSynthesis" in window && "SpeechSynthesisUtterance" in window;
+  var speechSession = 0;
+  var speechChunks = [];
+  var currentChunk = 0;
+
+  function setSpeechControls(active, paused) {
+    if (pauseBtn) {
+      pauseBtn.disabled = !active;
+      pauseBtn.textContent = paused ? "Resume" : "Pause";
+    }
+    if (stopBtn) stopBtn.disabled = !active;
+  }
+
+  function splitSpeechText(text) {
+    var sentences = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [text];
+    var chunks = [];
+    var current = "";
+    sentences.forEach(function (sentence) {
+      sentence = sentence.trim();
+      if (!sentence) return;
+      if (current && (current.length + sentence.length > 240)) {
+        chunks.push(current);
+        current = sentence;
+      } else {
+        current = (current + " " + sentence).trim();
+      }
+    });
+    if (current) chunks.push(current);
+    return chunks;
+  }
+
   function stopSpeech() {
+    speechSession += 1;
+    speechChunks = [];
+    currentChunk = 0;
     if (speechSupported) window.speechSynthesis.cancel();
-    if (pauseBtn) pauseBtn.textContent = "Pause";
+    setSpeechControls(false, false);
   }
 
   if (!speechSupported) {
     [readBtn, pauseBtn, stopBtn].forEach(function (button) { if (button) button.disabled = true; });
     announce("Read aloud is not supported by this browser. Other accessibility controls are available.");
   } else {
+    setSpeechControls(false, false);
     if (readBtn) readBtn.addEventListener("click", function () {
       stopSpeech();
       var main = document.getElementById("main-content");
       var text = main ? main.innerText.replace(/\s+/g, " ").trim() : "";
       if (!text) return announce("There is no page content to read.");
-      var utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.95;
-      utterance.onstart = function () { announce("Reading the page aloud."); };
-      utterance.onend = function () { announce("Finished reading the page."); if (pauseBtn) pauseBtn.textContent = "Pause"; };
-      utterance.onerror = function () { announce("Read aloud stopped."); };
-      window.speechSynthesis.speak(utterance);
+      speechChunks = splitSpeechText(text);
+      currentChunk = 0;
+      var session = ++speechSession;
+      setSpeechControls(true, false);
+      announce("Reading the page aloud.");
+
+      function speakNext() {
+        if (session !== speechSession) return;
+        if (currentChunk >= speechChunks.length) {
+          setSpeechControls(false, false);
+          announce("Finished reading the page.");
+          return;
+        }
+        var utterance = new SpeechSynthesisUtterance(speechChunks[currentChunk]);
+        utterance.rate = 0.95;
+        utterance.onend = function () {
+          if (session !== speechSession) return;
+          currentChunk += 1;
+          speakNext();
+        };
+        utterance.onerror = function () {
+          if (session !== speechSession) return;
+          setSpeechControls(false, false);
+          announce("Read aloud stopped. Try your device screen reader if audio is unavailable.");
+        };
+        try {
+          window.speechSynthesis.speak(utterance);
+        } catch (error) {
+          setSpeechControls(false, false);
+          announce("Read aloud is unavailable in this browser. Try your device screen reader.");
+        }
+      }
+      speakNext();
     });
     if (pauseBtn) pauseBtn.addEventListener("click", function () {
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
-        pauseBtn.textContent = "Pause";
+        setSpeechControls(true, false);
         announce("Reading resumed.");
       } else if (window.speechSynthesis.speaking) {
         window.speechSynthesis.pause();
-        pauseBtn.textContent = "Resume";
+        setSpeechControls(true, true);
         announce("Reading paused.");
+      } else {
+        announce("Nothing is currently being read aloud.");
       }
     });
     if (stopBtn) stopBtn.addEventListener("click", function () { stopSpeech(); announce("Reading stopped."); });
@@ -479,7 +544,7 @@
   if (resetBtn) resetBtn.addEventListener("click", function () {
     stopSpeech();
     root.classList.remove("large-text", "high-contrast");
-    try { localStorage.removeItem("libertyOilAccessibility"); } catch (e) {}
+    try { localStorage.removeItem(preferenceKey); } catch (e) {}
     applyPreferences();
     announce("Accessibility settings reset.");
   });
